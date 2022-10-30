@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('begin_pages.new_feed');
+    return view('begin_pages.edit');
 });
 Route::get('/post', function () {
     return view('begin_pages.post');
