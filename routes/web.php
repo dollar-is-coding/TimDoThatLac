@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NguoiDungController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('begin_pages/sign_in');
-});
+Route::get('/dang-ky',[NguoiDungController::class,'create'])->name('dang-ky');
 
