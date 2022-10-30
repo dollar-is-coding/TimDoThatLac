@@ -59,7 +59,6 @@
                     <div class="row no-gutters mb-3 ">
                         <div class="text-center">
                             <img src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-cartoon-hand-painted-cartoon-backpack-hand-painted-backpack-png-image_3896897.jpg" width="100%" height="100%" alt="" class="img-fluid mb-2">
-
                         </div>
                     </div>
                 </div>
