@@ -16,3 +16,6 @@ use App\Http\Controllers\NguoiDungController;
 
 Route::get('/dang-ky',[NguoiDungController::class,'create'])->name('dang-ky');
 
+Route::get('/', function () {
+    return view('main_pages/edit');
+});

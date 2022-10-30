@@ -73,6 +73,15 @@
         <input type="email"  placeholder="name@gmail.com" class="form-control">
     </div>
     <div>
+        &ensp;<label for="floatingTextarea">Giới tính</label>
+        <select class="form-select mb-3" aria-label=".form-select-sm example">
+            <option selected>Chọn giới tính</option>
+            <option value="1">Nam</option>
+            <option value="2">Nữ</option>
+            <option value="3">Ẩn</option>
+        </select>
+    </div>
+    <div>
         &ensp;<label for="floatingTextarea">Ngày sinh</label>
         <div class="row mb-3">
             <div class="col">
@@ -104,32 +113,6 @@
                     }
                     ?>
                 </select>
-            </div>
-        </div>
-    </div>
-    <div>
-
-        &ensp;<label for="floatingTextarea">Giới tính</label>
-
-        <div class="row mb-3">
-            <div class="col">
-                <div class="form-check-end form-control ">
-                    <input class="form-check-input " type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                    <label class="form-check-label " for="flexRadioDefault1">Nam</label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check-end form-control ">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                    <label class="form-check-label" for="flexRadioDefault1">Nữ</label>
-                </div>
-            </div>
-            <div class="col">
-
-                <div class="form-check-end form-control  ">
-                    <input class="form-check-input " type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                    <label class="form-check-label" for="flexRadioDefault1">Ẩn</label>
-                </div>
             </div>
         </div>
     </div>
