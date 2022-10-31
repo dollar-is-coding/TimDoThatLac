@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NguoiDung;
+use Illuminate\Support\Facades\Auth;
 
 class NguoiDungController extends Controller
 {
@@ -14,9 +15,29 @@ class NguoiDungController extends Controller
      */
     public function sign_in()
     {
-        //
+        return view('begin_pages.sign_in');
     }
+    public function index()
+    {
+        return view('main_pages.new_feed');
 
+    }
+    public function get_sign_in(Request $request)
+    {
+        $xuly =$request->only('email','password');
+        if(Auth::attempt($xuly))
+        {
+        // return redirect()->route('index');
+        return view('main_pages.new_feed');
+        }
+       return redirect()->back()->with("error", "Đăng nhập thất bại, Vui lòng kiểm tra lại =(");
+
+    }
+    public function log_out()
+    {
+        Auth::logout();
+        return redirect()->route('dang-xuat');
+    }
     /**
      * Show the form for creating a new resource.
      *

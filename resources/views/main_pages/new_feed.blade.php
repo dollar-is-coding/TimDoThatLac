@@ -1,5 +1,6 @@
 @extends('index')
 @section('body')
+<a href="{{route('dang-xuat')}}" class="btn btn-danger">Đăng Xuất</a>
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <div class="row mb-3">

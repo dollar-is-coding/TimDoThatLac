@@ -13,9 +13,8 @@ use App\Http\Controllers\NguoiDungController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/dang-ky',[NguoiDungController::class,'create'])->name('dang-ky');
-
-Route::get('/', function () {
-    return view('main_pages/edit');
-});
+Route::get('/',[NguoiDungController::class,'index'])->name('index')->middleware('auth');
+// Route::get('/dang-ky',[NguoiDungController::class,'create'])->name('dang-ky');
+Route::get('/dang-nhap',[NguoiDungController::class,'sign_in'])->name('dang-nhap')->middleware('guest');
+Route::post('/dang-nhap',[NguoiDungController::class,'get_sign_in'])->name('xl-dang-nhap')->middleware('guest');
+Route::get('dangxuat',[NguoiDungController::class,'log_out'])->name('dang-xuat')->middleware('auth');
