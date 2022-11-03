@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class NguoiDungController extends Controller
 {
@@ -57,8 +58,23 @@ class NguoiDungController extends Controller
     public function store(Request $request)
     {
         $nguoiDung=NguoiDung::create([
-            'ho_ten'
+            'ho_ten'=>$request->ho.$request->ten,
+            'mat_khau'=>Hash::make($request->password),
+            'email'=>$request->email,
+            'so_dien_thoai'=>"",
+            'admin'=>0,
+            
+            'ngay_sinh'=>date('Y/m/d', strtotime($request->nam.$request->thang.$request->ngay)),
+            'gioi_tinh'=>$request->gioi_tinh,
+            'anh_dai_dien'=>""
         ]);
+        $xuly =$request->only('email','password');
+        if(Auth::attempt($xuly))
+        {
+        // return redirect()->route('index');
+        return view('main_pages.new_feed');
+        }
+       return redirect()->back()->with("error", "Đăng ký thất bại, Vui lòng kiểm tra lại =(");
     }
 
     /**

@@ -24,6 +24,7 @@
 </div>
 <hr>
 <div class="text-center">
-    <a href="" class="btn btn-success m-2">Create your account</a>
+    <a href="{{route('dang-ky')}}" class="btn btn-success m-2">Create your account</a>
+    
 </div>
 @endsection
