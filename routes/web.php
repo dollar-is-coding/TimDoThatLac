@@ -21,5 +21,5 @@ Route::post('/dang-nhap',[NguoiDungController::class,'get_sign_in'])->name('xl-d
 Route::get('dangxuat',[NguoiDungController::class,'log_out'])->name('dang-xuat')->middleware('auth');
 
 Route::get('/1',function(){
-     return view('main_pages.edit_password');
+     return view('main_pages.new_feed_list');
  });
