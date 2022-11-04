@@ -1,6 +1,6 @@
 @extends('index')
 @section('body')
-<div class="m-6">
+<div style="margin-top:10%">
     <div class="row g-2 d-flex justify-content-center align-items-center">
       <div class="col-6">
           <img src="{{ URL('images/timdothatlac.png') }}" style="width:35em">

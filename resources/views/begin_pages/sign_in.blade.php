@@ -5,7 +5,7 @@
 <form action="{{route('xl-dang-nhap')}}" method="post">
     @csrf
     <div class="m-2">
-        <label for="">Username</label>
+        <label for="">Email</label>
         <input type="text" name="email" class="form-control" placeholder="Enter email or phone">
     </div>
     <div class="m-2">

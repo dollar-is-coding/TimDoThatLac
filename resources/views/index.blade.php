@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>Tìm đồ thất lạc</title>
 </head>
-<body style="height: 100%;padding-top:10%">
+<body style="height: 100%;">
     @yield('body')
 </body>
 </html>

@@ -1,30 +1,40 @@
-@extends('index')
-@section('body')
-<a href="{{route('dang-xuat')}}" class="btn btn-danger">Đăng Xuất</a>
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-        <div class="row mb-3">
-            <div class="col">
-                <select class="form-select" style="width:150px" aria-label="Default select example">
-                    <option selected>Danh mục</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col">
-                <select class="form-select" style="width:150px" aria-label="Default select example">
-                    <option selected>Thể Loại</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
+@extends('main')
+@section('main')
+{{-- <a href="{{route('dang-xuat')}}" class="btn btn-danger">Đăng Xuất</a> --}}
 
+<div class="bg-light p-4 mt-3 mb-3 rounded-2">
+    <form class="row d-flex justify-content-center" >
+        <div class="col-auto" style="width:17%">
+            <select class="form-select" aria-label="Default select example" aria-placeholder="Danh mục">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
         </div>
-
-    </div>
-</nav>
+        <div class="col-auto" style="width:17%">
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Thể Loại</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div class="col-auto" style="width:17%">
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Khu vực</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div class="col-auto" style="width:35%">
+                    <input type="text" placeholder="Từ khoá" class="form-control">
+                </div>
+        <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+          </div>
+    </form>
+</div>
 <div>
 
     <div class="card">
@@ -42,7 +52,7 @@
                     </div>
                     <div class="col" style="  text-align: right;">
                         <div class="dropdown">
-                            <button class="btn btn-white dropdown rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight:bold">...
+                            <button class=" btn btn-white dropdown rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight:bold">...
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Follow</a></li>
