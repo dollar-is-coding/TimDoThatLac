@@ -1,7 +1,7 @@
 @extends('main')
 @section('main')
 {{-- <a href="{{route('dang-xuat')}}" class="btn btn-danger">Đăng Xuất</a> --}}
-
+<a href="{{ route('xem-bai-dang') }}">Xem bài đăng 1</a>
 <div class="bg-light p-4 mt-3 mb-3 rounded-2">
     <form class="row d-flex justify-content-center" >
         <div class="col-auto" style="width:17%">
