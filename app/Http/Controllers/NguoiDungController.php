@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\NguoiDung;
+use App\Models\BaiDang;
+use App\Models\TheLoai;
+use App\Models\DanhMuc;
+use App\Models\KhuVuc;
+use Carbon\Carbon;
 
 class NguoiDungController extends Controller
 {
@@ -18,18 +23,21 @@ class NguoiDungController extends Controller
     {
         return view('begin_pages.sign_in');
     }
-    public function index()
+    public function trang_chu()
     {
-        return view('main_pages.new_feed');
-
+        $dsTheLoai=TheLoai::all();
+        $dsDanhMuc=DanhMuc::all();
+        $dsKhuVuc=KhuVuc::all();
+        $dsBaiDang=BaiDang::where('trang_thai',1)->orderBy('updated_at','DESC')->get();
+        return view('main_pages.new_feed',['dsTheLoai'=>$dsTheLoai,'dsDanhMuc'=>$dsDanhMuc,'dsKhuVuc'=>$dsKhuVuc,'dsBaiDang'=>$dsBaiDang]);
     }
+
     public function get_sign_in(Request $request)
     {
         $xuly =$request->only('email','password');
         if(Auth::attempt($xuly))
         {
-        // return redirect()->route('index');
-        return view('main_pages.new_feed');
+            return redirect()->route('trang-chu');
         }
        return redirect()->back()->with("error", "Đăng nhập thất bại, Vui lòng kiểm tra lại =(");
 
@@ -58,23 +66,23 @@ class NguoiDungController extends Controller
     public function store(Request $request)
     {
         $nguoiDung=NguoiDung::create([
-            'ho_ten'=>$request->ho.$request->ten,
+            'ho_ten'=>$request->ho.''.$request->ten,
             'mat_khau'=>Hash::make($request->password),
             'email'=>$request->email,
             'so_dien_thoai'=>"",
             'admin'=>0,
-            
             'ngay_sinh'=>date('Y/m/d', strtotime($request->nam.$request->thang.$request->ngay)),
             'gioi_tinh'=>$request->gioi_tinh,
             'anh_dai_dien'=>""
         ]);
-        $xuly =$request->only('email','password');
-        if(Auth::attempt($xuly))
-        {
-        // return redirect()->route('index');
-        return view('main_pages.new_feed');
-        }
-       return redirect()->back()->with("error", "Đăng ký thất bại, Vui lòng kiểm tra lại =(");
+        // $xuly =$request->only('email','password');
+        // if(Auth::attempt($xuly))
+        // {
+    
+        //     return redirect()->route('index');
+        // }
+        // return redirect()->back()->with("error", "Đăng ký thất bại, Vui lòng kiểm tra lại =(");
+        return redirect()->route('xl-dang-nhap');
     }
 
     /**
@@ -83,9 +91,14 @@ class NguoiDungController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $id=Auth::id();
+        $nguoiDung=NguoiDung::where('id',$id)->first();
+        $day = Carbon::createFromFormat('Y-m-d', $nguoiDung->ngay_sinh)->day;
+        $month = Carbon::createFromFormat('Y-m-d', $nguoiDung->ngay_sinh)->month;
+        $year = Carbon::createFromFormat('Y-m-d', $nguoiDung->ngay_sinh)->year;
+        return view('main_pages.edit_account',['user'=>$nguoiDung,'id'=>$id,'day'=>$day,'month'=>$month,'year'=>$year]);
     }
 
     /**
@@ -94,9 +107,18 @@ class NguoiDungController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $id=Auth::id();
+        $ngay_sinh=$request->nam."/".$request->thang."/".$request->ngay;
+        $nguoiDung=NguoiDung::where('id',$id)->update([
+            'ho_ten'=>$request->ho_ten,
+            'email'=>$request->email,
+            'so_dien_thoai'=>$request->so_dien_thoai,
+            'ngay_sinh'=>date('Y/m/d', strtotime($ngay_sinh)),
+            'gioi_tinh'=>(int)$request->gioi_tinh,
+        ]);
+        return redirect()->route('ds-bai-dang');
     }
 
     /**
