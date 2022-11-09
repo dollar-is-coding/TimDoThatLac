@@ -38,7 +38,7 @@
         {{-- Danh sách tìm kiếm --}}
         <div class="fs-5 fw-bold" style="padding-left:.8%">Danh sách bài đăng</div>
         @foreach ($dsBaiDang as $item)
-            <a href="{{ route('xem-bai-dang',['id'=>$item->id]) }}" class="text-decoration-none text-dark">
+            <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
                 <div class="rounded-2 bg-light d-flex p-4 pt-3 pb-3 mt-2 justify-content-between ">
                     <div class="d-flex flex-fill align-items-center">
                         <img src="{{ URL('images/avatar.jpg') }}" class="rounded-2" style="width:5em;height:5em">
@@ -57,8 +57,13 @@
                             </div>
                         </div>
                     </div>
-                    <div style="padding-top:.3%;">
-                        {{ $item->created_at->format('d/m/Y') }}
+                    <div class="d-flex flex-row" style="padding-top:.3%;">
+                        <div>
+                            {{ $item->updated_at->format('H:i') }}
+                        </div>
+                        &ensp;<div>
+                            {{ $item->updated_at->format('d/m/Y') }}
+                        </div>
                     </div>
                 </div>
             </a>

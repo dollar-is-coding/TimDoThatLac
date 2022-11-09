@@ -49,7 +49,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="padding-top:.3%;">22/1/2022</div>
+                        <div class="d-flex flex-row" style="padding-top:.3%;">
+                        <div>
+                            20:34
+                        </div>
+                        &ensp;<div>
+                            07/05/2022
+                        </div>
+                    </div>
                     </div>
                 </a>
             </div>

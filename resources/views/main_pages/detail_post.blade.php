@@ -1,12 +1,12 @@
 @extends('main')
 @section('main')
     <div style="padding-left:20em;padding-right:20em;">
-        <div class="bg-light p-4 mt-3 mb-3 pt-3 pb-3 rounded-2">
+        <div class="bg-light p-4 mt-3 mb-3 pt-3 pb-3 rounded-2 shadow-sm">
             <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <img src="https://img.freepik.com/premium-vector/man-profile-cartoon_18591-58482.jpg?w=360" alt="img"
-                        width="55px" height="55px" class="rounded-circle mr-3">
-                </div>
+                <a href="">
+                    <img src="{{ URL('images/avatar.jpg') }}" alt="img" width="50px" height="50px"
+                        class="rounded-circle mr-3">
+                </a>
                 <div class="d-flex align-content-center flex-column" style="padding-left:2%">
                     <div>
                         <a href="" class="text-decoration-none fw-semibold"
@@ -36,8 +36,12 @@
                                             href="{{ route('xoa-bai-dang', ['id' => $baiDang->id]) }}">Xoá</a>
                                     </li>
                                 @else
-                                    <li><a class="dropdown-item" href="#">Theo dõi</a></li>
-                                    <li><a class="dropdown-item" href="#">Báo cáo</a></li>
+                                    <li><a class="dropdown-item" href="{{ Auth::id() == null ? '/dang-nhap' : '' }}">Theo
+                                            dõi</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ Auth::id() == null ? '/dang-nhap' : '' }}">Báo
+                                            cáo</a>
+                                    </li>
                                 @endif
                             </ul>
                         </div>
@@ -76,14 +80,16 @@
                 <img src="https://i.pinimg.com/236x/48/8c/3d/488c3d2ff60ce74dff843d578b2a615d.jpg" width="100%"
                     height="100%" alt="" class="img-fluid rounded">
             </div>
-            <div class="input-group">
-                <input class=" form-control rounded-5" type="text" name="" class="form-control"
-                    placeholder="Bình luận ...">&ensp;
-                <div class="rounded-3" style="padding-left:10px">
-                    <button class="btn btn-outline-primary" type="submit" id="button-addon2"> <img
-                            src="{{ URL('images/send.png') }}" style="width:1.45em;"> </button>
+            @if (Auth::id() != null)
+                <div class="input-group">
+                    <input class=" form-control rounded-5" type="text" name="" class="form-control"
+                        placeholder="Bình luận ...">&ensp;
+                    <div class="rounded-3" style="padding-left:10px">
+                        <button class="btn btn-outline-primary" type="submit" id="button-addon2"> <img
+                                src="{{ URL('images/send.png') }}" style="width:1.45em;"> </button>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 @endsection

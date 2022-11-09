@@ -19,7 +19,7 @@ class BaiDangController extends Controller
     public function ds_bai_dang() {
         $id=Auth::id();
         $nguoiDung=NguoiDung::where('id',$id)->first();
-        $dsBaiDang=BaiDang::where('nguoi_dung_id',$id)->get();
+        $dsBaiDang=BaiDang::where('nguoi_dung_id',$id)->orderBy('trang_thai','DESC')->orderBy('updated_at','DESC')->get();
         return view('main_pages.post_list',['user'=>$nguoiDung,'dsBaiDang'=>$dsBaiDang,'id'=>$id]);
     }
     public function ds_theo_doi() {
@@ -63,11 +63,11 @@ class BaiDangController extends Controller
             'noi_dung'=>$request->noi_dung,
             'dia_chi'=>$request->dia_chi,
         ]);
-        return redirect()->route('index');
+        return redirect()->route('trang-chu');
     }
     public function destroy($id) {
         $xoaBaiDang=BaiDang::find($id)->delete();
-        return redirect()->route('index');
+        return redirect()->route('trang-chu');
     }
     public function returned($id) {
         $daTimThay=BaiDang::find($id)->update(['trang_thai'=>0]);

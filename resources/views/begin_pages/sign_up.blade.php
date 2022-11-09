@@ -17,6 +17,12 @@
             </div>
         </div>
         <div class="m-3">
+            &ensp;<label >Email</label>
+            <div class="input-group mb-2">
+                <input type="email" name="email" class="form-control" placeholder="Email">
+            </div>
+        </div>
+        <div class="m-3">
             &ensp;<label >Giới tính</label>
             <div class="input-group mb-2">
                 <select class="form-select" name="gioi_tinh" aria-label=".form-select-sm example">

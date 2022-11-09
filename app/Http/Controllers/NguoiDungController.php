@@ -65,21 +65,21 @@ class NguoiDungController extends Controller
      */
     public function store(Request $request)
     {
+        $ngay_sinh=$request->nam."/".$request->thang."/".$request->ngay;
         $nguoiDung=NguoiDung::create([
-            'ho_ten'=>$request->ho.''.$request->ten,
+            'ho_ten'=>$request->ho_ten,
             'mat_khau'=>Hash::make($request->password),
             'email'=>$request->email,
             'so_dien_thoai'=>"",
             'admin'=>0,
-            'ngay_sinh'=>date('Y/m/d', strtotime($request->nam.$request->thang.$request->ngay)),
-            'gioi_tinh'=>$request->gioi_tinh,
+            'ngay_sinh'=>date('Y/m/d', strtotime($ngay_sinh)),
+            'gioi_tinh'=>(int)$request->gioi_tinh,
             'anh_dai_dien'=>""
         ]);
         // $xuly =$request->only('email','password');
         // if(Auth::attempt($xuly))
         // {
-    
-        //     return redirect()->route('index');
+        //     return redirect()->route('trang-chu');
         // }
         // return redirect()->back()->with("error", "Đăng ký thất bại, Vui lòng kiểm tra lại =(");
         return redirect()->route('xl-dang-nhap');
