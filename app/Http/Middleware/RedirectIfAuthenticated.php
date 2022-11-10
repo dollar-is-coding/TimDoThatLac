@@ -23,10 +23,9 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect()->route('index');
+                return redirect()->route('trang-chu');
             }
         }
-
         return $next($request);
     }
 }
