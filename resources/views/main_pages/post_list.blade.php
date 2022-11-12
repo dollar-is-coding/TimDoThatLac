@@ -5,7 +5,17 @@
             <div class="bg-light mt-3 rounded shadow-sm flex-shrink-2 p-4">
                 <div class="text-center">
                     <!-- <img src="{{ URL('images/avatar.jpg') }}" class="rounded-circle" style="width:10em;height:10em"> -->
-                    <img src="/images/{{$user->anh_dai_dien}}" class="rounded-circle" style="width:10em;height:10em">
+                    <img src="
+                    <?php
+                       
+                       if($user->anh_dai_dien==""){
+                           echo "/images/user.png";
+                       }
+                       else{
+                           echo "/images/$user->anh_dai_dien";
+                       }
+                       ?>
+                       " class="rounded-circle" style="width:10em;height:10em">
                 </div>
                 <div class="fs-3 fw-bold mt-3 mb-2 text-center">{{ $user->ho_ten }}</div>
                 <hr>

@@ -1,6 +1,5 @@
 @extends('main')
 @section('main')
-    <p>{{ $soLuongHA }}</p>
     <div style="padding-left:20em;padding-right:20em;">
         <div class="bg-light p-4 mt-3 mb-3 pt-3 pb-3 rounded-2 shadow-sm">
             <div class="d-flex align-items-center justify-content-between">
@@ -78,13 +77,71 @@
                 <div class="mt-2">{{ $baiDang->noi_dung }}</div>
                 <div class="mt-2 mb-2">Địa chỉ: {{ $baiDang->dia_chi }}</div>
             </div>
-            <div class="mt-3 mb-3">
-                @foreach ($hinhAnh as $item)
-                    <div class="border">
-                        <img src="{{ URL("images/$item->hinh_anh") }}" alt="" height="100%">
-                    </div>
-                @endforeach
+
+            <div class="d-flex justify-content-between align-items-between flex-wrap mt-2 mb-3">
+                @if ($soLuongHA == 2 || $soLuongHA == 4)
+                    @foreach ($hinhAnh as $key => $item)
+                        <div style="width:49.5%;height:30%" class="mb-2  rounded-2">
+                            <img src="{{ URL("images/$item->hinh_anh") }}" class=" border rounded-2"
+                                style="object-fit:cover" width="100%" height="320px">
+                        </div>
+                    @endforeach
+                @else
+                    @if ($soLuongHA == 1)
+                        @foreach ($hinhAnh as $key => $item)
+                            <div style="width:100%;height:60%" class="mb-2  rounded-2">
+                                <img src="{{ URL("images/$item->hinh_anh") }}" class="border rounded-2"
+                                    style="object-fit:cover" width="100%" height="650px">
+                            </div>
+                        @endforeach
+                    @else
+                        @if ($soLuongHA == 3)
+                            @foreach ($hinhAnh as $key => $item)
+                                @if ($key == 0)
+                                    <div style="width:60%;height:60%" class="mb-2  rounded-2">
+                                        <img src="{{ URL("images/$item->hinh_anh") }}" class="border rounded-2"
+                                            style="object-fit:cover" width="100%" height="647px">
+                                    </div>
+                                @endif
+                            @endforeach
+                            <div style="width:39%;height:60%" class="d-flex flex-column">
+                                @foreach ($hinhAnh as $key => $item)
+                                    @if ($key != 0)
+                                        <div class="mb-2  rounded-2">
+                                            <img src="{{ URL("images/$item->hinh_anh") }}" class="border rounded-2"
+                                                style="object-fit:cover" width="100%" height="320px">
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @else
+                            @if ($soLuongHA == 5)
+                                <div class="d-flex flex-row justify-content-between">
+                                    @foreach ($hinhAnh as $key => $item)
+                                        @if ($key == 0 || $key == 1)
+                                            <div style="width:49.5%" class="mb-2  rounded-2">
+                                                <img src="{{ URL("images/$item->hinh_anh") }}" class="border rounded-2"
+                                                    style="object-fit:cover" width="100%" height="400px">
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <div style="width:100%" class="d-flex flex-row justify-content-between">
+                                    @foreach ($hinhAnh as $key => $item)
+                                        @if ($key != 0 && $key != 1)
+                                            <div style="width:32.7%" class="mb-2  rounded-2">
+                                                <img src="{{ URL("images/$item->hinh_anh") }}" class="border rounded-2"
+                                                    style="object-fit:cover" width="100%" height="250px">
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endif
+                        @endif
+                    @endif
+                @endif
             </div>
+
             @if (Auth::id() != null)
                 <div class="input-group">
                     <input class=" form-control rounded-5" type="text" name="" class="form-control"

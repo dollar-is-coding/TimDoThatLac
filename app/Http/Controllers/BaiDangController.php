@@ -66,8 +66,8 @@ class BaiDangController extends Controller
         $danhMuc=DanhMuc::all();
         $theLoai=TheLoai::all();
         $khuVuc=KhuVuc::all();
-
-        return view('main_pages.edit_post',['baiDang'=>$chiTietBaiDang,'danhMuc'=>$danhMuc,'theLoai'=>$theLoai,'khuVuc'=>$khuVuc]);
+        $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
+        return view('main_pages.edit_post',['baiDang'=>$chiTietBaiDang,'danhMuc'=>$danhMuc,'theLoai'=>$theLoai,'khuVuc'=>$khuVuc,'hinhAnh'=>$hinhAnh]);
     }
     public function edit($id,Request $request) {
         $chiTietBaiDang=BaiDang::find($id)->update([
@@ -78,6 +78,7 @@ class BaiDangController extends Controller
             'noi_dung'=>$request->noi_dung,
             'dia_chi'=>$request->dia_chi,
         ]);
+      
         return redirect()->route('trang-chu');
     }
     public function destroy($id) {

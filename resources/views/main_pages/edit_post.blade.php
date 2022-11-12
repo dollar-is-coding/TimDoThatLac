@@ -1,5 +1,6 @@
 @extends('main')
 @section('main')
+
 <div style="padding-left:20em;padding-right:20em;">
     <div class="bg-light rounded p-5 pt-3 pb-3 shadow-sm mt-4">
         <div class="fs-3 fw-semibold text-center">Chỉnh sửa bài đăng</div>
@@ -44,24 +45,18 @@
                     </select>
                 </div>
             </div>
-
-
-
-            {{-- <div class=" mb-3">
-                <form action="">
-                    <div>
-                        &ensp;<label class="form-label">Ảnh liên quan</label>
-                        <img style="text-align: center;"class=" rounded mx-auto d-block" src="" id="image"
-                            alt="" srcset="" width="300px" height="200px">
+            <div class="row mt-4">
+                @foreach ($hinhAnh as $item)
+                <div class="col-md-3">
+                    <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+                        <div class="card-body">
+                            <img src="/images/{{$item->hinh_anh}}" class="card-img-top">
+                        </div>
                     </div>
-                    <div class="fa mt-3">
-                        <label class="la" for="" for="'file">Choose Image</label>
-                        <input class="in" type="file" onchange="chooseFile(this)" name=""
-                            accept="image/gif, image/jpeg, image/png">
-                    </div>
-    
-                </form>
-            </div> --}}
+                </div>
+                @endforeach
+            </div>
+
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary p-4 pt-1 pb-1 mt-5 mb-3">
                     Chỉnh sửa
@@ -70,4 +65,5 @@
         </form>
     </div>
 </div>
+
 @endsection
