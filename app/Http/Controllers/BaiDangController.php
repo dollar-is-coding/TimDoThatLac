@@ -52,7 +52,7 @@ class BaiDangController extends Controller
         if ($request->has('file')) {
             foreach ($request->file('file') as $img) {
                 $filename = $img->getClientOriginalName();
-                $img->move(public_path('Image'), $filename);
+                $img->move(public_path('images'), $filename);
                 HinhAnh::create([
                     'bai_dang_id'=>$hinhAnh->id,
                     'hinh_anh'=>$filename,
