@@ -71,10 +71,12 @@
             <div class="mt-2">{{ $baiDang->noi_dung }}</div>
             <div class="mt-2 mb-2">Địa chỉ: {{ $baiDang->dia_chi }}</div>
         </div>
-        <div class="mt-3 mb-3">
-
-
-
+        <div class=" mb-3 d-flex flex-row">
+           @foreach($hinhAnh as $item)
+                <div class="col p-1">
+                <img src="{{ URL("images/$item->hinh_anh") }}" class="rounded-2" width="100%" height="100%">
+                </div>
+           @endforeach
         </div>
         @if (Auth::id() != null)
         <div class="input-group">
