@@ -118,6 +118,14 @@ class NguoiDungController extends Controller
             'ngay_sinh'=>date('Y/m/d', strtotime($ngay_sinh)),
             'gioi_tinh'=>(int)$request->gioi_tinh,
         ]);
+        $img =NguoiDung::find($id);
+        if ($request->has('file')) {
+            $file = $request->file;
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('images'), $filename);
+            $img->anh_dai_dien = $filename;
+        }
+        $img->save();
         return redirect()->route('ds-bai-dang');
     }
 
@@ -130,7 +138,7 @@ class NguoiDungController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
