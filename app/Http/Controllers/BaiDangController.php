@@ -8,13 +8,16 @@ use App\Models\NguoiDung;
 use App\Models\TheLoai;
 use App\Models\DanhMuc;
 use App\Models\KhuVuc;
+use App\Models\HinhAnh;
 use Illuminate\Support\Facades\Auth;
 
 class BaiDangController extends Controller
 {
     public function xem_bai_dang($id) {
         $chiTietBaiDang=BaiDang::find($id);
-        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang]);
+        $soLuongHinhAnh=HinhAnh::where('bai_dang_id',$id)->count();
+        $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
+        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh]);
     }
     public function ds_bai_dang() {
         $id=Auth::id();
@@ -45,6 +48,17 @@ class BaiDangController extends Controller
             'dia_chi'=>$request->dia_chi,
             'trang_thai'=>1,
         ]);
+        $hinhAnh=BaiDang::latest()->first();
+        if ($request->has('file')) {
+            foreach ($request->file('file') as $img) {
+                $filename = $img->getClientOriginalName();
+                $img->move(public_path('Image'), $filename);
+                HinhAnh::create([
+                    'bai_dang_id'=>$hinhAnh->id,
+                    'hinh_anh'=>$filename,
+                ]);
+            }
+        }
         return redirect()->route('ds-bai-dang');
     }
     public function show($id) {
@@ -52,6 +66,7 @@ class BaiDangController extends Controller
         $danhMuc=DanhMuc::all();
         $theLoai=TheLoai::all();
         $khuVuc=KhuVuc::all();
+
         return view('main_pages.edit_post',['baiDang'=>$chiTietBaiDang,'danhMuc'=>$danhMuc,'theLoai'=>$theLoai,'khuVuc'=>$khuVuc]);
     }
     public function edit($id,Request $request) {

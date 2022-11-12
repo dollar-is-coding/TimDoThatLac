@@ -1,121 +1,307 @@
 @extends('main')
 @section('main')
-    <script>
-        function chooseFile(fileinput) {
-            if (fileinput.files && fileinput.files[0]) {
-                var read = new FileReader();
 
-                read.onload = function(e) {
-                    $('#image').attr('src', e.target.result);
+<style type="text/css">
+    .wrap {
+        margin: 10% auto;
+        width: 60%;
+    }
+
+    .dandev-reviews {
+        position: relative;
+        margin: 20px 0;
+    }
+
+    .dandev-reviews .form_upload {
+        width: 320px;
+        position: relative;
+        padding: 5px;
+        bottom: 0px;
+        height: 40px;
+        left: 0;
+        z-index: 5;
+        box-sizing: border-box;
+        background: #f7f7f7;
+        border-top: 1px solid #ddd;
+    }
+
+    .dandev-reviews .form_upload>label {
+        height: 35px;
+        width: 160px;
+        display: block;
+        cursor: pointer;
+    }
+
+    .dandev-reviews .form_upload label span {
+        padding-left: 26px;
+        display: inline-block;
+        background: url(images/camera.png) no-repeat;
+        background-size: 23px 20px;
+        margin: 5px 0 0 10px;
+    }
+
+    .list_attach {
+        display: block;
+        margin-top: 30px;
+    }
+
+    ul.dandev_attach_view {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.dandev_attach_view li {
+        float: left;
+        width: 80px;
+        margin: 0 20px 20px 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        overflow: inherit;
+        clear: none;
+    }
+
+    ul.dandev_attach_view .img-wrap {
+        position: relative;
+    }
+
+    ul.dandev_attach_view .img-wrap .close {
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        background: #000;
+        color: #fff !important;
+        border-radius: 50%;
+        z-index: 2;
+        display: block;
+        width: 20px;
+        height: 20px;
+        font-size: 16px;
+        text-align: center;
+        line-height: 18px;
+        cursor: pointer !important;
+        opacity: 1 !important;
+        text-shadow: none;
+    }
+
+    ul.dandev_attach_view li.li_file_hide {
+        opacity: 0;
+        visibility: visible;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden;
+        margin: 0 !important;
+    }
+
+    ul.dandev_attach_view .img-wrap-box {
+        position: relative;
+        overflow: hidden;
+        padding-top: 100%;
+        height: auto;
+        background-position: 50% 50%;
+        background-size: cover;
+    }
+
+    .img-wrap-box img {
+        right: 0;
+        width: 100% !important;
+        height: 100% !important;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        position: absolute;
+        object-position: 50% 50%;
+        object-fit: cover;
+        transition: all .5s linear;
+        -moz-transition: all .5s linear;
+        -webkit-transition: all .5s linear;
+        -ms-transition: all .5s linear;
+    }
+
+    ul li,
+    ol li {
+        list-style-position: inside;
+    }
+
+    .list_attach span.dandev_insert_attach {
+        width: 80px;
+        height: 80px;
+        text-align: center;
+        display: inline-block;
+        border: 2px dashed #ccc;
+        line-height: 76px;
+        font-size: 25px;
+        color: #ccc;
+        display: none;
+        cursor: pointer;
+        float: left;
+    }
+
+    ul.dandev_attach_view {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.dandev_attach_view .img-wrap {
+        position: relative;
+    }
+
+    .list_attach.show-btn span.dandev_insert_attach {
+        display: block;
+        margin: 0 0 20px !important;
+    }
+
+    i.dandev-plus {
+        font-style: normal;
+        font-weight: 900;
+        font-size: 35px;
+        line-height: 1;
+    }
+
+    ul.dandev_attach_view li input {
+        display: none;
+    }
+
+    .m {
+        padding-left: 5px;
+        padding-right: 5px;
+        background-color: green;
+        color: white;
+    }
+</style>
+
+<div style="padding-left:20em;padding-right:20em;">
+    <div class="bg-light rounded p-5 pt-3 pb-3 shadow-sm mt-4">
+        <div class="fs-3 fw-semibold text-center">Đăng bài</div>
+        <hr>
+        <form action="{{ route('xl-dang-bai') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-2">
+                &ensp;<label class="form-label">Tiêu đề</label>
+                <input class="form-control" rows="1" name="tieu_de" contenteditable="true"></input>
+            </div>
+            <div class="mb-2">
+                &ensp;<label class="form-label">Nội dung</label>
+                <textarea class="form-control" rows="5" name="noi_dung" contenteditable="true"></textarea>
+            </div>
+            <div class="mb-2">
+                &ensp;<label class="form-label">Địa chỉ</label>
+                <textarea class="form-control" rows="2" name="dia_chi" contenteditable="true"></textarea>
+            </div>
+            <div class="d-flex flex-row mb-2">
+                <div class="flex-fill" style="margin-right:1em">
+                    &ensp;<label class="form-label">Danh mục</label>
+                    <select class="form-select" name="danh_muc" aria-label="Default select example">
+                        @foreach ($danhMuc as $item)
+                        <option value="{{$item->id}}">{{$item->ten}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="flex-fill" style="margin-right:1em">
+                    &ensp;<label class="form-label">Thể loại</label>
+                    <select class="form-select" name="the_loai" aria-label="Default select example">
+                        @foreach ($theLoai as $item)
+                        <option value="{{$item->id}}">{{$item->ten}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="flex-fill">
+                    &ensp;<label class="form-label">Khu vực</label>
+                    <select class="form-select" name="khu_vuc" aria-label="Default select example">
+                        @foreach ($khuVuc as $item)
+                        <option value="{{$item->id}}">{{$item->ten}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="wrap">
+                <div class="dandev-reviews">
+                    <div class="">
+                        <label class="dandev_insert_attach m border rounded-2"><span>Ảnh liên quan</span></label>
+                    </div>
+                    <div class="list_attach">
+                        <ul class="dandev_attach_view">
+                        </ul>
+                        <span class="dandev_insert_attach"><i class="dandev-plus">+</i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary p-4 pt-1 pb-1 mt-5 mb-3">
+                    Đăng
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var i = 1;
+    $('.dandev_insert_attach').click(function() {
+        if ($('.list_attach').hasClass('show-btn') === false) {
+            $('.list_attach').addClass('show-btn');
+        }
+        var _lastimg = jQuery('.dandev_attach_view li').last().find('input[type="file"]').val();
+        if (_lastimg != '') {
+            var d = new Date();
+            var _time = d.getTime();
+            var _html = '<li id="li_files_' + _time + '" class="li_file_hide">';
+            _html += '<div class="img-wrap">';
+            _html += '<span class="close" onclick="DelImg(this)">×</span>';
+            _html += ' <div class="img-wrap-box"></div>';
+            _html += '</div>';
+            _html += '<div class="' + _time + '">';
+            if (i < 6) {
+                _html += '<input type="file" class="hidden" name="file[]"  onchange="uploadImg(this)" id="files_' + _time + '" multiple  />';
+            } else {
+                _html += '<input type="hidden" class="hidden"  onchange="uploadImg(this)" id="files_' + _time + '"  />';
+            }
+            _html += '</div>';
+            _html += '</li>';
+            jQuery('.dandev_attach_view').append(_html);
+            jQuery('.dandev_attach_view li').last().find('input[type="file"]').click(i++);
+            console.log(i);
+        } else {
+            if (_lastimg == '') {
+                jQuery('.dandev_attach_view li').last().find('input[type="file"]').click();
+            } else {
+                if ($('.list_attach').hasClass('show-btn') === true) {
+                    $('.list_attach').removeClass('show-btn');
                 }
-                read.readAsDataURL(fileinput.files[0]);
             }
         }
-    </script>
-    <style>
-        .fa {
+    });
 
-            position: relative;
-            margin-top: 10px;
-            width: 300px;
-            height: 50px;
-            background-color: rgb(14, 71, 29);
-            border-radius: 10px;
-            margin: 0px auto;
+    function uploadImg(el) {
+        var file_data = $(el).prop('files')[0];
+        var type = file_data.type;
+        var fileToLoad = file_data;
+
+        var fileReader = new FileReader();
+
+        fileReader.onload = function(fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result;
+
+            var newImage = document.createElement('img');
+            newImage.src = srcData;
+            var _li = $(el).closest('li');
+            if (_li.hasClass('li_file_hide')) {
+                _li.removeClass('li_file_hide');
+            }
+            _li.find('.img-wrap-box').append(newImage.outerHTML);
+
+
         }
+        fileReader.readAsDataURL(fileToLoad);
 
-        .la {
-            position: absolute;
-            font-size: 15px;
-            text-align: center;
-            color: white;
-            width: 100%;
-            height: 100%;
-            top: 12px;
-        }
+    }
 
-        .in {
-            font-size: 30px;
-            position: absolute;
-            opacity: 0;
-            background-color: rgb(248, 248, 255);
-            width: 100%;
-            height: 100%;
-        }
+    function DelImg(el) {
+        i--;
+        jQuery(el).closest('li').remove();
 
-        :hover.fa {
-            background-color: brown;
-        }
-    </style>
-
-    <div style="padding-left:20em;padding-right:20em;">
-        <div class="bg-light rounded p-5 pt-3 pb-3 shadow-sm mt-4">
-            <div class="fs-3 fw-semibold text-center">Đăng bài</div>
-            <hr>
-            <form action="{{ route('xl-dang-bai') }}" method="POST">
-                @csrf
-                <div class="mb-2">
-                    &ensp;<label class="form-label">Tiêu đề</label>
-                    <input class="form-control" rows="1" name="tieu_de" contenteditable="true"></input>
-                </div>
-                <div class="mb-2">
-                    &ensp;<label class="form-label">Nội dung</label>
-                    <textarea class="form-control" rows="5" name="noi_dung" contenteditable="true"></textarea>
-                </div>
-                <div class="mb-2">
-                    &ensp;<label class="form-label">Địa chỉ</label>
-                    <textarea class="form-control" rows="2" name="dia_chi" contenteditable="true"></textarea>
-                </div>
-                <div class="d-flex flex-row mb-2">
-                    <div class="flex-fill" style="margin-right:1em">
-                        &ensp;<label class="form-label">Danh mục</label>
-                        <select class="form-select" name="danh_muc" aria-label="Default select example">
-                            @foreach ($danhMuc as $item)
-                            <option value="{{$item->id}}">{{$item->ten}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="flex-fill" style="margin-right:1em">
-                        &ensp;<label class="form-label">Thể loại</label>
-                        <select class="form-select" name="the_loai" aria-label="Default select example">
-                            @foreach ($theLoai as $item)
-                            <option value="{{$item->id}}">{{$item->ten}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="flex-fill">
-                        &ensp;<label class="form-label">Khu vực</label>
-                        <select class="form-select" name="khu_vuc" aria-label="Default select example">
-                            @foreach ($khuVuc as $item)
-                            <option value="{{$item->id}}">{{$item->ten}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-
-
-                {{-- <div class=" mb-3">
-                    <form action="">
-                        <div>
-                            &ensp;<label class="form-label">Ảnh liên quan</label>
-                            <img style="text-align: center;"class=" rounded mx-auto d-block" src="" id="image"
-                                alt="" srcset="" width="300px" height="200px">
-                        </div>
-                        <div class="fa mt-3">
-                            <label class="la" for="" for="'file">Choose Image</label>
-                            <input class="in" type="file" onchange="chooseFile(this)" name=""
-                                accept="image/gif, image/jpeg, image/png">
-                        </div>
-        
-                    </form>
-                </div> --}}
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary p-4 pt-1 pb-1 mt-5 mb-3">
-                        Đăng
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+    }
+</script>
 @endsection
