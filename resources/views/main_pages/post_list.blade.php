@@ -2,7 +2,8 @@
 @section('main')
     <div style="padding-left:10em;padding-right:10em;">
         <div class="d-flex flex-row mb-4">
-            <div class="bg-light mt-3 rounded shadow-sm flex-shrink-2 p-4 align-self-start">
+            <div class="mt-3 rounded shadow-sm flex-shrink-2 p-4 align-self-start"
+                style="background-color:rgb(237, 243, 255)">
                 <div class="text-center">
                     <!-- <img src="{{ URL('images/avatar.jpg') }}" class="rounded-circle" style="width:10em;height:10em"> -->
                     <img src="/images/{{ $user->anh_dai_dien == '' ? 'user.png' : $user->anh_dai_dien }}"
@@ -31,7 +32,8 @@
                         tin cá nhân</a>
                 </div>
             </div>
-            <div class="bg-light mt-3 rounded shadow-sm w-100 p-4 pt-0 pb-2" style="margin-left:3%">
+            <div class="mt-3 rounded shadow-sm w-100 p-4 pt-0 pb-2"
+                style="margin-left:3%;background-color:rgb(237, 243, 255)">
                 <div class="d-flex justify-content-center">
                     <a href="#" class=" text-decoration-none text-dark m-3 border-bottom border-dark mb-0">Bài
                         đăng</a>

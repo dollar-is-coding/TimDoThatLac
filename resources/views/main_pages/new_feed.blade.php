@@ -1,7 +1,7 @@
 @extends('main')
 @section('main')
     <div style="padding-left:20em;padding-right:20em;">
-        <div class="bg-light p-4 mt-3 mb-3 pt-3 pb-3 rounded-2">
+        <div class=" p-4 mt-3 mb-3 pt-3 pb-3 rounded-2  shadow-sm" style="background-color:rgb(237, 243, 255)">
             <form class="row d-flex justify-content-center">
                 <div class="col-auto" style="width:17%">
                     <select class="form-select" aria-label="Default select example">
@@ -39,9 +39,11 @@
         <div class="fs-5 fw-bold" style="padding-left:.8%">Danh sách bài đăng</div>
         @foreach ($dsBaiDang as $item)
             <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
-                <div class="rounded-2 bg-light d-flex p-4 pt-3 pb-3 mt-2 justify-content-between ">
+                <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm"
+                    style="background-color:rgb(237, 243, 255)">
                     <div class="d-flex flex-fill align-items-center">
-                        <img src="/images/{{ $item->nguoiDung->anh_dai_dien == '' ? 'user.png' : $item->nguoiDung->anh_dai_dien }}" class="rounded-2" style="width:5em;height:5em">
+                        <img src="/images/{{ $item->nguoiDung->anh_dai_dien == '' ? 'user.png' : $item->nguoiDung->anh_dai_dien }}"
+                            class="rounded-2" style="width:5em;height:5em">
                         <div style="margin-left:3%">
                             <div class="fs-5 fw-semibold">{{ $item->tieu_de }}</div>
                             <div>{{ $item->nguoiDung->ho_ten }}</div>

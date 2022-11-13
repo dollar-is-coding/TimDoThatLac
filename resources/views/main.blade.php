@@ -1,24 +1,27 @@
 @extends('index')
 @section('body')
-    <div class="d-flex flex-row justify-content-between align-items-center bg-light shadow-sm "
-        style="padding:0.5em;padding-left:20.5em;padding-right:20em;">
+    <div class="d-flex flex-row justify-content-between align-items-center shadow-sm "
+        style="padding:0.2em;padding-left:20.5em;padding-right:20em;background-color:rgb(237, 243, 255)">
         <div>
             <a href="{{ route('trang-chu') }}">
-                <img src="{{ URL('images/timdothatlac.png') }}" style="width: 30%">
+                <img src="{{ URL('images/default_images/timdothatlac.png') }}" style="width: 30%">
             </a>
         </div>
         <div class="d-flex flex-row align-items-center">
             <a href="{{ Auth::id() == null ? '/dang-nhap' : '/dang-bai' }}">
-                <img src="{{ URL('images/add.png') }}" style="width: 2em;">
+                <img src="{{ URL('images/default_images/add.png') }}" class="rounded-circle border p-2"
+                    style="width: 2.7em;height:2.7em;background-color: rgb(202, 221, 255)">
             </a>
             <a href="">
-                <img src="{{ URL('images/bell.png') }}" style="width: 2em;margin-left:20px;">
+                <img src="{{ URL('images/default_images/bell-ring.png') }}" class="rounded-circle border p-2"
+                    style="width: 2.7em;height:2.7em;margin-left:12px;background-color: rgb(202, 221, 255)">
             </a>
 
             @if (Auth::id() != null)
-                <div class="dropdown" style="padding-left:10px">
+                <div class="dropdown">
                     <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ URL('images/avatar.jpg') }}" class="rounded-circle" style="width: 2.3em;height:2.3em">
+                        <img src="{{ URL('images/default_images/user (2).png') }}" class="rounded-circle border p-2"
+                            style="width: 2.7em;height:2.7em;background-color: rgb(202, 221, 255)">
                     </button>
                     <ul class="dropdown-menu mt-1">
                         <li><a class="dropdown-item" href="{{ route('ds-bai-dang') }}">Cá nhân</a></li>
