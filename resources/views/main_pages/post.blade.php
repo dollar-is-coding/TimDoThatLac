@@ -134,7 +134,7 @@
         color: #ccc;
         display: none;
         cursor: pointer;
-        float: left;
+        /* float: left; */
     }
 
     ul.dandev_attach_view {
@@ -216,14 +216,14 @@
                 </div>
             </div>
 
-            <div class="wrap border">
+            <div class="border">
                 <div class="dandev-reviews">
                     <div class="">
                         <label class="dandev_insert_attach m border rounded-2">
                             Thêm ảnh
                         </label>
                     </div>
-                    <div class="list_attach">
+                    <div class="list_attach d-flex">
                         <ul class="dandev_attach_view">
                         </ul>
                         <span class="dandev_insert_attach"><i class="dandev-plus">+</i></span>
@@ -250,7 +250,7 @@
             var d = new Date();
             var _time = d.getTime();
             var _html = '<li id="li_files_' + _time + '" class="li_file_hide">';
-            _html += '<div class="img-wrap">';
+            _html += '<div class="img-wrap ">';
             _html += '<span class="close" onclick="DelImg(this)">×</span>';
             _html += ' <div class="img-wrap-box"></div>';
             _html += '</div>';
