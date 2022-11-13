@@ -3,7 +3,7 @@
 <style>
     .box-full-zoom {
         position: fixed;
-        background-color: rgba(125, 125, 125, 0.8);
+        background-color: rgba(237, 243, 255, 0.8);
         width: 100%;
         height: 100%;
         display: none;
@@ -32,13 +32,19 @@
             a = this.src;
             $("#imageszoom").attr("src", a);
             $(".box-full-zoom").show();
+            $(".hienthi").css("visibility","hidden");
+            
+            $("body").css({"overflow":"hidden"});
         });
         $(".box-full-zoom").click(function() {
             $(".box-full-zoom").hide();
+            $(".hienthi").css("visibility","visible");
+           
+            $("body").css({"overflow":"visible"});
         });
     });
 </script>
-<section class="box-full-zoom ">
+<section class="box-full-zoom">
     <article>
         <img src="" alt="" id="imageszoom">
     </article>
@@ -57,11 +63,11 @@
             </div>
             @if ($baiDang->trang_thai == 1)
             <div class="col" style="text-align: right;">
-                <div class="dropdown">
-                    <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="dropdown hienthi"  >
+                    <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
                         <img src="{{ URL('images/detail.png') }}" class="rounded-circle" style="width: 2.3em;height:2.3em">
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" >
                         @if (Auth::id() == $baiDang->nguoiDung->id)
                         <li>
                             <a class="dropdown-item" href="{{ route('da-tim-thay', ['id' => $baiDang->id]) }}">{{ $baiDang->the_loai_id == 1 ? 'Đã trả' : 'Đã tìm thấy' }}</a>
@@ -91,7 +97,7 @@
             </div>
             @endif
         </div>
-        <hr>
+        <hr class="hienthi">
         <div class=" d-flex flex-column justify-content-between">
             <div class="fs-4 fw-semibold text-justify">{{ $baiDang->tieu_de }}</div>
             <div class="d-flex text-center mt-2">
@@ -173,7 +179,7 @@
         </div>
 
         @if (Auth::id() != null)
-        <div class="input-group">
+        <div class="input-group hienthi">
             <input class=" form-control rounded-5" type="text" name="" class="form-control" placeholder="Bình luận ...">&ensp;
             <div class="rounded-3" style="padding-left:10px">
                 <button class="btn btn-outline-primary" type="submit" id="button-addon2"> <img src="{{ URL('images/send.png') }}" style="width:1.45em;"> </button>
