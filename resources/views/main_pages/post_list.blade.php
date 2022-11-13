@@ -15,7 +15,7 @@
                            echo "/images/$user->anh_dai_dien";
                        }
                        ?>
-                       " class="rounded-circle" style="width:10em;height:10em">
+                       " class="rounded-circle" style="object-fit:cover;width:10em;height:10em">
                 </div>
                 <div class="fs-3 fw-bold mt-3 mb-2 text-center">{{ $user->ho_ten }}</div>
                 <hr>

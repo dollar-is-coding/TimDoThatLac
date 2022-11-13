@@ -34,7 +34,7 @@
         border-radius: 100px;
     }
     .cha:hover {
-        opacity: 0.5;
+        opacity: 0.8;
         
     }
     .con2 {
@@ -71,7 +71,7 @@
                             echo "/images/$user->anh_dai_dien";
                         }
                         ?>
-                        " width="200px" height="200px">
+                        " width="200px" height="200px" style="object-fit:cover">
                     </div>
                     <div class="con2">
                     <label for="file"></label>
