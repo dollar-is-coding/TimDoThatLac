@@ -1,21 +1,12 @@
 @extends('main')
 @section('main')
     <div style="padding-left:10em;padding-right:10em;">
-        <div class="d-flex flex-row">
-            <div class="bg-light mt-3 rounded shadow-sm flex-shrink-2 p-4">
+        <div class="d-flex flex-row mb-4">
+            <div class="bg-light mt-3 rounded shadow-sm flex-shrink-2 p-4 align-self-start">
                 <div class="text-center">
                     <!-- <img src="{{ URL('images/avatar.jpg') }}" class="rounded-circle" style="width:10em;height:10em"> -->
-                    <img src="
-                    <?php
-                       
-                       if($user->anh_dai_dien==""){
-                           echo "/images/user.png";
-                       }
-                       else{
-                           echo "/images/$user->anh_dai_dien";
-                       }
-                       ?>
-                       " class="rounded-circle" style="width:10em;height:10em">
+                    <img src="/images/{{ $user->anh_dai_dien == '' ? 'user.png' : $user->anh_dai_dien }}"
+                        class="rounded-circle" style="width:10em;height:10em">
                 </div>
                 <div class="fs-3 fw-bold mt-3 mb-2 text-center">{{ $user->ho_ten }}</div>
                 <hr>
@@ -40,7 +31,7 @@
                         tin cá nhân</a>
                 </div>
             </div>
-            <div class="bg-light mt-3 rounded shadow-sm w-100 p-4 pt-0" style="margin-left:3%">
+            <div class="bg-light mt-3 rounded shadow-sm w-100 p-4 pt-0 pb-2" style="margin-left:3%">
                 <div class="d-flex justify-content-center">
                     <a href="#" class=" text-decoration-none text-dark m-3 border-bottom border-dark mb-0">Bài
                         đăng</a>
@@ -51,10 +42,11 @@
                     <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
                         <div class="rounded-2 bg-light d-flex p-4 pt-0 pb-3 mt-2 justify-content-between ">
                             <div class="d-flex flex-fill align-items-center">
-                                <img src="{{ URL('images/avatar.jpg') }}" class="rounded-2" style="width:5em;height:5em">
+                                <img src="images/{{ $item->nguoiDung->anh_dai_dien }}" class="rounded-2"
+                                    style="width:5em;height:5em">
                                 <div style="margin-left:3%">
                                     <div class="fs-5 fw-semibold">{{ $item->tieu_de }}</div>
-                                    <div>{{ $item->nguoiDung->ho_ten }}</div>
+                                    <div>{{ $item->ho_ten }}</div>
                                     <div class="d-flex text-center mt-2">
                                         @if ($item->trang_thai == 0)
                                             <div class="rounded p-2 pt-0 pb-0 bg-success text-white">

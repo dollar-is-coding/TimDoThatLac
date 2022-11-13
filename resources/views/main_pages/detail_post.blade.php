@@ -4,8 +4,8 @@
         <div class="bg-light p-4 mt-3 mb-3 pt-3 pb-3 rounded-2 shadow-sm">
             <div class="d-flex align-items-center justify-content-between">
                 <a href="">
-                    <img src="{{ URL('images/avatar.jpg') }}" alt="img" width="50px" height="50px"
-                        class="rounded-circle mr-3">
+                    <img src="/images/{{ $baiDang->nguoiDung->anh_dai_dien == '' ? 'user.png' : $baiDang->nguoiDung->anh_dai_dien }}"
+                       width="50px" height="50px" class="rounded-circle mr-3">
                 </a>
                 <div class="d-flex align-content-center flex-column" style="padding-left:2%">
                     <div>
