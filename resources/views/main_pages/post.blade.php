@@ -216,10 +216,12 @@
                 </div>
             </div>
 
-            <div class="wrap">
+            <div class="wrap border">
                 <div class="dandev-reviews">
                     <div class="">
-                        <label class="dandev_insert_attach m border rounded-2"><span>Ảnh liên quan</span></label>
+                        <label class="dandev_insert_attach m border rounded-2">
+                            Thêm ảnh
+                        </label>
                     </div>
                     <div class="list_attach">
                         <ul class="dandev_attach_view">
