@@ -14,6 +14,7 @@
             <a href="">
                 <img src="{{ URL('images/bell.png') }}" style="width: 2em;margin-left:20px;">
             </a>
+
             @if (Auth::id() != null)
                 <div class="dropdown" style="padding-left:10px">
                     <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -41,7 +41,7 @@
             <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
                 <div class="rounded-2 bg-light d-flex p-4 pt-3 pb-3 mt-2 justify-content-between ">
                     <div class="d-flex flex-fill align-items-center">
-                        <img src="{{ URL('images/avatar.jpg') }}" class="rounded-2" style="width:5em;height:5em">
+                        <img src="/images/{{ $item->nguoiDung->anh_dai_dien == '' ? 'user.png' : $item->nguoiDung->anh_dai_dien }}" class="rounded-2" style="width:5em;height:5em">
                         <div style="margin-left:3%">
                             <div class="fs-5 fw-semibold">{{ $item->tieu_de }}</div>
                             <div>{{ $item->nguoiDung->ho_ten }}</div>
