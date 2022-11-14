@@ -122,7 +122,7 @@ class NguoiDungController extends Controller
         if ($request->has('file')) {
             $file = $request->file;
             $filename = $file->getClientOriginalName();
-            $file->move(public_path('images'), $filename);
+            $file->move(public_path('images/added_images'), $filename);
             $img->anh_dai_dien = $filename;
         }
         $img->save();

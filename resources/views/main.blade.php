@@ -1,7 +1,17 @@
 @extends('index')
 @section('body')
-    <div class="d-flex flex-row justify-content-between align-items-center shadow-sm "
-        style="padding:0.2em;padding-left:20.5em;padding-right:20em;background-color:rgb(237, 243, 255)">
+    <style>
+        .text {
+            color: white;
+        }
+
+        .text:hover {
+            color: #052147;
+            background-color: rgb(202, 221, 255);
+        }
+    </style>
+    <div class="d-flex flex-row justify-content-between align-items-center shadow-sm"
+        style="padding:0.2em;padding-left:20.5em;padding-right:20em;background-color:white">
         <div>
             <a href="{{ route('trang-chu') }}">
                 <img src="{{ URL('images/default_images/timdothatlac.png') }}" style="width: 30%">
@@ -20,12 +30,16 @@
             @if (Auth::id() != null)
                 <div class="dropdown">
                     <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ URL('images/default_images/user (2).png') }}" class="rounded-circle border p-2"
+                        <img src="{{ URL('images/default_images/user.png') }}" class="rounded-circle border p-2"
                             style="width: 2.7em;height:2.7em;background-color: rgb(202, 221, 255)">
                     </button>
-                    <ul class="dropdown-menu mt-1">
-                        <li><a class="dropdown-item" href="{{ route('ds-bai-dang') }}">Cá nhân</a></li>
-                        <li><a class="dropdown-item" href="{{ route('dang-xuat') }}">Đăng xuất</a></li>
+                    <ul class="dropdown-menu mt-1 shadow" style="background-color: #052147">
+                        <li class="hover"><a class="dropdown-item text" href="{{ route('ds-bai-dang') }}">Cá
+                                nhân</a>
+                        </li>
+                        <li class="hover"><a class="dropdown-item text" href="{{ route('dang-xuat') }}">Đăng
+                                xuất</a>
+                        </li>
                     </ul>
                 </div>
             @else

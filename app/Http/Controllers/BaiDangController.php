@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Auth;
 class BaiDangController extends Controller
 {
     public function xem_bai_dang($id) {
+        $user=NguoiDung::where('id',Auth::id())->first();
         $chiTietBaiDang=BaiDang::find($id);
         $soLuongHinhAnh=HinhAnh::where('bai_dang_id',$id)->count();
         $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
-        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh]);
+        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh,'user'=>$user]);
     }
     public function ds_bai_dang() {
         $id=Auth::id();
@@ -52,7 +53,7 @@ class BaiDangController extends Controller
         if ($request->has('file')) {
             foreach ($request->file('file') as $img) {
                 $filename = $img->getClientOriginalName();
-                $img->move(public_path('images'), $filename);
+                $img->move(public_path('images/added_images'), $filename);
                 HinhAnh::create([
                     'bai_dang_id'=>$hinhAnh->id,
                     'hinh_anh'=>$filename,

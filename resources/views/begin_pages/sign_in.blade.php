@@ -5,15 +5,15 @@
     <form action="{{ route('xl-dang-nhap') }}" method="post">
         @csrf
         <div class="m-3">
-            &ensp;<label for="floatingTextarea">Email</label>
+            &ensp;<label for="floatingTextarea"  class="mb-1">Email</label>
             <div class="input-group mb-2">
-                <input type="text" name="email" class="form-control" placeholder="Email">
+                <input type="text" name="email" class="form-control" placeholder="Email" style="background-color:#D6FFFF">
             </div>
         </div>
         <div class="m-3">
-            &ensp;<label for="floatingTextarea">Mật khẩu</label>
+            &ensp;<label for="floatingTextarea"  class="mb-1">Mật khẩu</label>
             <div class="input-group mb-2">
-                <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
+                <input type="password" name="password" class="form-control" placeholder="Mật khẩu" style="background-color:#D6FFFF">
             </div>
         </div>
         @if (session('error'))
