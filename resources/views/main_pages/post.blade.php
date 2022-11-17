@@ -49,10 +49,10 @@
             margin: 0;
             padding: 0;
         }
-
-        ul.dandev_attach_view li {
+        /* day ne */
+        ul.dandev_attach_view li { 
             float: left;
-            width: 80px;
+            width: 112px;
             margin: 0 20px 20px 0 !important;
             padding: 0 !important;
             border: 0 !important;
@@ -123,8 +123,8 @@
         }
 
         .list_attach span.dandev_insert_attach {
-            width: 80px;
-            height: 80px;
+            width: 112px;
+            height: 112px;
             text-align: center;
             display: inline-block;
             border: 2px dashed #ccc;
@@ -149,12 +149,13 @@
         .list_attach.show-btn span.dandev_insert_attach {
             display: block;
             margin: 0 0 20px !important;
+            padding-top: 20px;
         }
 
         i.dandev-plus {
             font-style: normal;
             font-weight: 900;
-            font-size: 35px;
+            font-size: 60px;
             line-height: 1;
         }
 
@@ -217,15 +218,15 @@
 
                 <div class="border">
                     <div class="dandev-reviews">
-                        <div class="">
+                        <div style="margin-top: -1.3em;">
                             <label class="dandev_insert_attach m border rounded-2">
                                 Thêm ảnh
                             </label>
                         </div>
-                        <div class="list_attach d-flex">
-                            <ul class="dandev_attach_view">
+                        <div class="list_attach d-flex" >
+                            <ul class="dandev_attach_view" >
                             </ul>
-                            <span class="dandev_insert_attach"><i class="dandev-plus">+</i></span>
+                            <span class="dandev_insert_attach "><i class="dandev-plus">+</i></span>
                         </div>
                     </div>
                 </div>
@@ -248,7 +249,7 @@
             if (_lastimg != '') {
                 var d = new Date();
                 var _time = d.getTime();
-                var _html = '<li id="li_files_' + _time + '" class="li_file_hide">';
+                var _html = '<li id="li_files_' + _time + '" class="li_file_hide" >';
                 _html += '<div class="img-wrap ">';
                 _html += '<span class="close" onclick="DelImg(this)">×</span>';
                 _html += ' <div class="img-wrap-box"></div>';
