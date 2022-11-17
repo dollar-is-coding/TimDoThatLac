@@ -52,6 +52,7 @@
         </article>
     </section>
 
+
     <div style="padding-left:20em;padding-right:20em;">
         <div class=" p-4 mt-3 mb-3 pt-3 pb-3 rounded-2 shadow-sm" style="background-color:white">
             <div class="d-flex align-items-center justify-content-between">
@@ -96,8 +97,29 @@
                                             href="{{ route('xoa-bai-dang', ['id' => $baiDang->id]) }}">Xoá</a>
                                     </li>
                                 @else
-                                    <li><a class="dropdown-item" href="{{ Auth::id() == null ? '/dang-nhap' : '' }}">Theo
-                                            dõi</a>
+                                    <li>
+                                        @if (Auth::id() == null)
+                                            <a class="dropdown-item" href="{{ route('dang-nhap') }}">Theo
+                                                dõi</a>
+                                        @else
+                                            @if ($daTheoDoi != null)
+                                                @if ($daTheoDoi->trang_thai == 1)
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('xl-bo-theo-doi', ['bai_dang_id' => $baiDang->id]) }}">Bỏ
+                                                        theo dõi</a>
+                                                @else
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('xl-theo-doi-lai', ['bai_dang_id' => $baiDang->id]) }}">Theo
+                                                        dõi</a>
+                                                @endif
+                                            @else
+                                                <a class="dropdown-item"
+                                                    href="{{ route('xl-theo-doi', ['bai_dang_id' => $baiDang->id]) }}">Theo
+                                                    dõi</a>
+                                            @endif
+
+
+                                        @endif
                                     </li>
                                     <li><a class="dropdown-item" href="{{ Auth::id() == null ? '/dang-nhap' : '' }}">Báo
                                             cáo</a>
@@ -109,8 +131,8 @@
                 @else
                     <div class="col" style="text-align: right;opacity:.3">
                         <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ URL('images/detail.png') }}" class="rounded-circle"
-                                style="width: 2.3em;height:2.3em">
+                            <img src="{{ URL('images/default_images/menu-dots.png') }}" class="rounded-circle"
+                                style="width: 1.3em;height:1.3em">
                         </button>
                     </div>
                 @endif
@@ -213,7 +235,7 @@
 
                 @if (Auth::id() != null)
                     <div class="input-group hienthi d-flex flex-row align-items-center">
-                    
+
                         <?php
                         if ($user->anh_dai_dien != '') {
                             echo '<img src="/images/added_images/' . $user->anh_dai_dien . '" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';

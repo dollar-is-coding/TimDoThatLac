@@ -27,6 +27,9 @@ Route::post('/chinh-sua-tai-khoan',[NguoiDungController::class,'edit'])->name('x
 Route::get('/xem-bai-dang/{id}',[BaiDangController::class,'xem_bai_dang'])->name('xem-bai-dang');
 Route::get('/danh-sach-bai-dang',[BaiDangController::class,'ds_bai_dang'])->name('ds-bai-dang')->middleware('auth');
 Route::get('/danh-sach-theo-doi',[BaiDangController::class,'ds_theo_doi'])->name('ds-theo-doi')->middleware('auth');
+Route::get('/xu-ly-theo-doi/{bai_dang_id}',[BaiDangController::class,'xl_theo_doi'])->name('xl-theo-doi')->middleware('auth');
+Route::get('/xu-ly-bo-theo-doi/{bai_dang_id}',[BaiDangController::class,'xl_bo_theo_doi'])->name('xl-bo-theo-doi')->middleware('auth');
+Route::get('/xu-ly-theo-doi-lai/{bai_dang_id}',[BaiDangController::class,'xl_theo_doi_lai'])->name('xl-theo-doi-lai')->middleware('auth');
 Route::get('/dang-bai',[BaiDangController::class,'dang_bai'])->name('dang-bai')->middleware('auth');
 Route::post('/dang-bai',[BaiDangController::class,'xu_ly_dang_bai'])->name('xl-dang-bai')->middleware('auth');
 Route::get('/chinh-sua-bai-dang/{id}',[BaiDangController::class,'show'])->name('chinh-sua-bai-dang')->middleware('auth');

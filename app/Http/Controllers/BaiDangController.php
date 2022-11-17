@@ -9,6 +9,7 @@ use App\Models\TheLoai;
 use App\Models\DanhMuc;
 use App\Models\KhuVuc;
 use App\Models\HinhAnh;
+use App\Models\TheoDoi;
 use Illuminate\Support\Facades\Auth;
 
 class BaiDangController extends Controller
@@ -18,7 +19,24 @@ class BaiDangController extends Controller
         $chiTietBaiDang=BaiDang::find($id);
         $soLuongHinhAnh=HinhAnh::where('bai_dang_id',$id)->count();
         $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
-        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh,'user'=>$user]);
+        $follow=TheoDoi::where('nguoi_dung_id',Auth::id())->where('bai_dang_id',$id)->first();
+        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh,'user'=>$user,'daTheoDoi'=>$follow]);
+    }
+    public function xl_theo_doi($bai_dang_id) {
+        TheoDoi::create([
+            'nguoi_dung_id'=>Auth::id(),
+            'bai_dang_id'=>$bai_dang_id,
+            'trang_thai'=>1
+        ]);
+        return back();
+    }
+    public function xl_bo_theo_doi($bai_dang_id) {
+        TheoDoi::where('bai_dang_id',$bai_dang_id)->update(['trang_thai'=>0]);
+        return back();
+    }
+    public function xl_theo_doi_lai($bai_dang_id) {
+        TheoDoi::where('bai_dang_id',$bai_dang_id)->update(['trang_thai'=>1]);
+        return back();
     }
     public function ds_bai_dang() {
         $id=Auth::id();
@@ -29,7 +47,8 @@ class BaiDangController extends Controller
     public function ds_theo_doi() {
         $id=Auth::id();
         $nguoiDung=NguoiDung::where('id',$id)->first();
-        return view('main_pages.follow_list',['user'=>$nguoiDung,'id'=>$id]);
+        $dsTheoDoi=TheoDoi::where('nguoi_dung_id',Auth::id())->where('trang_thai',1)->get();
+        return view('main_pages.follow_list',['user'=>$nguoiDung,'id'=>$id,'dsTheoDoi'=>$dsTheoDoi]);
     }
     public function dang_bai() {
         $danhMuc=DanhMuc::all();

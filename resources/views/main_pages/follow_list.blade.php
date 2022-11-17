@@ -40,42 +40,60 @@
                         tin cá nhân</a>
                 </div>
             </div>
-            <div class="mt-3 rounded shadow-sm w-100 p-4 pt-0 pb-2"
-                style="margin-left:3%;background-color:white">
+            <div class="mt-3 rounded shadow-sm w-100 p-4 pt-0 pb-2" style="margin-left:3%;background-color:white">
                 <div class="d-flex justify-content-center">
                     <a href="{{ route('ds-bai-dang') }}" class=" text-decoration-none text-success m-3 mb-0 ">Bài đăng</a>
                     <a href="#" class="text-decoration-none fw-semibold text-dark m-3  mb-0">Theo
                         dõi</a>
                 </div>
                 <hr>
-                <a href="" class="text-decoration-none text-dark">
-                    <div class="rounded-2 d-flex p-4 pt-0 pb-3 mt-2 justify-content-between ">
-                        <div class="d-flex flex-fill align-items-center">
-                            <img src="{{ URL('images/default_images/user.png') }}" class="rounded-2"
-                                style="width:5em;height:5em">
-                            <div style="margin-left:3%;background-color:white">
-                                <div class="fs-5 fw-semibold">Mất chó ở công viên Lê Thị Riêng</div>
-                                <div>Lưu Hằng Nga</div>
-                                <div class="d-flex text-center mt-2">
-                                    <div class="rounded p-2 pt-0 pb-0" style="background-color:#D6FFFF;color:#052147 ;">Tìm
-                                        đồ</div>&ensp;
-                                    <div class="rounded p-2 pt-0 pb-0" style="background-color:#D6FFFF;color:#052147 ;">Balo
-                                    </div>&ensp;
-                                    <div class="rounded p-2 pt-0 pb-0" style="background-color:#D6FFFF;color:#052147 ;">
-                                        TP.HCM</div>
+                @foreach ($dsTheoDoi as $item)
+                    <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
+                        <div class="rounded-2 d-flex p-4 pt-0 pb-3 mt-2 justify-content-between ">
+                            <div class="d-flex flex-fill align-items-center">
+                                <?php
+                                if ($item->baiDang->nguoiDung->anh_dai_dien != '') {
+                                    echo '<img src="/images/added_images/' . $item->baiDang->nguoiDung->anh_dai_dien . '" alt="" class="rounded-2" style="width:5em;height:5em">';
+                                } elseif ($item->baiDang->nguoiDung->gioi_tinh == 1) {
+                                    echo '<img src="/images/default_images/man.png" alt="" class="rounded-2" style="width:5em;height:5em">';
+                                } else {
+                                    echo '<img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">';
+                                }
+                                ?>
+                                <div style="margin-left:3%;background-color:white">
+                                    <div class="fs-5 fw-semibold">{{ $item->baiDang->tieu_de }}</div>
+                                    <div>{{ $item->baiDang->nguoiDung->ho_ten }}</div>
+                                    <div class="d-flex text-center mt-2">
+                                        @if ($item->baiDang->trang_thai == 0)
+                                            <div class="rounded p-2 pt-0 pb-0 bg-success text-white">
+                                                {{ $item->baiDang->the_loai_id == 1 ? 'Đã trả' : 'Đã tìm thấy' }}</div>
+                                            &ensp;
+                                        @else
+                                            <div class="rounded p-2 pt-0 pb-0 shadow-sm"
+                                                style="background-color:#D6FFFF;color:#052147">
+                                                {{ $item->baiDang->theLoai->ten }}
+                                            </div>
+                                            &ensp;
+                                        @endif
+                                        <div class="rounded p-2 pt-0 pb-0" style="background-color:#D6FFFF;color:#052147 ;">
+                                            {{ $item->baiDang->danhMuc->ten }}
+                                        </div>&ensp;
+                                        <div class="rounded p-2 pt-0 pb-0" style="background-color:#D6FFFF;color:#052147 ;">
+                                            {{ $item->baiDang->khuVuc->ten }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row" style="padding-top:.3%;">
+                                <div>
+                                    {{ $item->updated_at->format('H:i') }}
+                                </div>
+                                &ensp;<div>
+                                    {{ $item->updated_at->format('d/m/Y') }}
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex flex-row" style="padding-top:.3%;">
-                            <div>
-                                20:34
-                            </div>
-                            &ensp;<div>
-                                07/05/2022
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>

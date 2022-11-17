@@ -48,11 +48,7 @@
                     <a href="{{ route('ds-theo-doi') }}" class=" text-decoration-none text-success m-3 mb-0">Theo dõi</a>
                 </div>
                 <hr>
-                @foreach ($dsBaiDa
-                
-                
-                
-                ng as $item)
+                @foreach ($dsBaiDang as $item)
                     <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
                         <div class="rounded-2  d-flex p-4 pt-0 pb-3 mt-2 justify-content-between ">
                             <div class="d-flex flex-fill align-items-center">
