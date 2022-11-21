@@ -110,7 +110,7 @@ class BaiDangController extends Controller
                 ]);
             }
         }
-        return redirect()->route('ds-bai-dang');
+        return redirect()->route('ds-bai-dang',['id'=>Auth::id()]);
     }
     public function show($id) {
         $chiTietBaiDang =BaiDang::find($id);
