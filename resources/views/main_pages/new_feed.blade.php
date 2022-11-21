@@ -2,9 +2,10 @@
 @section('main')
     <div style="padding-left:20em;padding-right:20em;">
         <div class=" p-4 mt-3 mb-3 pt-3 pb-3 rounded-2  shadow-sm" style="background-color:white">
-            <form class="row d-flex justify-content-center">
+            <form class="row d-flex justify-content-center" action="{{ route('tim-kiem') }}">
                 <div class="col-auto" style="width:17%">
-                    <select class="form-select" aria-label="Default select example" style="background-color:#D6FFFF">
+                    <select class="form-select" name="danh_muc" aria-label="Default select example"
+                        style="background-color:#D6FFFF">
                         <option selected>Danh mục</option>
                         @foreach ($dsDanhMuc as $item)
                             <option class="m-3" value="{{ $item->id }}">{{ $item->ten }}</option>
@@ -12,15 +13,17 @@
                     </select>
                 </div>
                 <div class="col-auto" style="width:17%">
-                    <select class="form-select" aria-label="Default select example" style="background-color:#D6FFFF">
-                        <option selected>Thể Loại</option>
+                    <select class="form-select" name="the_loai" aria-label="Default select example"
+                        style="background-color:#D6FFFF">
+                        <option selected>Thể loại</option>
                         @foreach ($dsTheLoai as $item)
                             <option value="{{ $item->id }}">{{ $item->ten }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-auto" style="width:17%">
-                    <select class="form-select" aria-label="Default select example" style="background-color:#D6FFFF">
+                    <select class="form-select" name="khu_vuc" aria-label="Default select example"
+                        style="background-color:#D6FFFF">
                         <option selected>Khu vực</option>
                         @foreach ($dsKhuVuc as $item)
                             <option class="m-3" value="{{ $item->id }}">{{ $item->ten }}</option>
@@ -28,7 +31,8 @@
                     </select>
                 </div>
                 <div class="col-auto" style="width:35%">
-                    <input type="text" placeholder="Từ khoá" class="form-control" style="background-color:#D6FFFF">
+                    <input type="text" name="search" placeholder="Từ khoá" class="form-control"
+                        style="background-color:#D6FFFF">
                 </div>
                 <div class="col-auto">
                     <button class="btn" style="background-color: #052147;color:white;" type="submit">Tìm kiếm</button>

@@ -26,7 +26,7 @@
 
         .dandev-reviews .form_upload>label {
             height: 35px;
-            width: 160px;
+            /* width: 160px; */
             display: block;
             cursor: pointer;
         }
@@ -41,7 +41,7 @@
 
         .list_attach {
             display: block;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         ul.dandev_attach_view {
@@ -49,8 +49,9 @@
             margin: 0;
             padding: 0;
         }
+
         /* day ne */
-        ul.dandev_attach_view li { 
+        ul.dandev_attach_view li {
             float: left;
             width: 112px;
             margin: 0 20px 20px 0 !important;
@@ -149,7 +150,7 @@
         .list_attach.show-btn span.dandev_insert_attach {
             display: block;
             margin: 0 0 20px !important;
-            padding-top: 20px;
+            padding-top: 15px;
         }
 
         i.dandev-plus {
@@ -172,43 +173,67 @@
     </style>
 
     <div style="padding-left:20em;padding-right:20em;" class="mb-4">
-        <div class="rounded p-5 pt-3 pb-3 shadow-sm mt-4" style="background-color: white">
+        <div class="rounded p-5 pt-3 pb-3 shadow-sm mt-3" style="background-color: white">
             <div class="fs-3 fw-semibold text-center">Đăng bài</div>
             <hr>
             <form action="{{ route('xl-dang-bai') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
-                    &ensp;<label  class="mb-1">Tiêu đề</label>
-                    <input class="form-control" rows="1" name="tieu_de" contenteditable="true" style="background-color:#D6FFFF"></input>
+                    &ensp;<label class="mb-1 fw-semibold">Tiêu đề</label>
+                    <input class="form-control" rows="1" name="tieu_de" contenteditable="true"
+                        style="background-color:#D6FFFF"></input>
                 </div>
                 <div class="mb-3">
-                    &ensp;<label  class="mb-1">Nội dung</label>
+                    &ensp;<label class="mb-1 fw-semibold">Nội dung</label>
                     <textarea class="form-control" rows="5" name="noi_dung" contenteditable="true" style="background-color:#D6FFFF"></textarea>
                 </div>
                 <div class="mb-3">
-                    &ensp;<label  class="mb-1">Địa chỉ</label>
+                    &ensp;<label class="mb-1 fw-semibold">Địa chỉ</label>
                     <textarea class="form-control" rows="2" name="dia_chi" contenteditable="true" style="background-color:#D6FFFF"></textarea>
                 </div>
-                <div class="d-flex flex-row mb-3">
+                <div class="mb-1">
+                    &ensp;<label class="mb-1 fw-semibold">Liên hệ</label>
+                    <div class="d-flex justify-content-between">
+                        <div class="input-group mb-3" style="width:30%">
+                            <span class="input-group-text" id="basic-addon1">ĐT</span>
+                            <input type="text" name="dien_thoai" class="form-control" placeholder="Số điện thoại"
+                                aria-label="Email" aria-describedby="basic-addon1" style="background-color:#D6FFFF">
+                        </div>
+                        <div class="input-group mb-3" style="width:32%">
+                            <span class="input-group-text" id="basic-addon1">Z</span>
+                            <input type="text" name="zalo" class="form-control" placeholder="Zalo" aria-label="Email"
+                                aria-describedby="basic-addon1" style="background-color:#D6FFFF">
+                        </div>
+                        <div class="input-group mb-3" style="width:35%">
+                            <span class="input-group-text" id="basic-addon1">F</span>
+                            <input type="text" name="facebook" class="form-control" placeholder="Facebook"
+                                aria-label="Email" aria-describedby="basic-addon1" style="background-color:#D6FFFF">
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row mb-2">
                     <div class="flex-fill" style="margin-right:1em">
-                        &ensp;<label  class="mb-1">Danh mục</label>
-                        <select class="form-select" name="danh_muc" aria-label="Default select example" style="background-color:#D6FFFF">
+                        &ensp;<label class="mb-1 fw-semibold">Danh mục</label>
+                        <select class="form-select" name="danh_muc" aria-label="Default select example"
+                            style="background-color:#D6FFFF">
                             @foreach ($danhMuc as $item)
                                 <option value="{{ $item->id }}">{{ $item->ten }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="flex-fill" style="margin-right:1em">
-                        &ensp;<label  class="mb-1">Thể loại</label>
-                        <select class="form-select" name="the_loai" aria-label="Default select example" style="background-color:#D6FFFF">
+                        &ensp;<label class="mb-1 fw-semibold">Thể loại</label>
+                        <select class="form-select" name="the_loai" aria-label="Default select example"
+                            style="background-color:#D6FFFF">
                             @foreach ($theLoai as $item)
                                 <option value="{{ $item->id }}">{{ $item->ten }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="flex-fill">
-                        &ensp;<label  class="mb-1">Khu vực</label>
-                        <select class="form-select" name="khu_vuc" aria-label="Default select example" style="background-color:#D6FFFF">
+                        &ensp;<label class="mb-1 fw-semibold">Khu vực</label>
+                        <select class="form-select" name="khu_vuc" aria-label="Default select example"
+                            style="background-color:#D6FFFF">
                             @foreach ($khuVuc as $item)
                                 <option value="{{ $item->id }}">{{ $item->ten }}</option>
                             @endforeach
@@ -216,18 +241,21 @@
                     </div>
                 </div>
 
-                <div class="border">
-                    <div class="dandev-reviews">
-                        <div style="margin-top: -1.3em;">
-                            <label class="dandev_insert_attach m border rounded-2">
-                                Thêm ảnh
-                            </label>
-                        </div>
-                        <div class="list_attach d-flex" >
-                            <ul class="dandev_attach_view" >
-                            </ul>
-                            <span class="dandev_insert_attach "><i class="dandev-plus">+</i></span>
-                        </div>
+                <div class="dandev-reviews">
+                    <label class="dandev_insert_attach rounded-2">
+                        <span class=" d-inline-flex align-items-center">
+                            &ensp;
+                            {{-- <img src="/images/default_images/plus-small.png" width="3%" height="3%"> --}}
+                            <div class="fw-semibold p-2 pt-0 pb-0 rounded shadow-sm"
+                                style="background-color: #052147;color:white">
+                                + Thêm ảnh</div>
+                        </span>
+
+                    </label>
+                    <div class="list_attach d-flex">
+                        <ul class="dandev_attach_view">
+                        </ul>
+                        <span class="dandev_insert_attach"><i class="dandev-plus">+</i></span>
                     </div>
                 </div>
 

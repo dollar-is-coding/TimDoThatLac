@@ -14,7 +14,7 @@ use App\Http\Controllers\BaiDangController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/',[NguoiDungController::class,'trang_chu'])->name('trang-chu');
+
 Route::get('/dang-ky',[NguoiDungController::class,'create'])->name('dang-ky')->middleware('guest');
 Route::post('/dang-ky',[NguoiDungController::class,'store'])->name('xl-dang-ky')->middleware('guest');
 Route::get('/dang-nhap',[NguoiDungController::class,'sign_in'])->name('dang-nhap')->middleware('guest');
@@ -24,9 +24,11 @@ Route::get('/dang-xuat',[NguoiDungController::class,'log_out'])->name('dang-xuat
 Route::get('/chinh-sua-tai-khoan',[NguoiDungController::class,'show'])->name('chinh-sua-tai-khoan')->middleware('auth');
 Route::post('/chinh-sua-tai-khoan',[NguoiDungController::class,'edit'])->name('xl-chinh-sua-tai-khoan')->middleware('auth');
 
+Route::get('/',[BaiDangController::class,'trang_chu'])->name('trang-chu');
+Route::get('/tim-kiem',[BaiDangController::class,'tim_kiem'])->name('tim-kiem');
 Route::get('/xem-bai-dang/{id}',[BaiDangController::class,'xem_bai_dang'])->name('xem-bai-dang');
-Route::get('/danh-sach-bai-dang',[BaiDangController::class,'ds_bai_dang'])->name('ds-bai-dang')->middleware('auth');
-Route::get('/danh-sach-theo-doi',[BaiDangController::class,'ds_theo_doi'])->name('ds-theo-doi')->middleware('auth');
+Route::get('/danh-sach-bai-dang/{id}',[BaiDangController::class,'ds_bai_dang'])->name('ds-bai-dang');
+Route::get('/danh-sach-theo-doi/{id}',[BaiDangController::class,'ds_theo_doi'])->name('ds-theo-doi');
 Route::get('/xu-ly-theo-doi/{bai_dang_id}',[BaiDangController::class,'xl_theo_doi'])->name('xl-theo-doi')->middleware('auth');
 Route::get('/xu-ly-bo-theo-doi/{bai_dang_id}',[BaiDangController::class,'xl_bo_theo_doi'])->name('xl-bo-theo-doi')->middleware('auth');
 Route::get('/xu-ly-theo-doi-lai/{bai_dang_id}',[BaiDangController::class,'xl_theo_doi_lai'])->name('xl-theo-doi-lai')->middleware('auth');

@@ -14,9 +14,11 @@ class DanhMucSeeder extends Seeder
      */
     public function run()
     {
-        DanhMuc::create(['ten'=>'Ví']);
+        DanhMuc::create(['ten'=>'Bóp/Ví']);
         DanhMuc::create(['ten'=>'Điện thoại']);
         DanhMuc::create(['ten'=>'Giấy tờ tuỳ thân']);
-        DanhMuc::create(['ten'=>'Trang sức']);
+        DanhMuc::create(['ten'=>'Trang sức/Phụ kiện']);
+        DanhMuc::create(['ten'=>'Thú cưng']);
+        DanhMuc::create(['ten'=>'Khác']);
     }
 }

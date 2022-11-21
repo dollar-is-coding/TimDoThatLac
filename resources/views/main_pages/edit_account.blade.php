@@ -57,7 +57,8 @@
         }
     </style>
     <div style="padding-left:20em;padding-right:20em;">
-        <div class=" rounded-3 p-5 pt-3 pb-1 shadow-sm mt-4 mb-3" style="margin-left:10em;margin-right:10em;background-color:white">
+        <div class=" rounded-3 p-5 pt-3 pb-1 shadow-sm mt-4 mb-3"
+            style="margin-left:10em;margin-right:10em;background-color:white">
             <div class="fs-3 fw-semibold text-center">Chỉnh sửa tài khoản</div>
             <hr>
             <form action="{{ route('xl-chinh-sua-tai-khoan') }}" method="POST" enctype="multipart/form-data">
@@ -89,12 +90,8 @@
                 </div>
                 <div class="mb-3">
                     &ensp;<label class="form-label">Họ tên</label>
-                    <input type="text" name="ho_ten" class="form-control" value="{{ $user->ho_ten }}" style="background-color:#D6FFFF">
-                </div>
-                <div class="mb-3">
-                    &ensp;<label class="form-label">Số điện thoại</label>
-                    <input type="text" class="form-control" name="so_dien_thoai" value="{{ $user->so_dien_thoai }}"
-                        placeholder="Số điện thoại" style="background-color:#D6FFFF">
+                    <input type="text" name="ho_ten" class="form-control" value="{{ $user->ho_ten }}"
+                        style="background-color:#D6FFFF">
                 </div>
                 <div class="mb-3">
                     &ensp; <label class="form-label">Email</label>
@@ -103,7 +100,8 @@
                 </div>
                 <div class="mb-3">
                     &ensp;<label for="floatingTextarea" class="form-label">Giới tính</label>
-                    <select class="form-select mb-3" type="number" name="gioi_tinh" aria-label=".form-select-sm example" style="background-color:#D6FFFF">
+                    <select class="form-select mb-3" type="number" name="gioi_tinh" aria-label=".form-select-sm example"
+                        style="background-color:#D6FFFF">
                         <option value="1" {{ '1' == $user->gioi_tinh ? 'selected' : '' }}>Nam</option>
                         <option value="2" {{ '2' == $user->gioi_tinh ? 'selected' : '' }}>Nữ</option>
 
@@ -113,7 +111,8 @@
                     &ensp;<label for="floatingTextarea" class="form-label">Ngày sinh</label>
                     <div class="row mb-3">
                         <div class="col">
-                            <select class="form-select" name="ngay" type="decimal" aria-label="Default select example" style="background-color:#D6FFFF">
+                            <select class="form-select" name="ngay" type="decimal" aria-label="Default select example"
+                                style="background-color:#D6FFFF">
                                 @for ($i = 1; $i <= 31; $i++)
                                     <option value="{{ $i }}" {{ $i == $day ? 'selected' : '' }}>
                                         {{ $i }}
@@ -122,7 +121,8 @@
                             </select>
                         </div>
                         <div class="col">
-                            <select class="form-select" name="thang" aria-label="Default select example" style="background-color:#D6FFFF">
+                            <select class="form-select" name="thang" aria-label="Default select example"
+                                style="background-color:#D6FFFF">
                                 @for ($i = 1; $i <= 12; $i++)
                                     <option value="{{ $i }}" {{ $i == $month ? 'selected' : '' }}>
                                         {{ $i }}
@@ -131,7 +131,8 @@
                             </select>
                         </div>
                         <div class="col">
-                            <select class="form-select" name="nam" aria-label="Default select example" style="background-color:#D6FFFF">
+                            <select class="form-select" name="nam" aria-label="Default select example"
+                                style="background-color:#D6FFFF">
                                 @for ($i = 1960; $i <= 2015; $i++)
                                     <option value="{{ $i }}" {{ $i == $year ? 'selected' : '' }}>
                                         {{ $i }}

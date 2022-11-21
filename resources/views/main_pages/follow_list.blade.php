@@ -6,21 +6,16 @@
                 <div class="text-center">
                     <?php
                     if ($user->anh_dai_dien != '') {
-                        echo '<img src="images/added_images/' . $user->anh_dai_dien . '" alt="" class="rounded-circle" style="width:10em;height:10em">';
+                        echo '<img src="/images/added_images/' . $user->anh_dai_dien . '" alt="" class="rounded-circle" style="width:10em;height:10em">';
                     } elseif ($user->gioi_tinh == 1) {
-                        echo '<img src="images/default_images/man.png" alt="" class="rounded-circle" style="width:10em;height:10em">';
+                        echo '<img src="/images/default_images/man.png" alt="" class="rounded-circle" style="width:10em;height:10em">';
                     } else {
-                        echo '<img src="images/default_images/woman.png" alt="" class="rounded-circle" style="width:10em;height:10em">';
+                        echo '<img src="/images/default_images/woman.png" alt="" class="rounded-circle" style="width:10em;height:10em">';
                     }
                     ?>
                 </div>
                 <div class="fs-3 fw-bold mt-3 mb-2 text-center">{{ $user->ho_ten }}</div>
                 <hr>
-                <div class="d-flex align-items-center mb-1">
-                    <img src="{{ URL('images/default_images/circle-phone.png') }}"
-                        style="width:1.2em;height:1.2em;margin-right:.5em">
-                    {{ $user->so_dien_thoai }}
-                </div>
                 <div class="d-flex align-items-center mb-1">
                     <img src="{{ URL('images/default_images/at.png') }}" style="width:1.2em;height:1.2em;margin-right:.5em">
                     {{ $user->email }}
@@ -40,16 +35,18 @@
                         tin cá nhân</a>
                 </div>
             </div>
-            <div class="mt-3 rounded shadow-sm w-100 p-4 pt-0 pb-2" style="margin-left:3%;background-color:white">
+            <div class="mt-3 rounded shadow-sm w-100 p-4 pt-0 pb-2" style="margin-left:2%;background-color:white">
                 <div class="d-flex justify-content-center">
-                    <a href="{{ route('ds-bai-dang') }}" class=" text-decoration-none text-success m-3 mb-0 ">Bài đăng</a>
+                    <a href="{{ route('ds-bai-dang', ['id' => $user->id]) }}"
+                        class=" text-decoration-none text-success m-3 mb-0 ">Bài đăng</a>
                     <a href="#" class="text-decoration-none fw-semibold text-dark m-3  mb-0">Theo
                         dõi</a>
                 </div>
                 <hr>
                 @foreach ($dsTheoDoi as $item)
-                    <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
-                        <div class="rounded-2 d-flex p-4 pt-0 pb-3 mt-2 justify-content-between ">
+                    <a href="{{ route('xem-bai-dang', ['id' => $item->bai_dang_id]) }}"
+                        class="text-decoration-none text-dark">
+                        <div class="rounded-2 d-flex p-4 pt-0 pb-3 mt-2 justify-content-between shadow-sm">
                             <div class="d-flex flex-fill align-items-center">
                                 <?php
                                 if ($item->baiDang->nguoiDung->anh_dai_dien != '') {
@@ -85,10 +82,10 @@
                             </div>
                             <div class="d-flex flex-row" style="padding-top:.3%;">
                                 <div>
-                                    {{ $item->updated_at->format('H:i') }}
+                                    {{ $item->baiDang->updated_at->format('H:i') }}
                                 </div>
                                 &ensp;<div>
-                                    {{ $item->updated_at->format('d/m/Y') }}
+                                    {{ $item->baiDang->updated_at->format('d/m/Y') }}
                                 </div>
                             </div>
                         </div>

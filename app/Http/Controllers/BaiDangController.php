@@ -10,17 +10,43 @@ use App\Models\DanhMuc;
 use App\Models\KhuVuc;
 use App\Models\HinhAnh;
 use App\Models\TheoDoi;
+use App\Models\LienHe;
 use Illuminate\Support\Facades\Auth;
 
 class BaiDangController extends Controller
 {
+    public function trang_chu()
+    {
+        $dsTheLoai=TheLoai::all();
+        $dsDanhMuc=DanhMuc::all();
+        $dsKhuVuc=KhuVuc::all();
+        $dsBaiDang=BaiDang::where('trang_thai',1)->orderBy('updated_at','DESC')->get();
+        return view('main_pages.new_feed',['dsTheLoai'=>$dsTheLoai,'dsDanhMuc'=>$dsDanhMuc,'dsKhuVuc'=>$dsKhuVuc,'dsBaiDang'=>$dsBaiDang]);
+    }
+    public function tim_kiem(Request $request) {
+        $dsTheLoai=TheLoai::all();
+        $dsDanhMuc=DanhMuc::all();
+        $dsKhuVuc=KhuVuc::all();
+        $dsBaiDang=BaiDang::where([['trang_thai',1],['tieu_de','like','%'.$request->search.'%']])->orWhere('noi_dung','like','%'.$request->search.'%')->orderBy('updated_at','DESC')->get();
+        if($request->danh_muc!='Danh mục') {
+            $dsBaiDang=BaiDang::where('danh_muc_id',$request->danh_muc)->orderBy('updated_at','DESC')->get();
+        }
+        if($request->the_loai!='Thể loại') {
+            $dsBaiDang=BaiDang::where('the_loai_id',$request->the_loai)->orderBy('updated_at','DESC')->get();
+        }
+        if($request->khu_vuc!='Khu vực') {
+            $dsBaiDang=BaiDang::where('khu_vuc_id',$request->khu_vuc)->orderBy('updated_at','DESC')->get();
+        }
+        return view('main_pages.new_feed',['dsTheLoai'=>$dsTheLoai,'dsDanhMuc'=>$dsDanhMuc,'dsKhuVuc'=>$dsKhuVuc,'dsBaiDang'=>$dsBaiDang]);
+    }
     public function xem_bai_dang($id) {
         $user=NguoiDung::where('id',Auth::id())->first();
         $chiTietBaiDang=BaiDang::find($id);
         $soLuongHinhAnh=HinhAnh::where('bai_dang_id',$id)->count();
+        $lienHe=LienHe::where('bai_dang_id',$id)->first();
         $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
         $follow=TheoDoi::where('nguoi_dung_id',Auth::id())->where('bai_dang_id',$id)->first();
-        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh,'user'=>$user,'daTheoDoi'=>$follow]);
+        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh,'user'=>$user,'daTheoDoi'=>$follow,'lienHe'=>$lienHe]);
     }
     public function xl_theo_doi($bai_dang_id) {
         TheoDoi::create([
@@ -38,14 +64,13 @@ class BaiDangController extends Controller
         TheoDoi::where('bai_dang_id',$bai_dang_id)->update(['trang_thai'=>1]);
         return back();
     }
-    public function ds_bai_dang() {
-        $id=Auth::id();
+    public function ds_bai_dang($id) {
         $nguoiDung=NguoiDung::where('id',$id)->first();
         $dsBaiDang=BaiDang::where('nguoi_dung_id',$id)->orderBy('trang_thai','DESC')->orderBy('updated_at','DESC')->get();
         return view('main_pages.post_list',['user'=>$nguoiDung,'dsBaiDang'=>$dsBaiDang,'id'=>$id]);
     }
-    public function ds_theo_doi() {
-        $id=Auth::id();
+    public function ds_theo_doi($id) {
+   
         $nguoiDung=NguoiDung::where('id',$id)->first();
         $dsTheoDoi=TheoDoi::where('nguoi_dung_id',Auth::id())->where('trang_thai',1)->get();
         return view('main_pages.follow_list',['user'=>$nguoiDung,'id'=>$id,'dsTheoDoi'=>$dsTheoDoi]);
@@ -69,6 +94,12 @@ class BaiDangController extends Controller
             'trang_thai'=>1,
         ]);
         $hinhAnh=BaiDang::latest()->first();
+        $lienHe=LienHe::create([
+            'bai_dang_id'=>$hinhAnh->id,
+            'dien_thoai'=>$request->dien_thoai,
+            'zalo'=>$request->zalo,
+            'facebook'=>$request->facebook,
+        ]);
         if ($request->has('file')) {
             foreach ($request->file('file') as $img) {
                 $filename = $img->getClientOriginalName();
@@ -86,8 +117,9 @@ class BaiDangController extends Controller
         $danhMuc=DanhMuc::all();
         $theLoai=TheLoai::all();
         $khuVuc=KhuVuc::all();
+        $lienHe=LienHe::where('bai_dang_id',$id)->first();
         $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
-        return view('main_pages.edit_post',['baiDang'=>$chiTietBaiDang,'danhMuc'=>$danhMuc,'theLoai'=>$theLoai,'khuVuc'=>$khuVuc,'hinhAnh'=>$hinhAnh]);
+        return view('main_pages.edit_post',['baiDang'=>$chiTietBaiDang,'danhMuc'=>$danhMuc,'theLoai'=>$theLoai,'khuVuc'=>$khuVuc,'hinhAnh'=>$hinhAnh,'lienHe'=>$lienHe]);
     }
     public function edit($id,Request $request) {
         $chiTietBaiDang=BaiDang::find($id)->update([
@@ -98,8 +130,12 @@ class BaiDangController extends Controller
             'noi_dung'=>$request->noi_dung,
             'dia_chi'=>$request->dia_chi,
         ]);
-      
-        return redirect()->route('trang-chu');
+        $chiTietLienHe=LienHe::where('bai_dang_id',$id)->update([
+            'dien_thoai'=>$request->dien_thoai,
+            'zalo'=>$request->zalo,
+            'facebook'=>$request->facebook,
+        ]);
+        return redirect()->route('xem-bai-dang',['id'=>$id]);
     }
     public function destroy($id) {
         $xoaBaiDang=BaiDang::find($id)->delete();

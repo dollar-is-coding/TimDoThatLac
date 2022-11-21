@@ -23,14 +23,7 @@ class NguoiDungController extends Controller
     {
         return view('begin_pages.sign_in');
     }
-    public function trang_chu()
-    {
-        $dsTheLoai=TheLoai::all();
-        $dsDanhMuc=DanhMuc::all();
-        $dsKhuVuc=KhuVuc::all();
-        $dsBaiDang=BaiDang::where('trang_thai',1)->orderBy('updated_at','DESC')->get();
-        return view('main_pages.new_feed',['dsTheLoai'=>$dsTheLoai,'dsDanhMuc'=>$dsDanhMuc,'dsKhuVuc'=>$dsKhuVuc,'dsBaiDang'=>$dsBaiDang]);
-    }
+    
 
     public function get_sign_in(Request $request)
     {
@@ -70,7 +63,6 @@ class NguoiDungController extends Controller
             'ho_ten'=>$request->ho_ten,
             'mat_khau'=>Hash::make($request->password),
             'email'=>$request->email,
-            'so_dien_thoai'=>"",
             'admin'=>0,
             'ngay_sinh'=>date('Y/m/d', strtotime($ngay_sinh)),
             'gioi_tinh'=>(int)$request->gioi_tinh,
@@ -114,7 +106,6 @@ class NguoiDungController extends Controller
         $nguoiDung=NguoiDung::where('id',$id)->update([
             'ho_ten'=>$request->ho_ten,
             'email'=>$request->email,
-            'so_dien_thoai'=>$request->so_dien_thoai,
             'ngay_sinh'=>date('Y/m/d', strtotime($ngay_sinh)),
             'gioi_tinh'=>(int)$request->gioi_tinh,
         ]);

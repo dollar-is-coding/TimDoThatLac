@@ -34,11 +34,11 @@
                             style="width: 2.7em;height:2.7em;background-color: rgb(202, 221, 255)">
                     </button>
                     <ul class="dropdown-menu mt-1 shadow" style="background-color: #052147">
-                        <li class="hover"><a class="dropdown-item text" href="{{ route('ds-bai-dang') }}">Cá
-                                nhân</a>
+                        <li class="hover">
+                            <a class="dropdown-item text" href="{{ route('ds-bai-dang',['id'=>Auth::id()]) }}">Cá nhân</a>
                         </li>
-                        <li class="hover"><a class="dropdown-item text" href="{{ route('dang-xuat') }}">Đăng
-                                xuất</a>
+                        <li class="hover">
+                            <a class="dropdown-item text" href="{{ route('dang-xuat') }}">Đăng xuất</a>
                         </li>
                     </ul>
                 </div>
