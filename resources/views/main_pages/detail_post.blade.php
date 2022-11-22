@@ -295,25 +295,48 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
+
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Báo Cáo</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body ">
                     <h5>Báo cáo bài viết với quản trị viên</h5>
-                    Hãy cho quản trị viên biết bài viết này có vấn đề gì.
-                    Chúng tôi sẽ không thông báo cho người đăng rằng bạn đã báo cáo.
+                    Hãy cho quản trị viên biếut bài viết này có vấn đề gì. Chúng tôi sẽ không thông báo cho người đăng rằng
+                    bạn đã báo cáo.
                 </div>
+
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action">Tin giả</a>
-                    <a class="list-group-item list-group-item-action">Nội dung không liên
-                        quan</a>
-                    <a class="list-group-item list-group-item-action">Vi phạm quy tắc nhóm</a>
-                    <a class="list-group-item list-group-item-action">Khác . . .</a>
-                    {{-- <input type="text" name="khac" placeholder="Vi phạm khác..." class="form-control"> --}}
+                    @foreach ($array as $key => $item)
+                        <a class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdropReport{{ $key }}">{{ $item }}</a>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
+    @foreach ($array as $key => $item)
+        <div class="modal fade" id="staticBackdropReport{{ $key }}" data-bs-backdrop="static"
+            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $item }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body ">
+                        Chúng tôi sẽ xem xét báo cáo và thông báo cho bạn về quyết định của mình.
+                    </div>
+                    <div class="modal-footer">
+                        <form action="" method="post">
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">Hủy</button>
+                            <button type="submit" class="btn btn-primary">Gửi</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
     <script>
         const myModal = document.getElementById('myModal')
         const myInput = document.getElementById('myInput')
