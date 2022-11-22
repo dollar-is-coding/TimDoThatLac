@@ -70,13 +70,6 @@ class NguoiDungController extends Controller
             'gioi_tinh'=>(int)$request->gioi_tinh,
             'anh_dai_dien'=>""
         ]);
-        // $xuly =$request->only('email','password');
-        // if(Auth::attempt($xuly))
-        // {
-        //     return redirect()->route('xl-dang-nhap');
-        // }
-        // return redirect()->back()->with("error", "Đăng ký thất bại, Vui lòng kiểm tra lại =(");
-
         return redirect()->route('xl-dang-nhap');
     }
 
