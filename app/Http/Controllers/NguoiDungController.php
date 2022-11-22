@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DangKyRequets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,7 @@ use App\Models\TheLoai;
 use App\Models\DanhMuc;
 use App\Models\KhuVuc;
 use Carbon\Carbon;
+use App\Http\Requests\DangNhapRequets;
 
 class NguoiDungController extends Controller
 {
@@ -25,7 +27,7 @@ class NguoiDungController extends Controller
     }
     
 
-    public function get_sign_in(Request $request)
+    public function get_sign_in(DangNhapRequets $request)
     {
         $xuly =$request->only('email','password');
         if(Auth::attempt($xuly))
@@ -56,7 +58,7 @@ class NguoiDungController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DangKyRequets $request)
     {
         $ngay_sinh=$request->nam."/".$request->thang."/".$request->ngay;
         $nguoiDung=NguoiDung::create([
@@ -71,9 +73,10 @@ class NguoiDungController extends Controller
         // $xuly =$request->only('email','password');
         // if(Auth::attempt($xuly))
         // {
-        //     return redirect()->route('trang-chu');
+        //     return redirect()->route('xl-dang-nhap');
         // }
         // return redirect()->back()->with("error", "Đăng ký thất bại, Vui lòng kiểm tra lại =(");
+
         return redirect()->route('xl-dang-nhap');
     }
 
