@@ -30,10 +30,13 @@
                         style="width:1.2em;height:1.2em;margin-right:.5em">
                     {{ $user->gioi_tinh == 1 ? 'Nam' : 'Nữ' }}
                 </div>
-                <div class="text-center mt-2">
-                    <a href="{{ route('chinh-sua-tai-khoan') }}" class="btn btn-light btn-sm fw-semibold">Chỉnh sửa thông
-                        tin cá nhân</a>
-                </div>
+                @if (Auth::id() == $user->id)
+                    <div class="text-center mt-2">
+                        <a href="{{ route('chinh-sua-tai-khoan') }}" class="btn btn-light btn-sm fw-semibold">Chỉnh sửa
+                            thông
+                            tin cá nhân</a>
+                    </div>
+                @endif
             </div>
             <div class="mt-3 rounded shadow-sm w-100 p-4 pt-0 pb-2" style="margin-left:2%;background-color:white">
                 <div class="d-flex justify-content-center">

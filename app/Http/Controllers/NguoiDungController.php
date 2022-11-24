@@ -24,7 +24,6 @@ class NguoiDungController extends Controller
         return view('begin_pages.sign_in');
     }
     
-
     public function get_sign_in(Request $request)
     {
         $xuly =$request->only('email','password');
@@ -117,7 +116,7 @@ class NguoiDungController extends Controller
             $img->anh_dai_dien = $filename;
         }
         $img->save();
-        return redirect()->route('ds-bai-dang');
+        return redirect()->route('ds-bai-dang',['id'=>Auth::id()]);
     }
 
     /**

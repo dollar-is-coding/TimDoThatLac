@@ -11,6 +11,7 @@ use App\Models\KhuVuc;
 use App\Models\HinhAnh;
 use App\Models\TheoDoi;
 use App\Models\LienHe;
+use App\Models\BaoCao;
 use Illuminate\Support\Facades\Auth;
 
 class BaiDangController extends Controller
@@ -49,6 +50,14 @@ class BaiDangController extends Controller
         $follow=TheoDoi::where('nguoi_dung_id',Auth::id())->where('bai_dang_id',$id)->first();
         return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh,'user'=>$user,'daTheoDoi'=>$follow,'lienHe'=>$lienHe,'array'=>$array]);
     }
+    public function bao_cao($idBaiDang, $noiDungBaoCao) {
+        BaoCao::create([
+            'nguoi_dung_id'=>Auth::id(),
+            'bai_dang_id'=>$idBaiDang,
+            'noi_dung'=>$noiDungBaoCao,
+        ]);
+        return redirect()->route('xem-bai-dang',['id'=>$idBaiDang]);
+    }
     public function xl_theo_doi($bai_dang_id) {
         TheoDoi::create([
             'nguoi_dung_id'=>Auth::id(),
@@ -71,9 +80,8 @@ class BaiDangController extends Controller
         return view('main_pages.post_list',['user'=>$nguoiDung,'dsBaiDang'=>$dsBaiDang,'id'=>$id]);
     }
     public function ds_theo_doi($id) {
-   
         $nguoiDung=NguoiDung::where('id',$id)->first();
-        $dsTheoDoi=TheoDoi::where('nguoi_dung_id',Auth::id())->where('trang_thai',1)->get();
+        $dsTheoDoi=TheoDoi::where('nguoi_dung_id',$id)->where('trang_thai',1)->get();
         return view('main_pages.follow_list',['user'=>$nguoiDung,'id'=>$id,'dsTheoDoi'=>$dsTheoDoi]);
     }
     public function dang_bai() {
@@ -144,6 +152,6 @@ class BaiDangController extends Controller
     }
     public function returned($id) {
         $daTimThay=BaiDang::find($id)->update(['trang_thai'=>0]);
-        return redirect()->route('ds-bai-dang');
+        return redirect()->route('xem-bai-dang',['id'=>$id]);
     }
 }

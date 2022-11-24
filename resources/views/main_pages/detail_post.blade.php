@@ -82,20 +82,20 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                             @if (Auth::id() == $baiDang->nguoiDung->id)
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="{{ route('da-tim-thay', ['id' => $baiDang->id]) }}">{{ $baiDang->the_loai_id == 1 ? 'Đã trả' : 'Đã tìm thấy' }}</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="{{ route('chinh-sua-bai-dang', ['id' => $baiDang->id]) }}">Chỉnh sửa</a>
-                                </li>
                                 @if ($baiDang->trang_thai == 1)
                                     <li>
                                         <a class="dropdown-item"
-                                            href="{{ route('xoa-bai-dang', ['id' => $baiDang->id]) }}">Xoá</a>
+                                            href="{{ route('da-tim-thay', ['id' => $baiDang->id]) }}">{{ $baiDang->the_loai_id == 1 ? 'Đã trả' : 'Đã tìm thấy' }}</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('chinh-sua-bai-dang', ['id' => $baiDang->id]) }}">Chỉnh sửa</a>
                                     </li>
                                 @endif
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="{{ route('xoa-bai-dang', ['id' => $baiDang->id]) }}">Xoá</a>
+                                </li>
                             @else
                                 <li>
                                     @if (Auth::id() == null)
@@ -327,7 +327,9 @@
                         Chúng tôi sẽ xem xét báo cáo và thông báo cho bạn về quyết định của mình.
                     </div>
                     <div class="modal-footer">
-                        <form action="" method="post">
+                        <form action="{{ route('bao-cao', ['bai_dang_id' => $baiDang->id, 'noi_dung' => $item]) }}"
+                            method="post">
+                            @csrf
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                 data-bs-target="#staticBackdrop">Hủy</button>
                             <button type="submit" class="btn btn-primary">Gửi</button>

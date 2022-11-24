@@ -38,4 +38,5 @@ Route::get('/chinh-sua-bai-dang/{id}',[BaiDangController::class,'show'])->name('
 Route::post('/chinh-sua-bai-dang/{id}',[BaiDangController::class,'edit'])->name('xl-chinh-sua-bai-dang')->middleware('auth');
 Route::get('/xoa-bai-dang/{id}',[BaiDangController::class,'destroy'])->name('xoa-bai-dang')->middleware('auth');
 Route::get('/da-tim-thay/{id}',[BaiDangController::class,'returned'])->name('da-tim-thay')->middleware('auth');
+Route::post('/bao-cao/{bai_dang_id}/{noi_dung}',[BaiDangController::class,'bao_cao'])->name('bao-cao')->middleware('auth');
 
