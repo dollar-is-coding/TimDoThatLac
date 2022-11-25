@@ -12,6 +12,7 @@ use App\Models\HinhAnh;
 use App\Models\TheoDoi;
 use App\Models\LienHe;
 use App\Models\BaoCao;
+use App\Models\BinhLuan;
 use Illuminate\Support\Facades\Auth;
 
 class BaiDangController extends Controller
@@ -44,11 +45,12 @@ class BaiDangController extends Controller
         $array = ['Tin giả', 'Thông tin sai sự thật', 'Vi phạm quy tắc nhóm', 'Hình ảnh chứa nội dung nhạy cảm', 'Spam', 'Ngôn từ gây thù ghét', 'Vấn đề khác',];
         $user=NguoiDung::where('id',Auth::id())->first();
         $chiTietBaiDang=BaiDang::find($id);
+        $dsBinhLuan=BinhLuan::where('bai_dang_id',$id)->get();
         $soLuongHinhAnh=HinhAnh::where('bai_dang_id',$id)->count();
         $lienHe=LienHe::where('bai_dang_id',$id)->first();
         $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
         $follow=TheoDoi::where('nguoi_dung_id',Auth::id())->where('bai_dang_id',$id)->first();
-        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh,'user'=>$user,'daTheoDoi'=>$follow,'lienHe'=>$lienHe,'array'=>$array]);
+        return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh,'user'=>$user,'daTheoDoi'=>$follow,'lienHe'=>$lienHe,'array'=>$array,'dsBinhLuan'=>$dsBinhLuan]);
     }
     public function bao_cao($idBaiDang, $noiDungBaoCao) {
         BaoCao::create([

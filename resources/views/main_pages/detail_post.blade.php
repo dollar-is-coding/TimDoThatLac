@@ -1,6 +1,10 @@
 @extends('main')
 @section('main')
     <style>
+        .response {
+            border: none;
+        }
+
         .box-full-zoom {
             position: fixed;
             background-color: rgba(3, 5, 4, 0.8);
@@ -264,8 +268,7 @@
                 </div>
 
                 @if (Auth::id() != null)
-                    <div class="input-group hienthi d-flex flex-row align-items-center">
-
+                    <div class="input-group hienthi d-flex">
                         <?php
                         if ($user->anh_dai_dien != '') {
                             echo '<img src="/images/added_images/' . $user->anh_dai_dien . '" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
@@ -275,19 +278,108 @@
                             echo '<img src="/images/default_images/woman.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
                         }
                         ?>
-                        <input class=" form-control rounded-5" type="text" name="" class="form-control"
-                            placeholder="Bình luận ...">&ensp;
-                        <div class="rounded-3" style="padding-left:5px">
-                            <button class="btn btn-light pt-1 pb-1 border" type="submit" id="button-addon2"> <img
-                                    src="{{ URL('images/default_images/paper-plane.png') }}"
-                                    style="width:1.45em;padding-bottom:.1em">
-                            </button>
-                        </div>
+                        <form
+                            action="{{ route('xl-binh-luan', ['idBaiDang' => $baiDang->id, 'idNguoiDung' => $baiDang->nguoi_dung_id]) }}"
+                            class="flex-fill d-flex align-items-center" method="post">
+                            @csrf
+                            <input class="flex-fill form-control rounded-5" type="text" name="binh_luan"
+                                placeholder="Bình luận ...">&ensp;
+                            <div class="rounded-3" style="padding-left:5px">
+                                <button class="btn btn-light pt-1 pb-1 border" type="submit" id="button-addon2"> <img
+                                        src="{{ URL('images/default_images/paper-plane.png') }}"
+                                        style="width:1.45em;padding-bottom:.1em">
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 @endif
+                @if (count($dsBinhLuan) > 0)
+                    <hr>
+                    @foreach ($dsBinhLuan as $key => $item)
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="align-self-start">
+                                <?php
+                                if ($item->nguoiDung->anh_dai_dien != '') {
+                                    echo '<img src="/images/added_images/' . $item->nguoiDung->anh_dai_dien . '" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px" class=" rounded-5 border">';
+                                } elseif ($item->nguoiDung->gioi_tinh == 1) {
+                                    echo '<img src="/images/default_images/man.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px" class="rounded-5 border">';
+                                } else {
+                                    echo '<img src="/images/default_images/woman.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px" class="rounded-5 border">';
+                                }
+                                ?>
+                            </div>
+                            <div>
+                                <div class="rounded-4 p-3 pt-1 pb-1 shadow-sm"
+                                    style="min-width: 10%;background-color:rgb(237, 243, 255)">
+                                    <a class="fw-semibold text-decoration-none text-dark"
+                                        href="{{ route('ds-theo-doi', ['id' => $item->nguoi_dung_id]) }}">{{ $item->nguoiDung->ho_ten }}</a>
+                                    <div class="" style="width:fit-content">
+                                        {{ $item->noi_dung }}
+                                    </div>
+                                </div>
+                                @if (Auth::id() != null)
+                                    <button type="button" style="padding-left: 20px;font-size:.8em"
+                                        class="fw-semibold btn pb-0 pt-0">Phản hồi</button>
+                                    <div class="input-group d-flex">
+                                        <?php
+                                        if ($user->anh_dai_dien != '') {
+                                            echo '<img src="/images/added_images/' . $user->anh_dai_dien . '" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
+                                        } elseif ($user->gioi_tinh == 1) {
+                                            echo '<img src="/images/default_images/man.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
+                                        } else {
+                                            echo '<img src="/images/default_images/woman.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
+                                        }
+                                        ?>
+                                        <form
+                                            action="{{ route('xl-binh-luan', ['idBaiDang' => $baiDang->id, 'idNguoiDung' => $baiDang->nguoi_dung_id]) }}"
+                                            class="flex-fill d-flex align-items-center" method="post">
+                                            @csrf
+                                            <input class="flex-fill form-control rounded-5" type="text"
+                                                name="binh_luan" placeholder="Bình luận ...">&ensp;
+                                            <div class="rounded-3" style="padding-left:5px">
+                                                <button class="btn btn-light pt-1 pb-1 border" type="submit"
+                                                    id="button-addon2"> <img
+                                                        src="{{ URL('images/default_images/paper-plane.png') }}"
+                                                        style="width:1.45em;padding-bottom:.1em">
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                @endif
+                            </div>
+                            @if (Auth::id() != null)
+                                <div class="dropend hienthi">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <img src="{{ URL('images/default_images/menu-dots.png') }}"
+                                            class="rounded-circle" style="width: 1em;height:1em">
+                                    </button>
+                                    @if ($item->nguoi_dung_id == Auth::id())
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                            <li>
+                                                <a class="dropdown-item">Chỉnh sửa</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item">Xoá</a>
+                                            </li>
+                                        </ul>
+                                    @else
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                            <li>
+                                                <a class="dropdown-item">Báo cáo</a>
+                                            </li>
+                                        </ul>
+                                    @endif
+                                </div>
+                            @endif
+                        </div>
+                    @endforeach
+                @endif
+
             </div>
         </div>
     </div>
+
 
     {{-- Hien thi chon bao cao --}}
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

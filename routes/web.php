@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NguoiDungController;
 use App\Http\Controllers\BaiDangController;
+use App\Http\Controllers\BinhLuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,6 @@ Route::post('/chinh-sua-bai-dang/{id}',[BaiDangController::class,'edit'])->name(
 Route::get('/xoa-bai-dang/{id}',[BaiDangController::class,'destroy'])->name('xoa-bai-dang')->middleware('auth');
 Route::get('/da-tim-thay/{id}',[BaiDangController::class,'returned'])->name('da-tim-thay')->middleware('auth');
 Route::post('/bao-cao/{bai_dang_id}/{noi_dung}',[BaiDangController::class,'bao_cao'])->name('bao-cao')->middleware('auth');
+
+Route::post('/xu-ly-binh-luan/{idBaiDang}/{idNguoiDung}',[BinhLuanController::class,'xu_ly_binh_luan'])->name('xl-binh-luan')->middleware('auth');
 
