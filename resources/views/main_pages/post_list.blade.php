@@ -3,6 +3,19 @@
     <div style="padding-left:10em;padding-right:10em;">
         <div class="d-flex flex-row mb-4">
             <div class="mt-3 rounded shadow-sm flex-shrink-2 p-4 align-self-start" style="background-color:white">
+                @if (Auth::id() != null && $user->id != Auth::id())
+                    <div class="d-flex align-items-end flex-column dropend" style="margin-top:-5%">
+                        <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ URL('images/default_images/menu-dots.png') }}" class="rounded-circle"
+                                style="width: 1em;height:1em">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                            <li>
+                                <a class="dropdown-item">Báo cáo</a>
+                            </li>
+                        </ul>
+                    </div>
+                @endif
                 <div class="text-center">
                     <?php
                     if ($user->anh_dai_dien != '') {
@@ -33,8 +46,7 @@
                 @if (Auth::id() == $user->id)
                     <div class="text-center mt-2">
                         <a href="{{ route('chinh-sua-tai-khoan') }}" class="btn btn-light btn-sm fw-semibold">Chỉnh sửa
-                            thông
-                            tin cá nhân</a>
+                            thông tin cá nhân</a>
                     </div>
                 @endif
             </div>

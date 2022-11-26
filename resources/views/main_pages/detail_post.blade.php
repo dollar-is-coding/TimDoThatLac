@@ -270,15 +270,14 @@
                     <div class="input-group hienthi d-flex">
                         <?php
                         if ($user->anh_dai_dien != '') {
-                            echo '<img src="/images/added_images/' . $user->anh_dai_dien . '" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
+                            echo '<img src="/images/added_images/' . $user->anh_dai_dien . '" alt="" class="rounded-circle" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
                         } elseif ($user->gioi_tinh == 1) {
-                            echo '<img src="/images/default_images/man.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
+                            echo '<img src="/images/default_images/man.png" alt="" width="42em" class="rounded-circle" height="42em" style="object-fit: cover;margin-right:10px">';
                         } else {
-                            echo '<img src="/images/default_images/woman.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
+                            echo '<img src="/images/default_images/woman.png" alt="" width="42em" class="rounded-circle" height="42em" style="object-fit: cover;margin-right:10px">';
                         }
                         ?>
-                        <form
-                            action="{{ route('xl-binh-luan', ['idBaiDang' => $baiDang->id, 'idNguoiDung' => $baiDang->nguoi_dung_id]) }}"
+                        <form action="{{ route('xl-binh-luan', ['idBaiDang' => $baiDang->id]) }}"
                             class="flex-fill d-flex align-items-center" method="post">
                             @csrf
                             <input class="flex-fill form-control rounded-5" type="text" name="binh_luan"
@@ -331,9 +330,42 @@
                                                 @if ($item->nguoi_dung_id == Auth::id())
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                         <li>
-                                                            <a class="dropdown-item">Xoá</a>
+                                                            <a data-bs-toggle="modal" class="dropdown-item"
+                                                                data-bs-target="#staticBackdrop">
+                                                                Xoá
+                                                            </a>
                                                         </li>
                                                     </ul>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                                        data-bs-keyboard="false" tabindex="-1"
+                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                                                        Xoá bình luận
+                                                                    </h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Bạn có chắc chắn muốn xoá bình luận này
+                                                                    không?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-light"
+                                                                        data-bs-dismiss="modal">Không</button>
+                                                                    <form
+                                                                        action="{{ route('xl-xoa-binh-luan', ['idBinhLuan' => $item->id, 'idBaiDang' => $item->bai_dang_id]) }}">
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary fs-5">Xoá</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 @else
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                         <li>
@@ -344,71 +376,181 @@
                                             </div>
                                         @endif
                                     </div>
-                                    @if (Auth::id() != null)
-                                        <div class="d-flex mt-1">
+
+                                    <div class="d-flex mt-1">
+                                        @if (Auth::id() != null)
                                             <button style="padding-left: 20px;font-size:.8em"
                                                 class="fw-semibold btn pb-0 pt-0 response"
                                                 onclick="myFunction({{ $key }})">Phản hồi</button>
-                                            <div class="fw-semibold" style="font-size:.8em;color:rgb(154, 155, 157)">
-                                                @if (\Carbon\Carbon::now()->format('d/m/Y') == $item->updated_at->format('d/m/Y'))
-                                                    {{ $item->updated_at->format('H:i') }}
-                                                @else
-                                                    {{ $item->updated_at->format('d/m/Y') }}
-                                                @endif
-                                            </div>
+                                        @endif
+                                        <div class="fw-semibold"
+                                            style="font-size:.8em;color:rgb(154, 155, 157);padding-left: 10px">
+                                            @if (\Carbon\Carbon::now()->format('d/m/Y') == $item->updated_at->format('d/m/Y'))
+                                                {{ $item->updated_at->format('H:i') }}
+                                            @else
+                                                {{ $item->updated_at->format('d/m/Y') }}
+                                            @endif
                                         </div>
-                                        <script>
-                                            function myFunction(id) {
-                                                var x = document.getElementById(id);
-                                                if (document.getElementById(id).style.visibility == "hidden") {
-                                                    document.getElementById(id).style.visibility = "visible";
-                                                    document.getElementById(id).style.maxHeight = "initial";
-                                                    document.getElementById(id).style.marginTop = "10px";
-                                                } else if (document.getElementById(id).style.visibility != "hidden") {
-                                                    document.getElementById(id).style.visibility = "hidden";
-                                                    document.getElementById(id).style.maxHeight = "0";
-                                                    document.getElementById(id).style.marginTop = "0px";
-                                                }
-                                                var array = <?php echo json_encode($dsBinhLuan); ?>;
-                                                for (let index = 0; index < array.length; index++) {
-                                                    if (id != index) {
-                                                        if (document.getElementById(index).style.visibility != "hidden") {
-                                                            document.getElementById(index).style.visibility = "hidden";
-                                                            document.getElementById(index).style.maxHeight = "0";
-                                                            document.getElementById(index).style.marginTop = "0px";
-                                                        }
+                                    </div>
+                                    <script>
+                                        function myFunction(id) {
+                                            var x = document.getElementById(id);
+                                            if (document.getElementById(id).style.visibility == "hidden") {
+                                                document.getElementById(id).style.visibility = "visible";
+                                                document.getElementById(id).style.maxHeight = "initial";
+                                                document.getElementById(id).style.marginTop = "10px";
+                                            }
+                                            // else if (document.getElementById(id).style.visibility != "hidden") {
+                                            //     document.getElementById(id).style.visibility = "hidden";
+                                            //     document.getElementById(id).style.maxHeight = "0";
+                                            //     document.getElementById(id).style.marginTop = "0px";
+                                            // }
+                                            var array = <?php echo json_encode($dsBinhLuan); ?>;
+                                            for (let index = 0; index < array.length; index++) {
+                                                if (id != index) {
+                                                    if (document.getElementById(index).style.visibility != "hidden") {
+                                                        document.getElementById(index).style.visibility = "hidden";
+                                                        document.getElementById(index).style.maxHeight = "0";
+                                                        document.getElementById(index).style.marginTop = "0px";
                                                     }
                                                 }
                                             }
-                                        </script>
-                                    @endif
+                                        }
+                                    </script>
+
                                 </div>
-                                <div class="d-flex" id="{{ $key }}"
-                                    style="visibility:hidden;max-height:0;margin-left:10px;margin-right:5px">
-                                    <?php
-                                    if ($user->anh_dai_dien != '') {
-                                        echo '<img src="/images/added_images/' . $user->anh_dai_dien . '" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
-                                    } elseif ($user->gioi_tinh == 1) {
-                                        echo '<img src="/images/default_images/man.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
-                                    } else {
-                                        echo '<img src="/images/default_images/woman.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px">';
-                                    }
-                                    ?>
-                                    <form
-                                        action="{{ route('xl-binh-luan', ['idBaiDang' => $baiDang->id, 'idNguoiDung' => $baiDang->nguoi_dung_id]) }}"
-                                        class="d-flex flex-fill align-items-center" method="post">
-                                        @csrf
-                                        <input class="flex-fill form-control rounded-5" type="text" name="binh_luan"
-                                            placeholder="Bình luận ..." />&ensp;
-                                        <div class="rounded-3" style="padding-left:5px">
-                                            <button class="btn btn-light pt-1 pb-1 border" type="submit"
-                                                id="button-addon2">
-                                                <img src="{{ URL('images/default_images/paper-plane.png') }}"
-                                                    style="width:1.45em;padding-bottom:.1em">
-                                            </button>
+                                @foreach ($dsPhanHoi as $phanHoi)
+                                    @if ($phanHoi->binh_luan_id == $item->id)
+                                        <div class="d-flex mt-2">
+                                            <div>
+                                                <a class="fw-semibold text-decoration-none text-dark"
+                                                    href="{{ route('ds-bai-dang', ['id' => $phanHoi->nguoi_dung_id]) }}">
+                                                    <?php
+                                                    if ($phanHoi->nguoiDung->anh_dai_dien != '') {
+                                                        echo '<img src="/images/added_images/' . $phanHoi->nguoiDung->anh_dai_dien . '" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px" class=" rounded-5 border">';
+                                                    } elseif ($phanHoi->nguoiDung->gioi_tinh == 1) {
+                                                        echo '<img src="/images/default_images/man.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px" class="rounded-5 border">';
+                                                    } else {
+                                                        echo '<img src="/images/default_images/woman.png" alt="" width="42em" height="42em" style="object-fit: cover;margin-right:10px" class="rounded-5 border">';
+                                                    }
+                                                    ?>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex">
+                                                    <div class="rounded-4 p-3 pt-1 pb-1 shadow-sm"
+                                                        style="min-width: 10%;background-color:rgb(237, 243, 255)">
+                                                        <a class="fw-semibold text-decoration-none text-dark"
+                                                            href="{{ route('ds-bai-dang', ['id' => $phanHoi->nguoi_dung_id]) }}">{{ $phanHoi->nguoiDung->ho_ten }}</a>
+                                                        <div class="" style="width:fit-content">
+                                                            {{ $phanHoi->noi_dung }}
+                                                        </div>
+                                                    </div>
+                                                    @if (Auth::id() != null)
+                                                        <div class="dropend hienthi align-self-center">
+                                                            <button class="btn btn-link" type="button"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <img src="{{ URL('images/default_images/menu-dots.png') }}"
+                                                                    class="rounded-circle" style="width: 1em;height:1em">
+                                                            </button>
+                                                            @if ($phanHoi->nguoi_dung_id == Auth::id())
+                                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                                    <li>
+                                                                        <a data-bs-toggle="modal" class="dropdown-item"
+                                                                            data-bs-target="#staticBackdrop">
+                                                                            Xoá
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="staticBackdrop"
+                                                                    data-bs-backdrop="static" data-bs-keyboard="false"
+                                                                    tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h1 class="modal-title fs-5"
+                                                                                    id="staticBackdropLabel">Xoá bình luận
+                                                                                </h1>
+                                                                                <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                Bạn có chắc chắn muốn xoá bình luận này
+                                                                                không?
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-light"
+                                                                                    data-bs-dismiss="modal">Không</button>
+                                                                                <form
+                                                                                    action="{{ route('xl-xoa-binh-luan', ['idBinhLuan' => $phanHoi->id, 'idBaiDang' => $phanHoi->bai_dang_id]) }}">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-primary fs-5">Xoá</button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @else
+                                                                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                                    <li>
+                                                                        <a class="dropdown-item">Báo cáo</a>
+                                                                    </li>
+                                                                </ul>
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="d-flex mt-1">
+                                                    @if (Auth::id() != null)
+                                                        <button style="padding-left: 20px;font-size:.8em"
+                                                            class="fw-semibold btn pb-0 pt-0 response"
+                                                            onclick="myFunction({{ $key }})">Phản hồi</button>
+                                                    @endif
+                                                    <div class="fw-semibold"
+                                                        style="font-size:.8em;color:rgb(154, 155, 157);padding-left: 10px">
+                                                        @if (\Carbon\Carbon::now()->format('d/m/Y') == $phanHoi->updated_at->format('d/m/Y'))
+                                                            {{ $phanHoi->updated_at->format('H:i') }}
+                                                        @else
+                                                            {{ $phanHoi->updated_at->format('d/m/Y') }}
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
+                                    @endif
+                                @endforeach
+                                @if (Auth::id() != null)
+                                    <div class="d-flex" id="{{ $key }}"
+                                        style="visibility:hidden;max-height:0;margin-left:10px;margin-right:5px">
+                                        <?php
+                                        if ($user->anh_dai_dien != '') {
+                                            echo '<img src="/images/added_images/' . $user->anh_dai_dien . '" alt="" width="42em" height="42em" class="rounded-circle" style="object-fit: cover;margin-right:10px">';
+                                        } elseif ($user->gioi_tinh == 1) {
+                                            echo '<img src="/images/default_images/man.png" alt="" width="42em" height="42em" class="rounded-circle" style="object-fit: cover;margin-right:10px">';
+                                        } else {
+                                            echo '<img src="/images/default_images/woman.png" alt="" width="42em" height="42em" class="rounded-circle" style="object-fit: cover;margin-right:10px">';
+                                        }
+                                        ?>
+                                        <form
+                                            action="{{ route('xl-phan-hoi', ['idBinhLuan' => $item->id, 'idBaiDang' => $baiDang->id]) }}"
+                                            class="d-flex flex-fill align-items-center" method="post">
+                                            @csrf
+                                            <input class="flex-fill form-control rounded-5" type="text"
+                                                name="binh_luan" placeholder="Bình luận ..." />&ensp;
+                                            <div class="rounded-3" style="padding-left:5px">
+                                                <button class="btn btn-light pt-1 pb-1 border" type="submit"
+                                                    id="button-addon2">
+                                                    <img src="{{ URL('images/default_images/paper-plane.png') }}"
+                                                        style="width:1.45em;padding-bottom:.1em">
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     @endforeach

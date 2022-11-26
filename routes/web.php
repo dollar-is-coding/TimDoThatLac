@@ -41,5 +41,6 @@ Route::get('/xoa-bai-dang/{id}',[BaiDangController::class,'destroy'])->name('xoa
 Route::get('/da-tim-thay/{id}',[BaiDangController::class,'returned'])->name('da-tim-thay')->middleware('auth');
 Route::post('/bao-cao/{bai_dang_id}/{noi_dung}',[BaiDangController::class,'bao_cao'])->name('bao-cao')->middleware('auth');
 
-Route::post('/xu-ly-binh-luan/{idBaiDang}/{idNguoiDung}',[BinhLuanController::class,'xu_ly_binh_luan'])->name('xl-binh-luan')->middleware('auth');
-
+Route::post('/xu-ly-binh-luan/{idBaiDang}',[BinhLuanController::class,'xu_ly_binh_luan'])->name('xl-binh-luan')->middleware('auth');
+Route::post('/xu-ly-phan-hoi/{idBinhLuan}/{idBaiDang}',[BinhLuanController::class,'xu_ly_phan_hoi'])->name('xl-phan-hoi')->middleware('auth');
+Route::get('/xu-ly-xoa-binh-luan/{idBinhLuan}/{idBaiDang}',[BinhLuanController::class,'xu_ly_xoa_binh_luan'])->name('xl-xoa-binh-luan')->middleware('auth');
