@@ -11,7 +11,7 @@ use App\Models\BaiDang;
 use App\Models\TheLoai;
 use App\Models\DanhMuc;
 use App\Models\KhuVuc;
-use Carbon\Carbon;
+use Carbon\Carbon; 
 use App\Http\Requests\DangNhapRequets;
 
 class NguoiDungController extends Controller
