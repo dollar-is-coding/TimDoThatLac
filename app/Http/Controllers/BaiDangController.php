@@ -29,15 +29,15 @@ class BaiDangController extends Controller
         $dsTheLoai=TheLoai::all();
         $dsDanhMuc=DanhMuc::all();
         $dsKhuVuc=KhuVuc::all();
-        $dsBaiDang=BaiDang::where([['trang_thai',1],['tieu_de','like','%'.$request->search.'%']])->orWhere('noi_dung','like','%'.$request->search.'%')->orderBy('updated_at','DESC')->get();
+        $dsBaiDang=BaiDang::where([['trang_thai',1],['tieu_de','like','%'.$request->search.'%']])->orWhere([['trang_thai',1],['noi_dung','like','%'.$request->search.'%']])->orderBy('updated_at','DESC')->get();
         if($request->danh_muc!='Danh mục') {
-            $dsBaiDang=BaiDang::where('danh_muc_id',$request->danh_muc)->orderBy('updated_at','DESC')->get();
+            $dsBaiDang=BaiDang::where([['trang_thai',1],['danh_muc_id',$request->danh_muc]])->orderBy('updated_at','DESC')->get();
         }
         if($request->the_loai!='Thể loại') {
-            $dsBaiDang=BaiDang::where('the_loai_id',$request->the_loai)->orderBy('updated_at','DESC')->get();
+            $dsBaiDang=BaiDang::where([['trang_thai',1],['the_loai_id',$request->the_loai]])->orderBy('updated_at','DESC')->get();
         }
         if($request->khu_vuc!='Khu vực') {
-            $dsBaiDang=BaiDang::where('khu_vuc_id',$request->khu_vuc)->orderBy('updated_at','DESC')->get();
+            $dsBaiDang=BaiDang::where([['trang_thai',1],['khu_vuc_id',$request->khu_vuc]])->orderBy('updated_at','DESC')->get();
         }
         return view('main_pages.new_feed',['dsTheLoai'=>$dsTheLoai,'dsDanhMuc'=>$dsDanhMuc,'dsKhuVuc'=>$dsKhuVuc,'dsBaiDang'=>$dsBaiDang]);
     }
@@ -45,7 +45,7 @@ class BaiDangController extends Controller
         $array = ['Tin giả', 'Thông tin sai sự thật', 'Vi phạm quy tắc nhóm', 'Hình ảnh chứa nội dung nhạy cảm', 'Spam', 'Ngôn từ gây thù ghét', 'Vấn đề khác',];
         $user=NguoiDung::where('id',Auth::id())->first();
         $chiTietBaiDang=BaiDang::find($id);
-        $dsBinhLuan=BinhLuan::where('bai_dang_id',$id)->get();
+        $dsBinhLuan=BinhLuan::where('bai_dang_id',$id)->orderBy('updated_at','DESC')->get();
         $soLuongHinhAnh=HinhAnh::where('bai_dang_id',$id)->count();
         $lienHe=LienHe::where('bai_dang_id',$id)->first();
         $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
