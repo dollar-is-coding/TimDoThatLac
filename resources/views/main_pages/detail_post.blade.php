@@ -155,27 +155,30 @@
                         <div class="fw-semibold">Hình thức liên hệ </div>
                     </div>
                     <div class="d-flex justify-content-left mt-2">
-                        @if ($lienHe->dien_thoai != null)
-                            <div class="d-flex align-items-center">
-                                &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
-                                <div class="fw-semibold">&ensp;Điện thoại: </div>
-                                <div>&ensp;{{ $lienHe->dien_thoai }}</div>
-                            </div>
+                        @if ($lienHe != null)
+                            @if ($lienHe->dien_thoai != null)
+                                <div class="d-flex align-items-center">
+                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
+                                    <div class="fw-semibold">&ensp;Điện thoại: </div>
+                                    <div>&ensp;{{ $lienHe->dien_thoai }}</div>
+                                </div>
+                            @endif
+                            @if ($lienHe->zalo != null)
+                                <div class="d-flex align-items-center">
+                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
+                                    <div class="fw-semibold">&ensp;Zalo: </div>
+                                    <div>&ensp;{{ $lienHe->zalo }}</div>
+                                </div>
+                            @endif
+                            @if ($lienHe->facebook != null)
+                                <div class="d-flex align-items-center">
+                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
+                                    <div class="fw-semibold">&ensp;Facebook:</div>
+                                    <div>&ensp;{{ $lienHe->facebook }}</div>
+                                </div>
+                            @endif
                         @endif
-                        @if ($lienHe->zalo != null)
-                            <div class="d-flex align-items-center">
-                                &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
-                                <div class="fw-semibold">&ensp;Zalo: </div>
-                                <div>&ensp;{{ $lienHe->zalo }}</div>
-                            </div>
-                        @endif
-                        @if ($lienHe->facebook != null)
-                            <div class="d-flex align-items-center">
-                                &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
-                                <div class="fw-semibold">&ensp;Facebook:</div>
-                                <div>&ensp;{{ $lienHe->facebook }}</div>
-                            </div>
-                        @endif
+
                     </div>
                     <div class="d-flex text-center mt-4 mb-3">
                         @if ($baiDang->trang_thai == 0)
@@ -331,16 +334,22 @@
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                         <li>
                                                             <a data-bs-toggle="modal" class="dropdown-item"
-                                                                data-bs-target="#staticBackdrop">
+                                                                data-bs-target="#editComment{{ $key }}">
+                                                                Chỉnh sửa
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a data-bs-toggle="modal" class="dropdown-item"
+                                                                data-bs-target="#deleteComment{{ $key }}">
                                                                 Xoá
                                                             </a>
                                                         </li>
                                                     </ul>
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                                        data-bs-keyboard="false" tabindex="-1"
+                                                    <!-- Delete comment -->
+                                                    <div class="modal fade" id="deleteComment{{ $key }}"
+                                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
+                                                        <div class="modal-dialog modal-dialog-centered">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h1 class="modal-title fs-5" id="staticBackdropLabel">
@@ -366,6 +375,42 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!-- Edit comment -->
+                                                    <div class="modal fade" id="editComment{{ $key }}"
+                                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                                                        Chỉnh sửa
+                                                                        bình luận
+                                                                    </h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <form
+                                                                    action="{{ route('xl-chinh-sua-binh-luan', ['idBinhLuan' => $item->id, 'idBaiDang' => $item->bai_dang_id]) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        <input type="text" name="chinh_sua_binh_luan"
+                                                                            class="form-control"
+                                                                            value="{{ $item->noi_dung }}">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-light"
+                                                                            data-bs-dismiss="modal">Hủy</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary fs-5">Chỉnh
+                                                                            sửa</button>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 @else
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                         <li>
@@ -376,7 +421,6 @@
                                             </div>
                                         @endif
                                     </div>
-
                                     <div class="d-flex mt-1">
                                         @if (Auth::id() != null)
                                             <button style="padding-left: 20px;font-size:.8em"
@@ -400,11 +444,6 @@
                                                 document.getElementById(id).style.maxHeight = "initial";
                                                 document.getElementById(id).style.marginTop = "10px";
                                             }
-                                            // else if (document.getElementById(id).style.visibility != "hidden") {
-                                            //     document.getElementById(id).style.visibility = "hidden";
-                                            //     document.getElementById(id).style.maxHeight = "0";
-                                            //     document.getElementById(id).style.marginTop = "0px";
-                                            // }
                                             var array = <?php echo json_encode($dsBinhLuan); ?>;
                                             for (let index = 0; index < array.length; index++) {
                                                 if (id != index) {
@@ -417,9 +456,8 @@
                                             }
                                         }
                                     </script>
-
                                 </div>
-                                @foreach ($dsPhanHoi as $phanHoi)
+                                @foreach ($dsPhanHoi as $keyPhanHoi => $phanHoi)
                                     @if ($phanHoi->binh_luan_id == $item->id)
                                         <div class="d-flex mt-2">
                                             <div>
@@ -457,17 +495,24 @@
                                                                 <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                                     <li>
                                                                         <a data-bs-toggle="modal" class="dropdown-item"
-                                                                            data-bs-target="#staticBackdrop">
+                                                                            data-bs-target="#editResponseComment{{ $keyPhanHoi }}">
+                                                                            Chỉnh sửa
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a data-bs-toggle="modal" class="dropdown-item"
+                                                                            data-bs-target="#deleteResponseComment{{ $keyPhanHoi }}">
                                                                             Xoá
                                                                         </a>
                                                                     </li>
                                                                 </ul>
-                                                                <!-- Modal -->
-                                                                <div class="modal fade" id="staticBackdrop"
+                                                                <!-- Delete Response Comment -->
+                                                                <div class="modal fade"
+                                                                    id="deleteResponseComment{{ $keyPhanHoi }}"
                                                                     data-bs-backdrop="static" data-bs-keyboard="false"
                                                                     tabindex="-1" aria-labelledby="staticBackdropLabel"
                                                                     aria-hidden="true">
-                                                                    <div class="modal-dialog">
+                                                                    <div class="modal-dialog modal-dialog-centered">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <h1 class="modal-title fs-5"
@@ -491,6 +536,46 @@
                                                                                         class="btn btn-primary fs-5">Xoá</button>
                                                                                 </form>
                                                                             </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Edit response comment -->
+                                                                <div class="modal fade"
+                                                                    id="editResponseComment{{ $keyPhanHoi }}"
+                                                                    data-bs-backdrop="static" data-bs-keyboard="false"
+                                                                    tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h1 class="modal-title fs-5"
+                                                                                    id="staticBackdropLabel">Chỉnh sửa
+                                                                                    bình luận
+                                                                                </h1>
+                                                                                <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                            </div>
+                                                                            <form
+                                                                                action="{{ route('xl-chinh-sua-binh-luan', ['idBinhLuan' => $phanHoi->id, 'idBaiDang' => $phanHoi->bai_dang_id]) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                <div class="modal-body">
+                                                                                    <input type="text"
+                                                                                        name="chinh_sua_binh_luan"
+                                                                                        class="form-control"
+                                                                                        value="{{ $phanHoi->noi_dung }}">
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        class="btn btn-light"
+                                                                                        data-bs-dismiss="modal">Hủy</button>
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-primary fs-5">Chỉnh
+                                                                                        sửa</button>
+                                                                                </div>
+                                                                            </form>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -567,13 +652,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Báo Cáo</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body ">
                     <h5>Báo cáo bài viết với quản trị viên</h5>
-                    Hãy cho quản trị viên biếut bài viết này có vấn đề gì. Chúng tôi sẽ không thông báo cho người đăng rằng
+                    Hãy cho quản trị viên biếut bài viết này có vấn đề gì. Chúng tôi sẽ không thông
+                    báo cho người đăng rằng
                     bạn đã báo cáo.
                 </div>
 
@@ -592,7 +677,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $item }}</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $item }}
+                        </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body ">

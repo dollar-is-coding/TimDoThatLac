@@ -108,9 +108,9 @@ class BaiDangController extends Controller
         $hinhAnh=BaiDang::latest()->first();
         $lienHe=LienHe::create([
             'bai_dang_id'=>$hinhAnh->id,
-            'dien_thoai'=>$request->dien_thoai,
-            'zalo'=>$request->zalo,
-            'facebook'=>$request->facebook,
+            'dien_thoai'=>$request->dien_thoai!=null?$request->dien_thoai:"",
+            'zalo'=>$request->zalo!=null?$request->zalo:"",
+            'facebook'=>$request->facebook!=null?$request->facebook:"",
         ]);
         if ($request->has('file')) {
             foreach ($request->file('file') as $img) {

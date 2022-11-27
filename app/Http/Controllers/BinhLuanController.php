@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\BinhLuan;
 use Illuminate\Support\Facades\Auth;
 
-
 class BinhLuanController extends Controller
 {
     public function xu_ly_binh_luan(Request $request, $idBaiDang) {
@@ -29,6 +28,12 @@ class BinhLuanController extends Controller
     }
     public function xu_ly_xoa_binh_luan($idBinhLuan,$idBaiDang) {
         BinhLuan::find($idBinhLuan)->delete();
+        return redirect()->route('xem-bai-dang',['id'=>$idBaiDang]);
+    }
+    public function xu_ly_chinh_sua_binh_luan(Request $request,$idBinhLuan,$idBaiDang) {
+        BinhLuan::find($idBinhLuan)->update([
+            'noi_dung'=>$request->chinh_sua_binh_luan,
+        ]);
         return redirect()->route('xem-bai-dang',['id'=>$idBaiDang]);
     }
 }
