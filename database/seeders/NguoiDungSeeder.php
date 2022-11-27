@@ -19,11 +19,10 @@ class NguoiDungSeeder extends Seeder
             echo "Create Quan Tri Vien {$i}\n";
             NguoiDung::create([
                 "ho_ten" =>"user{$i}",
-                "mat_khau" =>hash::make("12345{$i}"),
+                "mat_khau" =>hash::make("1234567{$i}"),
                 "email" =>"nguoidung{$i}@gmail.com",
                 "ngay_sinh"=>"2002/5/12",
                 "gioi_tinh"=>1,
-                "so_dien_thoai"=>"",
                 "admin"=>0,
                 "anh_dai_dien"=>""
             ]);

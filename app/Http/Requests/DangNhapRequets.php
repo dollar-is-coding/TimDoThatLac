@@ -24,7 +24,7 @@ class DangNhapRequets extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required',
+            'password' => 'required|min:8',
             'email' => 'required|email',
             
         ];
@@ -32,9 +32,10 @@ class DangNhapRequets extends FormRequest
     public function messages()
     {
         return [
-                'password.required' => 'Vui lòng nhập mật khẩu',
-                'email.required' => 'Vui lòng nhập email',
-                'email.email' => 'Vui lòng nhập đúng định dạng abc@gmail.com'
+            'password.required' => 'Vui lòng nhập mật khẩu',
+            'password.min' => 'Vui lòng nhập mật khẩu trên 8 kí tự',
+            'email.required' => 'Vui lòng nhập email',
+            'email.email' => 'Vui lòng nhập đúng định dạng abc@gmail.com'
             ];
     }
 }

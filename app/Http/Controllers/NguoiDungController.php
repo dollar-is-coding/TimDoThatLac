@@ -34,7 +34,7 @@ class NguoiDungController extends Controller
         {
             return redirect()->route('trang-chu');
         }
-       return redirect()->back()->with("error", "Đăng nhập thất bại, Vui lòng kiểm tra lại =(");
+       return redirect()->back();
 
     }
     public function log_out()

@@ -18,7 +18,6 @@ class CreateNguoiDungsTable extends Migration
             $table->string('ho_ten');
             $table->string('mat_khau');
             $table->string('email');
-            $table->string('so_dien_thoai',10);
             $table->boolean('admin');
             $table->date('ngay_sinh');
             $table->boolean('gioi_tinh');
