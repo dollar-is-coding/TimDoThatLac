@@ -380,8 +380,7 @@
                                     <div class="d-flex mt-1">
                                         @if (Auth::id() != null)
                                             <button style="padding-left: 20px;font-size:.8em"
-                                                class="fw-semibold btn pb-0 pt-0 response"
-                                                onclick="myFunction({{ $key }})">Phản hồi</button>
+                                                class="fw-semibold btn pb-0 pt-0 response"onclick="myFunction({{ $key }})">Phản hồi</button>
                                         @endif
                                         <div class="fw-semibold"
                                             style="font-size:.8em;color:rgb(154, 155, 157);padding-left: 10px">
@@ -507,8 +506,7 @@
                                                 <div class="d-flex mt-1">
                                                     @if (Auth::id() != null)
                                                         <button style="padding-left: 20px;font-size:.8em"
-                                                            class="fw-semibold btn pb-0 pt-0 response"
-                                                            onclick="myFunction({{ $key }})">Phản hồi</button>
+                                                            class="fw-semibold btn pb-0 pt-0 response"onclick="myFunction({{ $key }})">Phản hồi</button>
                                                     @endif
                                                     <div class="fw-semibold"
                                                         style="font-size:.8em;color:rgb(154, 155, 157);padding-left: 10px">
