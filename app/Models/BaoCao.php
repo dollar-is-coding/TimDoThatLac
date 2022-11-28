@@ -12,8 +12,10 @@ class BaoCao extends Model
     use SoftDeletes;
     protected $table='bao_cao';
     protected $fillable=[
+        'nguoi_bao_cao_id',
         'nguoi_dung_id',
         'bai_dang_id',
+        'binh_luan_id',
         'noi_dung',
     ];
     public function nguoiDung() {
@@ -21,5 +23,8 @@ class BaoCao extends Model
     }
     public function baiDang() {
         return $this->belongsTo(BaiDang::class);
+    }
+    public function binhLuan() {
+        return $this->belongsTo(BinhLuan::class);
     }
 }

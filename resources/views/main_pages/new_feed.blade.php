@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-auto" style="width:35%">
                     <input type="text" name="search" placeholder="Từ khoá" class="form-control"
-                        style="background-color:#D6FFFF">
+                        style="background-color:#D6FFFF" autocomplete="off">
                 </div>
                 <div class="col-auto">
                     <button class="btn" style="background-color: #052147;color:white;" type="submit">Tìm kiếm</button>
@@ -41,7 +41,11 @@
         </div>
         <hr>
         {{-- Danh sách tìm kiếm --}}
-        <div class="fs-5 fw-bold" style="padding-left:.8%">Danh sách bài đăng</div>
+        @if (count($dsBaiDang) > 0)
+            <div class="fs-5 fw-bold" style="padding-left:.8%">Danh sách bài đăng</div>
+        @else
+            <div class="fs-5 fw-bold text-center" style="padding-left:.8%">Chưa có bài đăng</div>
+        @endif
         @foreach ($dsBaiDang as $item)
             <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
                 <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm"

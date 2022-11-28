@@ -6,24 +6,31 @@
         @csrf
         <div class="m-3">
             &ensp;<label for="floatingTextarea" class="mb-1">Email</label>
-            <div class="input-group mb-2">
-                <input type="text" name="email" class="form-control" placeholder="Email" style="background-color:#D6FFFF">
-            </div>
             @error('email')
-                <span style="color:red;">{{ $message }}</span>
+                <span class="fst-italic text-danger">*</span>
             @enderror
+            <div class="mb-2">
+                <input type="text" name="email" class="form-control" placeholder="Email" style="background-color:#D6FFFF"
+                    autocomplete="off">
+                @error('email')
+                    <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
         <div class="m-3">
             &ensp;<label for="floatingTextarea" class="mb-1">Mật khẩu</label>
-            <div class="input-group mb-2">
+            @error('password')
+                <span class="fst-italic text-danger">*</span>
+            @enderror
+            <div class=" mb-2">
                 <input type="password" name="password" class="form-control" placeholder="Mật khẩu"
                     style="background-color:#D6FFFF">
+                @error('password')
+                    <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            @error('password')
-                <span style="color:red">{{ $message }}</span>
-            @enderror
             @if (session('error'))
-                <p style="color:red ;">{{ session('error') }}</p>
+                <div>{{ session('error') }}</div>
             @endif
         </div>
         <div class="text-center m-2 mt-4">

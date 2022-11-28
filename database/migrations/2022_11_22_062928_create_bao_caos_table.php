@@ -15,8 +15,10 @@ class CreateBaoCaosTable extends Migration
     {
         Schema::create('bao_cao', function (Blueprint $table) {
             $table->id();
+            $table->integer('nguoi_bao_cao_id');
             $table->integer('nguoi_dung_id');
             $table->integer('bai_dang_id');
+            $table->integer('binh_luan_id');
             $table->string('noi_dung');
             $table->timestamps();
             $table->softDeletes();

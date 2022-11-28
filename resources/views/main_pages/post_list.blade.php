@@ -11,7 +11,8 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                             <li>
-                                <a class="dropdown-item">Báo cáo</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    href="">Báo cáo</a>
                             </li>
                         </ul>
                     </div>
@@ -110,4 +111,60 @@
             </div>
         </div>
     </div>
+
+    {{-- Hien thi chon bao cao --}}
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Báo Cáo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <h5>Báo cáo bài viết với quản trị viên</h5>
+                    Hãy cho quản trị viên biếut bài viết này có vấn đề gì. Chúng tôi sẽ không thông
+                    báo cho người đăng rằng
+                    bạn đã báo cáo.
+                </div>
+                <div class="list-group">
+                    @foreach ($array as $key => $item)
+                        <a class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdropReport{{ $key }}">{{ $item }}</a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    @foreach ($array as $key => $item)
+        <div class="modal fade" id="staticBackdropReport{{ $key }}" data-bs-backdrop="static"
+            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('bao-cao') }}" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            <input type="text" name="nguoi_dung" value="{{ $user->id }}" hidden>
+                            <input type="text" name="bai_dang" value="" hidden>
+                            <input type="text" name="binh_luan" value="" hidden>
+                            <input type="text" name="bao_cao" value="{{ $item }}" hidden>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $item }}
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body ">
+                            Chúng tôi sẽ xem xét báo cáo và thông báo cho bạn về quyết định của mình.
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">Hủy</button>
+                            <button type="submit" class="btn btn-primary">Gửi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
