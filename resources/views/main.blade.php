@@ -35,7 +35,7 @@
                     </button>
                     <ul class="dropdown-menu mt-1 shadow" style="background-color: #052147">
                         <li class="hover">
-                            <a class="dropdown-item text" href="{{ route('ds-bai-dang',['id'=>Auth::id()]) }}">Cá nhân</a>
+                            <a class="dropdown-item text" href="{{ route('ds-bai-dang', ['id' => Auth::id()]) }}">Cá nhân</a>
                         </li>
                         <li class="hover">
                             <a class="dropdown-item text" href="{{ route('dang-xuat') }}">Đăng xuất</a>
