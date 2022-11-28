@@ -91,12 +91,12 @@
                 <div class="mb-3">
                     &ensp;<label class="form-label">Họ tên</label>
                     <input type="text" name="ho_ten" class="form-control" value="{{ $user->ho_ten }}"
-                        style="background-color:#D6FFFF">
+                        style="background-color:#D6FFFF" autocomplete="off">
                 </div>
                 <div class="mb-3">
                     &ensp; <label class="form-label">Email</label>
                     <input type="email" name="email" value="{{ $user->email }}" class="form-control"
-                        placeholder="name@gmail.com" style="background-color:#D6FFFF">
+                        placeholder="name@gmail.com" style="background-color:#D6FFFF" autocomplete="off">
                 </div>
                 <div class="mb-3">
                     &ensp;<label for="floatingTextarea" class="form-label">Giới tính</label>

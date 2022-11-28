@@ -155,27 +155,30 @@
                         <div class="fw-semibold">Hình thức liên hệ </div>
                     </div>
                     <div class="d-flex justify-content-left mt-2">
-                        @if ($lienHe->dien_thoai != null)
-                            <div class="d-flex align-items-center">
-                                &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
-                                <div class="fw-semibold">&ensp;Điện thoại: </div>
-                                <div>&ensp;{{ $lienHe->dien_thoai }}</div>
-                            </div>
+                        @if ($lienHe != null)
+                            @if ($lienHe->dien_thoai != null)
+                                <div class="d-flex align-items-center">
+                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
+                                    <div class="fw-semibold">&ensp;Điện thoại: </div>
+                                    <div>&ensp;{{ $lienHe->dien_thoai }}</div>
+                                </div>
+                            @endif
+                            @if ($lienHe->zalo != null)
+                                <div class="d-flex align-items-center">
+                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
+                                    <div class="fw-semibold">&ensp;Zalo: </div>
+                                    <div>&ensp;{{ $lienHe->zalo }}</div>
+                                </div>
+                            @endif
+                            @if ($lienHe->facebook != null)
+                                <div class="d-flex align-items-center">
+                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
+                                    <div class="fw-semibold">&ensp;Facebook:</div>
+                                    <div>&ensp;{{ $lienHe->facebook }}</div>
+                                </div>
+                            @endif
                         @endif
-                        @if ($lienHe->zalo != null)
-                            <div class="d-flex align-items-center">
-                                &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
-                                <div class="fw-semibold">&ensp;Zalo: </div>
-                                <div>&ensp;{{ $lienHe->zalo }}</div>
-                            </div>
-                        @endif
-                        @if ($lienHe->facebook != null)
-                            <div class="d-flex align-items-center">
-                                &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
-                                <div class="fw-semibold">&ensp;Facebook:</div>
-                                <div>&ensp;{{ $lienHe->facebook }}</div>
-                            </div>
-                        @endif
+
                     </div>
                     <div class="d-flex text-center mt-4 mb-3">
                         @if ($baiDang->trang_thai == 0)
@@ -281,7 +284,7 @@
                             class="flex-fill d-flex align-items-center" method="post">
                             @csrf
                             <input class="flex-fill form-control rounded-5" type="text" name="binh_luan"
-                                placeholder="Bình luận ...">&ensp;
+                                placeholder="Bình luận ..." style="background-color:#D6FFFF" autocomplete="off">&ensp;
                             <div class="rounded-3" style="padding-left:5px">
                                 <button class="btn btn-light pt-1 pb-1 border" type="submit" id="button-addon2"> <img
                                         src="{{ URL('images/default_images/paper-plane.png') }}"
@@ -331,16 +334,22 @@
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                         <li>
                                                             <a data-bs-toggle="modal" class="dropdown-item"
-                                                                data-bs-target="#staticBackdrop">
+                                                                data-bs-target="#editComment{{ $key }}">
+                                                                Chỉnh sửa
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a data-bs-toggle="modal" class="dropdown-item"
+                                                                data-bs-target="#deleteComment{{ $key }}">
                                                                 Xoá
                                                             </a>
                                                         </li>
                                                     </ul>
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                                        data-bs-keyboard="false" tabindex="-1"
+                                                    <!-- Delete comment -->
+                                                    <div class="modal fade" id="deleteComment{{ $key }}"
+                                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
+                                                        <div class="modal-dialog modal-dialog-centered">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h1 class="modal-title fs-5" id="staticBackdropLabel">
@@ -366,17 +375,130 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!-- Edit comment -->
+                                                    <div class="modal fade" id="editComment{{ $key }}"
+                                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                                                        Chỉnh sửa
+                                                                        bình luận
+                                                                    </h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <form
+                                                                    action="{{ route('xl-chinh-sua-binh-luan', ['idBinhLuan' => $item->id, 'idBaiDang' => $item->bai_dang_id]) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        <input type="text" name="chinh_sua_binh_luan"
+                                                                            class="form-control"
+                                                                            value="{{ $item->noi_dung }}">
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-light"
+                                                                            data-bs-dismiss="modal">Hủy</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary fs-5">Chỉnh
+                                                                            sửa</button>
+                                                                    </div>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 @else
                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                         <li>
-                                                            <a class="dropdown-item">Báo cáo</a>
+                                                            <a data-bs-toggle="modal" class="dropdown-item"
+                                                                data-bs-target="#reportMainComment{{ $key }}">
+                                                                Báo cáo
+                                                            </a>
                                                         </li>
                                                     </ul>
+                                                    <div class="modal fade" id="reportMainComment{{ $key }}"
+                                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                                                        Báo Cáo</h1>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body ">
+                                                                    <h5>Báo cáo bình luận với quản trị viên</h5>
+                                                                    Hãy cho quản trị viên biết bình luận này có vấn đề gì.
+                                                                    Chúng tôi sẽ không thông
+                                                                    báo cho người đăng rằng
+                                                                    bạn đã báo cáo.
+                                                                </div>
+                                                                <div class="list-group">
+                                                                    @foreach ($array as $reportKey => $reportItem)
+                                                                        @if ($reportItem != 'Hình ảnh chứa nội dung nhạy cảm')
+                                                                            <a class="list-group-item list-group-item-action"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#reportComment{{ $reportKey }}{{ $key }}">{{ $reportItem }}</a>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @foreach ($array as $reportKey => $reportItem)
+                                                        <div class="modal fade"
+                                                            id="reportComment{{ $reportKey }}{{ $key }}"
+                                                            data-bs-backdrop="static" data-bs-keyboard="false"
+                                                            tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <form action="{{ route('bao-cao') }}" method="post">
+                                                                        @csrf
+                                                                        <div class="modal-header">
+                                                                            <input type="text" name="nguoi_dung"
+                                                                                value="" hidden>
+                                                                            <input type="text" name="bai_dang"
+                                                                                value="{{ $item->bai_dang_id }}" hidden>
+                                                                            <input type="text" name="binh_luan"
+                                                                                value="{{ $item->id }}" hidden>
+                                                                            <input type="text" name="bao_cao"
+                                                                                value="{{ $reportItem }}" hidden>
+                                                                            <h1 class="modal-title fs-5"
+                                                                                id="staticBackdropLabel">
+                                                                                {{ $reportItem }}
+                                                                            </h1>
+                                                                            <button type="button" class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body ">
+                                                                            Chúng tôi sẽ xem xét báo cáo và thông báo cho
+                                                                            bạn về quyết định của mình.
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#staticBackdrop">Hủy</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Gửi</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
                                                 @endif
                                             </div>
                                         @endif
                                     </div>
-
                                     <div class="d-flex mt-1">
                                         @if (Auth::id() != null)
                                             <button style="padding-left: 20px;font-size:.8em"
@@ -399,11 +521,6 @@
                                                 document.getElementById(id).style.maxHeight = "initial";
                                                 document.getElementById(id).style.marginTop = "10px";
                                             }
-                                            // else if (document.getElementById(id).style.visibility != "hidden") {
-                                            //     document.getElementById(id).style.visibility = "hidden";
-                                            //     document.getElementById(id).style.maxHeight = "0";
-                                            //     document.getElementById(id).style.marginTop = "0px";
-                                            // }
                                             var array = <?php echo json_encode($dsBinhLuan); ?>;
                                             for (let index = 0; index < array.length; index++) {
                                                 if (id != index) {
@@ -416,9 +533,8 @@
                                             }
                                         }
                                     </script>
-
                                 </div>
-                                @foreach ($dsPhanHoi as $phanHoi)
+                                @foreach ($dsPhanHoi as $keyPhanHoi => $phanHoi)
                                     @if ($phanHoi->binh_luan_id == $item->id)
                                         <div class="d-flex mt-2">
                                             <div>
@@ -456,17 +572,24 @@
                                                                 <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                                     <li>
                                                                         <a data-bs-toggle="modal" class="dropdown-item"
-                                                                            data-bs-target="#staticBackdrop">
+                                                                            data-bs-target="#editResponseComment{{ $keyPhanHoi }}">
+                                                                            Chỉnh sửa
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a data-bs-toggle="modal" class="dropdown-item"
+                                                                            data-bs-target="#deleteResponseComment{{ $keyPhanHoi }}">
                                                                             Xoá
                                                                         </a>
                                                                     </li>
                                                                 </ul>
-                                                                <!-- Modal -->
-                                                                <div class="modal fade" id="staticBackdrop"
+                                                                <!-- Delete Response Comment -->
+                                                                <div class="modal fade"
+                                                                    id="deleteResponseComment{{ $keyPhanHoi }}"
                                                                     data-bs-backdrop="static" data-bs-keyboard="false"
                                                                     tabindex="-1" aria-labelledby="staticBackdropLabel"
                                                                     aria-hidden="true">
-                                                                    <div class="modal-dialog">
+                                                                    <div class="modal-dialog modal-dialog-centered">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <h1 class="modal-title fs-5"
@@ -493,12 +616,145 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <!-- Edit response comment -->
+                                                                <div class="modal fade"
+                                                                    id="editResponseComment{{ $keyPhanHoi }}"
+                                                                    data-bs-backdrop="static" data-bs-keyboard="false"
+                                                                    tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h1 class="modal-title fs-5"
+                                                                                    id="staticBackdropLabel">Chỉnh sửa
+                                                                                    bình luận
+                                                                                </h1>
+                                                                                <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                            </div>
+                                                                            <form
+                                                                                action="{{ route('xl-chinh-sua-binh-luan', ['idBinhLuan' => $phanHoi->id, 'idBaiDang' => $phanHoi->bai_dang_id]) }}"
+                                                                                method="post">
+                                                                                @csrf
+                                                                                <div class="modal-body">
+                                                                                    <input type="text"
+                                                                                        name="chinh_sua_binh_luan"
+                                                                                        class="form-control"
+                                                                                        value="{{ $phanHoi->noi_dung }}">
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button"
+                                                                                        class="btn btn-light"
+                                                                                        data-bs-dismiss="modal">Hủy</button>
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-primary fs-5">Chỉnh
+                                                                                        sửa</button>
+                                                                                </div>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             @else
                                                                 <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                                                     <li>
-                                                                        <a class="dropdown-item">Báo cáo</a>
+                                                                        <a data-bs-toggle="modal" class="dropdown-item"
+                                                                            data-bs-target="#reportResponseComment{{ $keyPhanHoi }}">
+                                                                            Báo cáo
+                                                                        </a>
                                                                     </li>
                                                                 </ul>
+                                                                <div class="modal fade"
+                                                                    id="reportResponseComment{{ $keyPhanHoi }}"
+                                                                    data-bs-backdrop="static" data-bs-keyboard="false"
+                                                                    tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                                                    aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h1 class="modal-title fs-5"
+                                                                                    id="staticBackdropLabel">
+                                                                                    Báo Cáo</h1>
+                                                                                <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal"
+                                                                                    aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body ">
+                                                                                <h5>Báo cáo bình luận với quản trị viên</h5>
+                                                                                Hãy cho quản trị viên biết bình luận này có
+                                                                                vấn đề gì.
+                                                                                Chúng tôi sẽ không thông
+                                                                                báo cho người đăng rằng
+                                                                                bạn đã báo cáo.
+                                                                            </div>
+                                                                            <div class="list-group">
+                                                                                @foreach ($array as $reportKey => $reportItem)
+                                                                                    @if ($reportItem != 'Hình ảnh chứa nội dung nhạy cảm')
+                                                                                        <a class="list-group-item list-group-item-action"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#reportResponseComment{{ $reportKey }}{{ $keyPhanHoi }}">{{ $reportItem }}</a>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @foreach ($array as $reportKey => $reportItem)
+                                                                    <div class="modal fade"
+                                                                        id="reportResponseComment{{ $reportKey }}{{ $keyPhanHoi }}"
+                                                                        data-bs-backdrop="static" data-bs-keyboard="false"
+                                                                        tabindex="-1"
+                                                                        aria-labelledby="staticBackdropLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <form action="{{ route('bao-cao') }}"
+                                                                                    method="post">
+                                                                                    @csrf
+                                                                                    <div class="modal-header">
+                                                                                        <input type="text"
+                                                                                            name="nguoi_dung"
+                                                                                            value="" hidden>
+                                                                                        <input type="text"
+                                                                                            name="bai_dang"
+                                                                                            value="{{ $phanHoi->bai_dang_id }}"
+                                                                                            hidden>
+                                                                                        <input type="text"
+                                                                                            name="binh_luan"
+                                                                                            value="{{ $phanHoi->id }}"
+                                                                                            hidden>
+                                                                                        <input type="text"
+                                                                                            name="bao_cao"
+                                                                                            value="{{ $reportItem }}"
+                                                                                            hidden>
+                                                                                        <h1 class="modal-title fs-5"
+                                                                                            id="staticBackdropLabel">
+                                                                                            {{ $reportItem }}
+                                                                                        </h1>
+                                                                                        <button type="button"
+                                                                                            class="btn-close"
+                                                                                            data-bs-dismiss="modal"
+                                                                                            aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body ">
+                                                                                        Chúng tôi sẽ xem xét báo cáo và
+                                                                                        thông báo cho
+                                                                                        bạn về quyết định của mình.
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button"
+                                                                                            class="btn btn-secondary"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#staticBackdrop">Hủy</button>
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-primary">Gửi</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
                                                             @endif
                                                         </div>
                                                     @endif
@@ -538,7 +794,7 @@
                                             class="d-flex flex-fill align-items-center" method="post">
                                             @csrf
                                             <input class="flex-fill form-control rounded-5" type="text"
-                                                name="binh_luan" placeholder="Bình luận ..." />&ensp;
+                                                name="binh_luan" placeholder="Bình luận ..." autocomplete="off">&ensp;
                                             <div class="rounded-3" style="padding-left:5px">
                                                 <button class="btn btn-light pt-1 pb-1 border" type="submit"
                                                     id="button-addon2">
@@ -559,19 +815,19 @@
     </div>
 
 
-    {{-- Hien thi chon bao cao --}}
+    {{-- Hien thi bao cao bài đăng --}}
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Báo Cáo</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body ">
                     <h5>Báo cáo bài viết với quản trị viên</h5>
-                    Hãy cho quản trị viên biếut bài viết này có vấn đề gì. Chúng tôi sẽ không thông báo cho người đăng rằng
+                    Hãy cho quản trị viên biếut bài viết này có vấn đề gì. Chúng tôi sẽ không thông
+                    báo cho người đăng rằng
                     bạn đã báo cáo.
                 </div>
 
@@ -589,22 +845,28 @@
             data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $item }}</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body ">
-                        Chúng tôi sẽ xem xét báo cáo và thông báo cho bạn về quyết định của mình.
-                    </div>
-                    <div class="modal-footer">
-                        <form action="{{ route('bao-cao', ['bai_dang_id' => $baiDang->id, 'noi_dung' => $item]) }}"
-                            method="post">
-                            @csrf
+                    <form action="{{ route('bao-cao') }}" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            <input type="text" name="nguoi_dung" value="" hidden>
+                            <input type="text" name="bai_dang" value="{{ $baiDang->id }}" hidden>
+                            <input type="text" name="binh_luan" value="" hidden>
+                            <input type="text" name="bao_cao" value="{{ $item }}" hidden>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $item }}
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body ">
+                            Chúng tôi sẽ xem xét báo cáo và thông báo cho bạn về quyết định của mình.
+                        </div>
+                        <div class="modal-footer">
+
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                 data-bs-target="#staticBackdrop">Hủy</button>
                             <button type="submit" class="btn btn-primary">Gửi</button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

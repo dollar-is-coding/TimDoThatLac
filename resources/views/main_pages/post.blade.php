@@ -181,7 +181,7 @@
                 <div class="mb-3">
                     &ensp;<label class="mb-1 fw-semibold">Tiêu đề</label>
                     <input class="form-control" rows="1" name="tieu_de" contenteditable="true"
-                        style="background-color:#D6FFFF"></input>
+                        style="background-color:#D6FFFF" autocomplete="off">
                 </div>
                 <div class="mb-3">
                     &ensp;<label class="mb-1 fw-semibold">Nội dung</label>
@@ -197,17 +197,19 @@
                         <div class="input-group mb-3" style="width:30%">
                             <span class="input-group-text" id="basic-addon1">ĐT</span>
                             <input type="text" name="dien_thoai" class="form-control" placeholder="Số điện thoại"
-                                aria-label="Email" aria-describedby="basic-addon1" style="background-color:#D6FFFF">
+                                aria-label="Email" aria-describedby="basic-addon1" style="background-color:#D6FFFF"
+                                autocomplete="off">
                         </div>
                         <div class="input-group mb-3" style="width:32%">
                             <span class="input-group-text" id="basic-addon1">Z</span>
                             <input type="text" name="zalo" class="form-control" placeholder="Zalo" aria-label="Email"
-                                aria-describedby="basic-addon1" style="background-color:#D6FFFF">
+                                aria-describedby="basic-addon1" style="background-color:#D6FFFF" autocomplete="off">
                         </div>
                         <div class="input-group mb-3" style="width:35%">
                             <span class="input-group-text" id="basic-addon1">F</span>
                             <input type="text" name="facebook" class="form-control" placeholder="Facebook"
-                                aria-label="Email" aria-describedby="basic-addon1" style="background-color:#D6FFFF">
+                                aria-label="Email" aria-describedby="basic-addon1" style="background-color:#D6FFFF"
+                                autocomplete="off">
                         </div>
                     </div>
                 </div>

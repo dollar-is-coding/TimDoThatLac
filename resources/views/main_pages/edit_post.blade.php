@@ -9,7 +9,7 @@
                 <div class="mb-2">
                     &ensp;<label class="form-label fw-semibold">Tiêu đề</label>
                     <input class="form-control" rows="1" name="tieu_de" contenteditable="true"
-                        style="background-color:#D6FFFF" value="{{ $baiDang->tieu_de }}"></input>
+                        style="background-color:#D6FFFF" value="{{ $baiDang->tieu_de }}" autocomplete="off">
                 </div>
                 <div class="mb-2">
                     &ensp;<label class="form-label  fw-semibold">Nội dung</label>
@@ -26,19 +26,19 @@
                             <span class="input-group-text" id="basic-addon1">ĐT</span>
                             <input type="text" name="dien_thoai" class="form-control" value="{{ $lienHe->dien_thoai }}"
                                 placeholder="Số điện thoại" aria-label="Email" aria-describedby="basic-addon1"
-                                style="background-color:#D6FFFF">
+                                style="background-color:#D6FFFF" autocomplete="off">
                         </div>
                         <div class="input-group mb-2" style="width:32%">
                             <span class="input-group-text" id="basic-addon1">Z</span>
                             <input type="text" name="zalo" class="form-control" value="{{ $lienHe->zalo }}"
                                 placeholder="Zalo" aria-label="Email" aria-describedby="basic-addon1"
-                                style="background-color:#D6FFFF">
+                                style="background-color:#D6FFFF" autocomplete="off">
                         </div>
                         <div class="input-group mb-2" style="width:35%">
                             <span class="input-group-text" id="basic-addon1">F</span>
                             <input type="text" name="facebook" class="form-control" value="{{ $lienHe->facebook }}"
                                 placeholder="Facebook" aria-label="Email" aria-describedby="basic-addon1"
-                                style="background-color:#D6FFFF">
+                                style="background-color:#D6FFFF" autocomplete="off">
                         </div>
                     </div>
                 </div>

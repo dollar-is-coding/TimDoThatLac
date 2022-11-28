@@ -19,6 +19,8 @@ class BaiDangController extends Controller
 {
     public function trang_chu()
     {
+        // Lấy thông tin người báo cáo
+        // $dsBaoCaoNguoiDung=BaoCao::join('nguoi_dung','nguoi_dung.id','=','nguoi_bao_cao_id')->where('nguoi_bao_cao_id','>',0)->get();
         $dsTheLoai=TheLoai::all();
         $dsDanhMuc=DanhMuc::all();
         $dsKhuVuc=KhuVuc::all();
@@ -42,7 +44,7 @@ class BaiDangController extends Controller
         return view('main_pages.new_feed',['dsTheLoai'=>$dsTheLoai,'dsDanhMuc'=>$dsDanhMuc,'dsKhuVuc'=>$dsKhuVuc,'dsBaiDang'=>$dsBaiDang]);
     }
     public function xem_bai_dang($id) {
-        $array = ['Tin giả', 'Thông tin sai sự thật', 'Vi phạm quy tắc nhóm', 'Hình ảnh chứa nội dung nhạy cảm', 'Spam', 'Ngôn từ gây thù ghét', 'Vấn đề khác',];
+        $array = ['Tin giả', 'Thông tin sai sự thật', 'Hình ảnh chứa nội dung nhạy cảm','Quấy rối', 'Spam', 'Ngôn từ gây thù ghét','Bán hàng trái phép', 'Vấn đề khác',];
         $user=NguoiDung::where('id',Auth::id())->first();
         $chiTietBaiDang=BaiDang::find($id);
         $dsBinhLuan=BinhLuan::where([['bai_dang_id',$id],['binh_luan_id',0]])->orderBy('updated_at','DESC')->get();
@@ -53,13 +55,19 @@ class BaiDangController extends Controller
         $follow=TheoDoi::where('nguoi_dung_id',Auth::id())->where('bai_dang_id',$id)->first();
         return view('main_pages.detail_post',['baiDang'=>$chiTietBaiDang,'soLuongHA'=>$soLuongHinhAnh,'hinhAnh'=>$hinhAnh,'user'=>$user,'daTheoDoi'=>$follow,'lienHe'=>$lienHe,'array'=>$array,'dsBinhLuan'=>$dsBinhLuan,'dsPhanHoi'=>$dsPhanHoi]);
     }
-    public function bao_cao($idBaiDang, $noiDungBaoCao) {
+    public function bao_cao(Request $request) {
         BaoCao::create([
-            'nguoi_dung_id'=>Auth::id(),
-            'bai_dang_id'=>$idBaiDang,
-            'noi_dung'=>$noiDungBaoCao,
+            'nguoi_bao_cao_id'=>Auth::id(),
+            'bai_dang_id'=>$request->bai_dang!=null?$request->bai_dang:0,
+            'binh_luan_id'=>$request->binh_luan!=null?$request->binh_luan:0,
+            'nguoi_dung_id'=>$request->nguoi_dung!=null?$request->nguoi_dung:0,
+            'noi_dung'=>$request->bao_cao,
         ]);
-        return redirect()->route('xem-bai-dang',['id'=>$idBaiDang]);
+        // Hồi nhớ sửa lại 3 trường hợp báo cáo để return đúng view
+        if ($request->nguoi_dung!=null) {
+            return redirect()->route('ds-bai-dang',['id'=>$request->nguoi_dung]);
+        }
+        return redirect()->route('xem-bai-dang',['id'=>$request->bai_dang]);
     }
     public function xl_theo_doi($bai_dang_id) {
         TheoDoi::create([
@@ -78,9 +86,10 @@ class BaiDangController extends Controller
         return back();
     }
     public function ds_bai_dang($id) {
+        $array = ['Giả mạo người khác', 'Tài khoản giả mạo', 'Tên giả mạo', 'Đăng nội dung không phù hợp', 'Quấy rối hoặc bắt nạt', 'Vấn đề khác',];
         $nguoiDung=NguoiDung::where('id',$id)->first();
         $dsBaiDang=BaiDang::where('nguoi_dung_id',$id)->orderBy('trang_thai','DESC')->orderBy('updated_at','DESC')->get();
-        return view('main_pages.post_list',['user'=>$nguoiDung,'dsBaiDang'=>$dsBaiDang,'id'=>$id]);
+        return view('main_pages.post_list',['user'=>$nguoiDung,'dsBaiDang'=>$dsBaiDang,'id'=>$id,'array'=>$array]);
     }
     public function ds_theo_doi($id) {
         $nguoiDung=NguoiDung::where('id',$id)->first();
@@ -108,9 +117,9 @@ class BaiDangController extends Controller
         $hinhAnh=BaiDang::latest()->first();
         $lienHe=LienHe::create([
             'bai_dang_id'=>$hinhAnh->id,
-            'dien_thoai'=>$request->dien_thoai,
-            'zalo'=>$request->zalo,
-            'facebook'=>$request->facebook,
+            'dien_thoai'=>$request->dien_thoai!=null?$request->dien_thoai:"",
+            'zalo'=>$request->zalo!=null?$request->zalo:"",
+            'facebook'=>$request->facebook!=null?$request->facebook:"",
         ]);
         if ($request->has('file')) {
             foreach ($request->file('file') as $img) {
