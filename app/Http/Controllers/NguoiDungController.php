@@ -14,6 +14,8 @@ use App\Models\KhuVuc;
 use Carbon\Carbon;
 use App\Http\Requests\DangNhapRequets;
 
+
+
 class NguoiDungController extends Controller
 {
     /**
