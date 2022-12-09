@@ -16,6 +16,7 @@ class CreateTheLoaisTable extends Migration
         Schema::create('the_loai', function (Blueprint $table) {
             $table->id();
             $table->string('ten');
+            $table->integer('admin');
             $table->timestamps();
             $table->softDeletes();
         });

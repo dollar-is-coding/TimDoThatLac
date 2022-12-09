@@ -98,7 +98,7 @@ class BaiDangController extends Controller
     }
     public function dang_bai() {
         $danhMuc=DanhMuc::all();
-        $theLoai=TheLoai::all();
+        $theLoai=TheLoai::where('admin',0)->get();
         $khuVuc=KhuVuc::all();
         return view('main_pages.post',['danhMuc'=>$danhMuc,'theLoai'=>$theLoai,'khuVuc'=>$khuVuc]);
     }
@@ -136,7 +136,7 @@ class BaiDangController extends Controller
     public function show($id) {
         $chiTietBaiDang =BaiDang::find($id);
         $danhMuc=DanhMuc::all();
-        $theLoai=TheLoai::all();
+        $theLoai=TheLoai::where('admin',0)->get();
         $khuVuc=KhuVuc::all();
         $lienHe=LienHe::where('bai_dang_id',$id)->first();
         $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();

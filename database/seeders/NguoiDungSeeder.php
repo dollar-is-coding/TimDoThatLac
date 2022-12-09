@@ -27,5 +27,14 @@ class NguoiDungSeeder extends Seeder
                 "anh_dai_dien"=>""
             ]);
            }
+           NguoiDung::create([
+            "ho_ten" =>"admin",
+            "mat_khau" =>hash::make("12345678"),
+            "email" =>"admin@gmail.com",
+            "ngay_sinh"=>"2002/5/12",
+            "gioi_tinh"=>1,
+            "admin"=>1,
+            "anh_dai_dien"=>""
+        ]);
     }
 }
