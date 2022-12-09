@@ -24,11 +24,6 @@ class CreateBinhLuansTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('binh_luan');

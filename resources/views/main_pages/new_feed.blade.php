@@ -51,15 +51,20 @@
                 <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm"
                     style="background-color:white">
                     <div class="d-flex flex-fill align-items-center">
-                        <?php
-                        if ($item->nguoiDung->anh_dai_dien != '') {
-                            echo '<img src="/images/added_images/' . $item->nguoiDung->anh_dai_dien . '" alt="" class="rounded-2" style="width:5em;height:5em">';
-                        } elseif ($item->nguoiDung->gioi_tinh == 1) {
-                            echo '<img src="/images/default_images/man.png" alt="" class="rounded-2" style="width:5em;height:5em">';
-                        } else {
-                            echo '<img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">';
-                        }
-                        ?>
+                        @if (Auth::user()->admin == 0)
+                            <img src="/images/added_images/admin.png" alt="" class="rounded-2"
+                                style="width:5em;height:5em">
+                        @else
+                            <?php
+                            if ($item->nguoiDung->anh_dai_dien != '') {
+                                echo '<img src="/images/added_images/' . $item->nguoiDung->anh_dai_dien . '" alt="" class="rounded-2" style="width:5em;height:5em">';
+                            } elseif ($item->nguoiDung->gioi_tinh == 1) {
+                                echo '<img src="/images/default_images/man.png" alt="" class="rounded-2" style="width:5em;height:5em">';
+                            } else {
+                                echo '<img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">';
+                            }
+                            ?>
+                        @endif
                         <div style="margin-left:3%">
                             <div class="fs-5 fw-semibold">{{ $item->tieu_de }}</div>
                             <div>{{ $item->nguoiDung->ho_ten }}</div>
