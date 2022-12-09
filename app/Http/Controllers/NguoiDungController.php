@@ -14,6 +14,7 @@ use App\Models\KhuVuc;
 use Carbon\Carbon;
 use App\Http\Requests\DangNhapRequets;
 use App\Http\Requests\DangKyRequets;
+use App\Http\Requests\ChangePasswordRequest;
 
 
 
@@ -135,26 +136,24 @@ class NguoiDungController extends Controller
        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
+    }
+
+    public function show_edit_password() {
+        return view('main_pages.edit_password');
+    }
+
+    public function edit_password(ChangePasswordRequest $request) {
+        $realPass=NguoiDung::find(Auth::id());
+        if ($request->new_password==$request->confirm_new_password&&Hash::check($request->old_password,$realPass['mat_khau'])) {
+            NguoiDung::find(Auth::id())->update([
+                'mat_khau'=>Hash::make($request->new_password),
+            ]);
+            return redirect()->route('ds-bai-dang',['id'=>Auth::id()]);
+        }
+        return redirect()->back()->with('error','Thay đổi mật khẩu thất bại!');
     }
 }

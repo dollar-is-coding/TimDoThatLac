@@ -21,10 +21,11 @@ Route::get('/dang-ky', [NguoiDungController::class, 'create'])->name('dang-ky')-
 Route::post('/dang-ky', [NguoiDungController::class, 'store'])->name('xl-dang-ky')->middleware('guest');
 Route::get('/dang-nhap', [NguoiDungController::class, 'sign_in'])->name('dang-nhap')->middleware('guest');
 Route::post('/dang-nhap', [NguoiDungController::class, 'get_sign_in'])->name('xl-dang-nhap')->middleware('guest');
-
 Route::get('/dang-xuat', [NguoiDungController::class, 'log_out'])->name('dang-xuat')->middleware('auth');
 Route::get('/chinh-sua-tai-khoan', [NguoiDungController::class, 'show'])->name('chinh-sua-tai-khoan')->middleware('auth');
 Route::post('/chinh-sua-tai-khoan', [NguoiDungController::class, 'edit'])->name('xl-chinh-sua-tai-khoan')->middleware('auth');
+Route::get('/thay-doi-mat-khau',[NguoiDungController::class, 'show_edit_password'])->name('hien-thi-thay-doi-mat-khau')->middleware('auth');
+Route::post('/thay-doi-mat-khau',[NguoiDungController::class, 'edit_password'])->name('xu-ly-thay-doi-mat-khau')->middleware('auth');
 
 Route::get('/',[BaiDangController::class,'trang_chu'])->name('trang-chu');
 Route::get('/tim-kiem',[BaiDangController::class,'tim_kiem'])->name('tim-kiem');
