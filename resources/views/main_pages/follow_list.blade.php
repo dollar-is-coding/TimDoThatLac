@@ -80,15 +80,20 @@
                         class="text-decoration-none text-dark">
                         <div class="rounded-2 d-flex p-4 pt-0 pb-3 mt-2 justify-content-between shadow-sm">
                             <div class="d-flex flex-fill align-items-center">
-                                <?php
-                                if ($item->baiDang->nguoiDung->anh_dai_dien != '') {
-                                    echo '<img src="/images/added_images/' . $item->baiDang->nguoiDung->anh_dai_dien . '" alt="" class="rounded-2" style="width:5em;height:5em">';
-                                } elseif ($item->baiDang->nguoiDung->gioi_tinh == 1) {
-                                    echo '<img src="/images/default_images/man.png" alt="" class="rounded-2" style="width:5em;height:5em">';
-                                } else {
-                                    echo '<img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">';
-                                }
-                                ?>
+                                @if ($item->nguoiDung->admin == 0)
+                                    <?php
+                                    if ($item->nguoiDung->anh_dai_dien != '') {
+                                        echo '<img src="/images/added_images/' . $item->nguoiDung->anh_dai_dien . '" alt="" class="rounded-2" style="width:5em;height:5em">';
+                                    } elseif ($item->nguoiDung->gioi_tinh == 1) {
+                                        echo '<img src="/images/default_images/man.png" alt="" class="rounded-2" style="width:5em;height:5em">';
+                                    } else {
+                                        echo '<img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">';
+                                    }
+                                    ?>
+                                @else
+                                    <img src="/images/default_images/admin.png" alt="" class="rounded-2"
+                                        style="width:5em;height:5em">
+                                @endif
                                 <div style="margin-left:3%;background-color:white">
                                     <div class="fs-5 fw-semibold">{{ $item->baiDang->tieu_de }}</div>
                                     <div>{{ $item->baiDang->nguoiDung->ho_ten }}</div>
@@ -104,11 +109,15 @@
                                             </div>
                                             &ensp;
                                         @endif
-                                        <div class="rounded p-2 pt-0 pb-0" style="background-color:#D6FFFF;color:#052147 ;">
-                                            {{ $item->baiDang->danhMuc->ten }}
-                                        </div>&ensp;
-                                        <div class="rounded p-2 pt-0 pb-0" style="background-color:#D6FFFF;color:#052147 ;">
-                                            {{ $item->baiDang->khuVuc->ten }}</div>
+                                        @if ($item->baiDang->nguoiDung->admin == 0)
+                                            <div class="rounded p-2 pt-0 pb-0"
+                                                style="background-color:#D6FFFF;color:#052147 ;">
+                                                {{ $item->baiDang->danhMuc->ten }}
+                                            </div>&ensp;
+                                            <div class="rounded p-2 pt-0 pb-0"
+                                                style="background-color:#D6FFFF;color:#052147 ;">
+                                                {{ $item->baiDang->khuVuc->ten }}</div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
