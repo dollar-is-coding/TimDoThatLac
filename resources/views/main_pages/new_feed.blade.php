@@ -51,10 +51,7 @@
                 <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm"
                     style="background-color:white">
                     <div class="d-flex flex-fill align-items-center">
-                        @if (Auth::user()->admin == 0)
-                            <img src="/images/added_images/admin.png" alt="" class="rounded-2"
-                                style="width:5em;height:5em">
-                        @else
+                        @if ($item->nguoiDung->admin == 0)
                             <?php
                             if ($item->nguoiDung->anh_dai_dien != '') {
                                 echo '<img src="/images/added_images/' . $item->nguoiDung->anh_dai_dien . '" alt="" class="rounded-2" style="width:5em;height:5em">';
@@ -64,19 +61,29 @@
                                 echo '<img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">';
                             }
                             ?>
+                        @else
+                            <img src="/images/default_images/admin.png" alt="" class="rounded-2"
+                                style="width:5em;height:5em">
                         @endif
                         <div style="margin-left:3%">
                             <div class="fs-5 fw-semibold">{{ $item->tieu_de }}</div>
-                            <div>{{ $item->nguoiDung->ho_ten }}</div>
+                            <div>{{ $item->nguoiDung->admin == 0 ? $item->nguoiDung->ho_ten : 'TimDoThatLac' }}</div>
                             <div class="d-flex text-center mt-2 ">
                                 <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
-                                    {{ $item->theLoai->ten }}</div>
-                                &ensp;
-                                <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
-                                    {{ $item->danhMuc->ten }}</div>
-                                &ensp;
-                                <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
-                                    {{ $item->khuVuc->ten }}</div>
+                                    <div> {{ $item->theLoai->ten }} </div>
+                                </div>
+                                @if ($item->nguoiDung->admin == 0)
+                                    &ensp;
+                                    <div class="rounded p-2 pt-0 pb-0 shadow-sm"
+                                        style="background-color:#D6FFFF;color:#052147">
+                                        <div> {{ $item->danhMuc->ten }} </div>
+                                    </div>
+                                    &ensp;
+                                    <div class="rounded p-2 pt-0 pb-0 shadow-sm"
+                                        style="background-color:#D6FFFF;color:#052147">
+                                        <div> {{ $item->khuVuc->ten }} </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -91,74 +98,5 @@
                 </div>
             </a>
         @endforeach
-
     </div>
-    <hr>
-    {{-- Danh sách tìm kiếm --}}
-    @if (count($dsBaiDang) > 0)
-    <div class="fs-5 fw-bold" style="padding-left:.8%">Danh sách bài đăng</div>
-    @else
-    <div class="fs-5 fw-bold text-center" style="padding-left:.8%">Chưa có bài đăng</div>
-    @endif
-    @foreach ($dsBaiDang as $item)
-    <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
-        <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm" style="background-color:white">
-            <div class="d-flex flex-fill align-items-center">
-                <?php
-                if ($item->nguoiDung->anh_dai_dien != '') {
-                    echo '<img src="/images/added_images/' . $item->nguoiDung->anh_dai_dien . '" alt="" class="rounded-2" style="width:5em;height:5em">';
-                } elseif ($item->nguoiDung->gioi_tinh == 1) {
-                    echo '<img src="/images/default_images/man.png" alt="" class="rounded-2" style="width:5em;height:5em">';
-                } else {
-                    echo '<img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">';
-                }
-                ?>
-                <div style="margin-left:3%">
-                    <div class="fs-5 fw-semibold">{{ $item->tieu_de }}</div>
-                    <div>{{ $item->nguoiDung->ho_ten }}</div>
-                    <div class="d-flex text-center mt-2 ">
-                        <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
-                            <?php
-                            if ($item->the_loai_id > 2) {
-                                echo 'None';
-                            } else {
-                                echo '<div> ' . $item->theLoai->ten . '</div>';
-                            }
-                            ?>
-                        </div>
-                        &ensp;
-                        <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
-                            <?php
-                            if ($item->danh_muc_id == 0) {
-                                echo 'None';
-                            } else {
-                                echo '<div> ' . $item->danhMuc->ten . '</div>';
-                            }
-                            ?>
-                        </div>
-                        &ensp;
-                        <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
-                            <?php
-                            if ($item->khu_vuc_id == 0) {
-                                echo 'None';
-                            } else {
-                                echo '<div> ' . $item->khuVuc->ten . '</div>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex flex-row" style="padding-top:.3%;">
-                <div>
-                    {{ $item->updated_at->format('H:i') }}
-                </div>
-                &ensp;<div>
-                    {{ $item->updated_at->format('d/m/Y') }}
-                </div>
-            </div>
-        </div>
-    </a>
-    @endforeach
-</div>
 @endsection
