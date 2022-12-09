@@ -56,26 +56,24 @@ Route::post('/xu-ly-chinh-sua-binh-luan/{idBinhLuan}/{idBaiDang}',[BinhLuanContr
 // Route::get('/dashboard',function(){
 //     return view('admin_pages.dashboard');
 // });
-Route::get('/trang-chu-admin', [AdminController::class, 'trang_chu_admin'])->name('trang-chu-admin');
+Route::get('/trang-chu-admin', [AdminController::class, 'trang_chu_admin'])->name('trang-chu-admin')->middleware('auth');
+Route::get('/report-account',[AdminController::class, 'bao_cao_tai_khoan'])->name('report-account')->middleware('auth');
+Route::get('/report-post',[AdminController::class, 'bao_cao_bai_dang'])->name('report-post')->middleware('auth');
+Route::get('/report-comment',[AdminController::class, 'bao_cao_binh_luan'])->name('report-comment')->middleware('auth');
+Route::get('/bo-qua-tai-khoan/{id}',[AdminController::class,'bo_qua_tai_khoan'])->name('bo-qua-tai-khoan')->middleware('auth');
+Route::get('/bo-qua-bai-dang/{id}',[AdminController::class,'bo_qua_bai_dang'])->name('bo-qua-bai-dang')->middleware('auth');
+Route::get('/bo-qua-binh-luan/{id}',[AdminController::class,'bo_qua_binh_luan'])->name('bo-qua-binh-luan')->middleware('auth');
 
+Route::get('/dang-ky-admin', [AdminController::class, 'create_admin'])->name('dang-ky-admin')->middleware('guest');
+Route::post('/dang-ky-admin', [AdminController::class, 'store'])->name('xl-dang-ky-admin')->middleware('guest');
 
-Route::get('/report-account', function () {
-    return view('admin_pages.report_account');
-});
-Route::get('/report-post', function () {
-    return view('admin_pages.report_post');
-});
-Route::get('/report-comment', function () {
-    return view('admin_pages.report_comment');
-});
+Route::get('/manager-account',[AdminController::class,'ds_tai_khoan'])->name('quan-ly-tai-khoan')->middleware('auth');
+Route::get('/manager-post',[AdminController::class,'ds_bai_dang'])->name('quan-ly-bai-dang')->middleware('auth');
+Route::get('/manager-comment',[AdminController::class,'ds_binh_luan'])->name('quan-ly-binh-luan')->middleware('auth');
+Route::get('/chinh-sua-tai-khoan-admin', [AdminController::class, 'show'])->name('chinh-sua-tai-khoan-admin')->middleware('auth');
 
-Route::get('/manager-account', function () {
-    return view('admin_pages.manager_account');
-});
-Route::get('/manager-post', function () {
-    return view('admin_pages.manager_post');
-});
-Route::get('/manager-comment', function () {
-    return view('admin_pages.manager_comment');
-});
+Route::get('/dang-bai-admin',[AdminController::class,'dang_bai_admin'])->name('dang-bai-admin')->middleware('auth');
+
+Route::get('/xoa-bai-dang-bai/{id}/{idbd}',[AdminController::class,'xoa_tai_khoan_nguoi_dung'])->name('xoa-bai-dang-nguoi-dung')->middleware('auth');
+
 

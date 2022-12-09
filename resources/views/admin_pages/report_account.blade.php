@@ -53,9 +53,11 @@
     .ma:hover::before {
         width: 9em;
     }
-    .ma:hover{
+
+    .ma:hover {
         color: black;
     }
+
     /* na */
     .na {
         text-decoration: none;
@@ -90,7 +92,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-image: linear-gradient(to right,  #0fd850 0%, #f9f047 100%);
+        background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
         transition: .5s ease;
         display: block;
         z-index: -1;
@@ -99,33 +101,37 @@
     .na:hover::before {
         width: 9em;
     }
-    .na:hover{
+
+    .na:hover {
         color: black;
     }
 </style>
 <div class="father">
-    <a class="son " href="/report-account" style="color:grey">Tài khoản (30)</a>
-    <a class="son " href="/report-post">Bài đăng (30)</a>
-    <a class="son " href="/report-comment">Bình luận (30)</a>
+    <a class="son " href="{{route('report-account')}}" style="color:grey">Tài khoản ({{$nguoidung}})</a>
+    <a class="son " href="{{route('report-post')}}">Bài đăng ({{$baidang}})</a>
+    <a class="son " href="{{route('report-comment')}}">Bình luận ({{$binhluan}})</a>
 </div>
 <hr>
 <div class="som">
-
-    <a href="" class="text-decoration-none text-dark">
+    <p>account</p>
+    @foreach($dstaikhoan as $item)
+    <a href="{{route('ds-bai-dang',['id'=>$item->nguoiDung->id])}}" class="text-decoration-none text-dark">
         <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm" style="background-color:white">
             <div class="d-flex flex-fill align-items-center">
 
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                    <div class="fs-5 fw-semibold">Ten</div>
-                    <div style="width:500px">Noi dung binh luan</div>
+                    <div class="fs-5 fw-semibold">{{$item->nguoiDung->ho_ten}}</div>
+                    <div style="width:500px">{{$item->noi_dung}}</div>
+                  
                 </div>
             </div>
             <div class="d-flex flex-col" style="padding-top:.3%;margin-top: 10px;">
-                <a class="ma" href="">Xóa</a>
-                <a class="na" href="">Bỏ qua</a>
+                <a class="ma" href="{{route('xoa-bai-dang-nguoi-dung',['id'=>$item->nguoiDung->id,'idbd'=>$item->bai_dang_id])}}">Xóa</a>
+                <a class="na" href="{{route('bo-qua-tai-khoan',['id'=>$item->id])}}">Bỏ qua</a>
             </div>
         </div>
     </a>
+    @endforeach
 </div>
 @endsection

@@ -29,9 +29,22 @@ class NguoiDungController extends Controller
 
     public function get_sign_in(DangNhapRequets $request)
     {
-        $xuly =$request->only('email','password');
-        if(Auth::attempt($xuly))
-        {
+        // $xuly =$request->only('email','password');
+        $nguoidung =[
+            'email'=>$request->email,
+            'password'=>$request->password,
+            'admin'=>0,
+        ];
+        $admin =[
+            'email'=>$request->email,
+            'password'=>$request->password,
+            'admin'=>1,
+        ];
+        if(Auth::attempt($admin))
+        {   
+                return redirect()->route('trang-chu-admin');
+                
+        }else if(Auth::attempt($nguoidung)){
             return redirect()->route('trang-chu');
         }
        return redirect()->back()->with('error','Đăng nhập thất bại');
@@ -113,7 +126,12 @@ class NguoiDungController extends Controller
             $img->anh_dai_dien = $filename;
         }
         $img->save();
+       if(Auth::user()->admin==0){
         return redirect()->route('ds-bai-dang',['id'=>Auth::id()]);
+       }
+       else{
+        return redirect()->route('trang-chu-admin',['id'=>Auth::id()]);
+       }
     }
 
     /**
