@@ -8,19 +8,40 @@
                 @csrf
                 <div class="mb-2">
                     &ensp;<label class="form-label fw-semibold">Tiêu đề</label>
+                    @error('tieu_de')
+                        <span class="fst-italic text-danger">*</span>
+                    @enderror
                     <input class="form-control" rows="1" name="tieu_de" contenteditable="true"
                         style="background-color:#D6FFFF" value="{{ $baiDang->tieu_de }}" autocomplete="off">
+                    @error('tieu_de')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-2">
                     &ensp;<label class="form-label  fw-semibold">Nội dung</label>
+                    @error('noi_dung')
+                        <span class="fst-italic text-danger">*</span>
+                    @enderror
                     <textarea class="form-control" rows="5" name="noi_dung" contenteditable="true" style="background-color:#D6FFFF">{{ $baiDang->noi_dung }}</textarea>
+                    @error('noi_dung')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-2">
                     &ensp;<label class="form-label fw-semibold">Địa chỉ</label>
+                    @error('dia_chi')
+                        <span class="fst-italic text-danger">*</span>
+                    @enderror
                     <textarea class="form-control" rows="2" name="dia_chi" contenteditable="true" style="background-color:#D6FFFF">{{ $baiDang->dia_chi }}</textarea>
+                    @error('dia_chi')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-1">
                     &ensp;<label class="mb-1 fw-semibold">Liên hệ</label>
+                    @error('dien_thoai')
+                        <span class="fst-italic text-danger">*</span>
+                    @enderror
                     <div class="d-flex justify-content-between">
                         <div class="input-group mb-2" style="width:30%">
                             <span class="input-group-text" id="basic-addon1">ĐT</span>
@@ -41,6 +62,9 @@
                                 style="background-color:#D6FFFF" autocomplete="off">
                         </div>
                     </div>
+                    @error('dien_thoai')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="d-flex flex-row mb-2">
                     <div class="flex-fill" style="margin-right:1em">

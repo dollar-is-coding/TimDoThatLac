@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DangKyRequets;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +11,7 @@ use App\Models\BaiDang;
 use App\Models\TheLoai;
 use App\Models\DanhMuc;
 use App\Models\KhuVuc;
-use Carbon\Carbon; 
+use Carbon\Carbon;
 use App\Http\Requests\DangNhapRequets;
 
 class NguoiDungController extends Controller
@@ -26,7 +26,6 @@ class NguoiDungController extends Controller
         return view('begin_pages.sign_in');
     }
     
-
     public function get_sign_in(DangNhapRequets $request)
     {
         // $xuly =$request->only('email','password');
@@ -114,7 +113,6 @@ class NguoiDungController extends Controller
         $ngay_sinh=$request->nam."/".$request->thang."/".$request->ngay;
         $nguoiDung=NguoiDung::where('id',$id)->update([
             'ho_ten'=>$request->ho_ten,
-            'email'=>$request->email,
             'ngay_sinh'=>date('Y/m/d', strtotime($ngay_sinh)),
             'gioi_tinh'=>(int)$request->gioi_tinh,
         ]);

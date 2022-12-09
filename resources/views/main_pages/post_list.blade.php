@@ -3,19 +3,33 @@
     <div style="padding-left:10em;padding-right:10em;">
         <div class="d-flex flex-row mb-4">
             <div class="mt-3 rounded shadow-sm flex-shrink-2 p-4 align-self-start" style="background-color:white">
-                @if (Auth::id() != null && $user->id != Auth::id())
-                    <div class="d-flex align-items-end flex-column dropend" style="margin-top:-5%">
-                        <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ URL('images/default_images/menu-dots.png') }}" class="rounded-circle"
-                                style="width: 1em;height:1em">
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                            <li>
-                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    href="">Báo cáo</a>
-                            </li>
-                        </ul>
-                    </div>
+                @if (Auth::id() != null)
+                    @if ($user->id != Auth::id())
+                        <div class="d-flex align-items-end flex-column dropend" style="margin-top:-5%">
+                            <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ URL('images/default_images/menu-dots.png') }}" class="rounded-circle"
+                                    style="width: 1em;height:1em">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                        href="">Báo cáo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    @else
+                        <div class="d-flex align-items-end flex-column dropend" style="margin-top:-5%">
+                            <button class="btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ URL('images/default_images/menu-dots.png') }}" class="rounded-circle"
+                                    style="width: 1em;height:1em">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                <li>
+                                    <a class="dropdown-item" href="#">Sửa mật khẩu</a>
+                                </li>
+                            </ul>
+                        </div>
+                    @endif
                 @endif
                 <div class="text-center">
                     <?php
