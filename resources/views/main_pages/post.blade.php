@@ -234,9 +234,9 @@
                                 autocomplete="off">
                         </div>
                     </div>
-                    @error('dien_thoai')
+                    <!-- @error('dien_thoai')
                         <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
-                    @enderror
+                    @enderror -->
                 </div>
                 <div class="d-flex flex-row mb-2">
                     <div class="flex-fill" style="margin-right:1em">

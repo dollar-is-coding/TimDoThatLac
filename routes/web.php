@@ -73,6 +73,8 @@ Route::get('/manager-comment',[AdminController::class,'ds_binh_luan'])->name('qu
 Route::get('/chinh-sua-tai-khoan-admin', [AdminController::class, 'show'])->name('chinh-sua-tai-khoan-admin')->middleware('auth');
 
 Route::get('/dang-bai-admin',[AdminController::class,'dang_bai_admin'])->name('dang-bai-admin')->middleware('auth');
+Route::post('/xl-dang-bai-admin',[AdminController::class,'xu_ly_dang_bai'])->name('xl-dang-bai-admin')->middleware('auth');
+
 
 Route::get('/xoa-bai-dang-bai/{id}/{idbd}',[AdminController::class,'xoa_tai_khoan_nguoi_dung'])->name('xoa-bai-dang-nguoi-dung')->middleware('auth');
 
