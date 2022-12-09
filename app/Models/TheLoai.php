@@ -9,5 +9,5 @@ class TheLoai extends Model
 {
     use HasFactory;
     protected $table='the_loai';
-    protected $fillable=['ten'];
+    protected $fillable=['ten','admin'];
 }
