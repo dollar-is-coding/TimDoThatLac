@@ -204,8 +204,7 @@
                     @error('dia_chi')
                         <span class="fst-italic text-danger">*</span>
                     @enderror
-                    <textarea class="form-control" rows="2" name="dia_chi" contenteditable="true" style="background-color:#D6FFFF">
-                    </textarea>
+                    <textarea class="form-control" rows="2" name="dia_chi" contenteditable="true" style="background-color:#D6FFFF"></textarea>
                     @error('dia_chi')
                         <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
                     @enderror

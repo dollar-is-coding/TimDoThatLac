@@ -25,7 +25,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                 <li>
-                                    <a class="dropdown-item" href="#">Sửa mật khẩu</a>
+                                    <a class="dropdown-item" href="{{ route('hien-thi-thay-doi-mat-khau') }}">Thay đổi mật khẩu</a>
                                 </li>
                             </ul>
                         </div>
