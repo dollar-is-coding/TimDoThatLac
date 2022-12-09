@@ -11,6 +11,8 @@ use App\Models\KhuVuc;
 use App\Models\BaiDang;
 use App\Models\BaoCao;
 use App\Models\BinhLuan;
+use App\Models\HinhAnh;
+use App\Models\LienHe;
 use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon; 
@@ -147,7 +149,7 @@ class AdminController extends Controller
         return view('admin_pages.edit_account_admin',['user'=>$nguoiDung,'id'=>$id,'day'=>$day,'month'=>$month,'year'=>$year]);
     }
     public function dang_bai_admin() {     
-        $theLoai=TheLoai::all();
+        $theLoai=TheLoai::where('admin',1)->get();
         return view('admin_pages.post_admin',['theLoai'=>$theLoai]);
     }
     public function xoa_tai_khoan_nguoi_dung($id,$idbd){//id nguoi dung
@@ -169,5 +171,30 @@ class AdminController extends Controller
         $getidbd=BaoCao::where('bai_dang_id',$idbd);
         dd($getidbd);
         return redirect()->route('xoa-bai-dang-nguoi-dung');
+    }
+    public function xu_ly_dang_bai(Request $request) {
+        $user=Auth::id();
+        $dangBai=BaiDang::create([
+            'nguoi_dung_id'=>$user,
+            'the_loai_id'=>$request->the_loai,
+            'danh_muc_id'=>0,
+            'khu_vuc_id'=>0,
+            'tieu_de'=>$request->tieu_de,
+            'noi_dung'=>$request->noi_dung,
+            'dia_chi'=>'',
+            'trang_thai'=>1,
+        ]);
+        $hinhAnh=BaiDang::latest()->first();
+        if ($request->has('file')) {
+            foreach ($request->file('file') as $img) {
+                $filename = $img->getClientOriginalName();
+                $img->move(public_path('images/added_images'), $filename);
+                HinhAnh::create([
+                    'bai_dang_id'=>$hinhAnh->id,
+                    'hinh_anh'=>$filename,
+                ]);
+            }
+        }
+        return redirect()->route('trang-chu-admin');
     }
 }

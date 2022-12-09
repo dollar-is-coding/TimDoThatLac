@@ -59,7 +59,8 @@
     <div style="padding-left:20em;padding-right:20em;">
         <div class=" p-4 mt-3 mb-3 pt-3 pb-3 rounded-2 shadow-sm border" style="background-color:white">
             <div class="d-flex align-items-center justify-content-between">
-                <a href="{{ route('ds-bai-dang', ['id' => $baiDang->nguoi_dung_id]) }}">
+                <a href="{{ route('ds-bai-dang', ['id' => $baiDang->nguoi_dung_id]) }}"> 
+                    <!-- nếu admin thì k vào coi trang đc, không được báo cáo -->
                     <?php
                     if ($baiDang->nguoiDung->anh_dai_dien != '') {
                         echo '<img src="/images/added_images/' . $baiDang->nguoiDung->anh_dai_dien . '" alt="" width="50px" height="50px" class="rounded-circle mr-3">';
@@ -193,11 +194,23 @@
                             &ensp;
                         @endif
                         <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
-                            {{ $baiDang->danhMuc->ten }}
+                        <?php
+                            if ($baiDang->danh_muc_id == 0) {
+                                echo 'None';
+                            } else {
+                                echo '<div> ' . $baiDang->danhMuc->ten . '</div>';
+                            }
+                            ?>
                         </div>
                         &ensp;
                         <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
-                            {{ $baiDang->khuVuc->ten }}</div>
+                            <?php
+                            if ($baiDang->khu_vuc_id == 0) {
+                                echo 'None';
+                            } else {
+                                echo '<div> ' . $baiDang->khuVuc->ten . '</div>';
+                            }
+                            ?>
                     </div>
                 </div>
 

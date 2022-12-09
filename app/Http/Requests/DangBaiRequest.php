@@ -28,7 +28,7 @@ class DangBaiRequest extends FormRequest
             'noi_dung'=>'required',
             'dia_chi'=>'required',
             'dien_thoai'=>'required|min:10|max:10',
-            'file[]'=>'required',
+            // 'file[]'=>'required',
         
         ];
     }
@@ -41,7 +41,7 @@ class DangBaiRequest extends FormRequest
                 'dien_thoai.required'=>'Vui lòng nhập số điện thoại',
                 'dien_thoai.min'=>'Số điện thoại tối thiểu 10 số',
                 'dien_thoai.max'=>'Số điện thoại tối đa 10 số',
-                'file[].required'=>'Vui lòng thêm ảnh'
+                // 'file[].required'=>'Vui lòng thêm ảnh'
             ];
     }
 }

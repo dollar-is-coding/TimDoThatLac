@@ -153,17 +153,18 @@
     </div>
 </div>
 <hr>
+
 @foreach($dsBaiDangAdmin as $item)
 <div style="margin-top:1em;overflow: auto;">
-<a href="" class="text-decoration-none text-dark">
+<a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
         <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm" style="background-color:white">
             <div class="d-flex flex-fill align-items-center">
 
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                <div class="fs-4" style="width:500px">{{$item->tieude}}</div>
-                    <div class="fs-5 fw-semibold">{{$item->noidung}}</div>
-                    <div class=" fw-semibold">loại bai dang (canh bao or mẹo)</div>
+                <div class="fs-4" style="width:500px">{{$item->tieu_de}}</div>
+                    <div class="fs-5 fw-semibold">{{$item->noi_dung}}</div>
+                    <div class=" fw-semibold">Loại: {{$item->theLoai->ten }}</div>
                 </div>
             </div>
             <div class="d-flex flex-col" style="padding-top:.3%;margin-top: 10px;">

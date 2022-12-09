@@ -16,6 +16,8 @@ use App\Http\Requests\DangNhapRequets;
 use App\Http\Requests\DangKyRequets;
 use App\Http\Requests\ChangePasswordRequest;
 
+
+
 class NguoiDungController extends Controller
 {
     /**
