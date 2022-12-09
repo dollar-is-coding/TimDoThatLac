@@ -90,13 +90,14 @@
                 </div>
                 <div class="mb-3">
                     &ensp;<label class="form-label">Họ tên</label>
+                    @error('ho_ten')
+                        <span class="fst-italic text-danger">*</span>
+                    @enderror
                     <input type="text" name="ho_ten" class="form-control" value="{{ $user->ho_ten }}"
                         style="background-color:#D6FFFF" autocomplete="off">
-                </div>
-                <div class="mb-3">
-                    &ensp; <label class="form-label">Email</label>
-                    <input type="email" name="email" value="{{ $user->email }}" class="form-control"
-                        placeholder="name@gmail.com" style="background-color:#D6FFFF" autocomplete="off">
+                    @error('ho_ten')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     &ensp;<label for="floatingTextarea" class="form-label">Giới tính</label>
@@ -104,7 +105,6 @@
                         style="background-color:#D6FFFF">
                         <option value="1" {{ '1' == $user->gioi_tinh ? 'selected' : '' }}>Nam</option>
                         <option value="2" {{ '2' == $user->gioi_tinh ? 'selected' : '' }}>Nữ</option>
-
                     </select>
                 </div>
                 <div class="mb-5">

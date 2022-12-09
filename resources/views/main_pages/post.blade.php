@@ -178,40 +178,65 @@
             <hr>
             <form action="{{ route('xl-dang-bai') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="mb-3">
+                <div class="mb-2">
                     &ensp;<label class="mb-1 fw-semibold">Tiêu đề</label>
+                    @error('tieu_de')
+                        <span class="fst-italic text-danger">*</span>
+                    @enderror
                     <input class="form-control" rows="1" name="tieu_de" contenteditable="true"
                         style="background-color:#D6FFFF" autocomplete="off">
+                    @error('tieu_de')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     &ensp;<label class="mb-1 fw-semibold">Nội dung</label>
+                    @error('noi_dung')
+                        <span class="fst-italic text-danger">*</span>
+                    @enderror
                     <textarea class="form-control" rows="5" name="noi_dung" contenteditable="true" style="background-color:#D6FFFF"></textarea>
+                    @error('noi_dung')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     &ensp;<label class="mb-1 fw-semibold">Địa chỉ</label>
-                    <textarea class="form-control" rows="2" name="dia_chi" contenteditable="true" style="background-color:#D6FFFF"></textarea>
+                    @error('dia_chi')
+                        <span class="fst-italic text-danger">*</span>
+                    @enderror
+                    <textarea class="form-control" rows="2" name="dia_chi" contenteditable="true" style="background-color:#D6FFFF">
+                    </textarea>
+                    @error('dia_chi')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="mb-1">
+                <div class="mb-3">
                     &ensp;<label class="mb-1 fw-semibold">Liên hệ</label>
+                    @error('dien_thoai')
+                        <span class="fst-italic text-danger">*</span>
+                    @enderror
                     <div class="d-flex justify-content-between">
-                        <div class="input-group mb-3" style="width:30%">
+                        <div class="input-group" style="width:30%">
                             <span class="input-group-text" id="basic-addon1">ĐT</span>
-                            <input type="text" name="dien_thoai" class="form-control" placeholder="Số điện thoại"
+                            <input type="number" name="dien_thoai" class="form-control" placeholder="Số điện thoại"
                                 aria-label="Email" aria-describedby="basic-addon1" style="background-color:#D6FFFF"
                                 autocomplete="off">
                         </div>
-                        <div class="input-group mb-3" style="width:32%">
+                        <div class="input-group" style="width:32%">
                             <span class="input-group-text" id="basic-addon1">Z</span>
-                            <input type="text" name="zalo" class="form-control" placeholder="Zalo" aria-label="Email"
+                            <input type="number" name="zalo" class="form-control" placeholder="Zalo" aria-label="Email"
                                 aria-describedby="basic-addon1" style="background-color:#D6FFFF" autocomplete="off">
                         </div>
-                        <div class="input-group mb-3" style="width:35%">
+                        <div class="input-group" style="width:35%">
                             <span class="input-group-text" id="basic-addon1">F</span>
                             <input type="text" name="facebook" class="form-control" placeholder="Facebook"
                                 aria-label="Email" aria-describedby="basic-addon1" style="background-color:#D6FFFF"
                                 autocomplete="off">
                         </div>
                     </div>
+                    @error('dien_thoai')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="d-flex flex-row mb-2">
                     <div class="flex-fill" style="margin-right:1em">
@@ -242,23 +267,26 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="dandev-reviews">
                     <label class="dandev_insert_attach rounded-2">
                         <span class=" d-inline-flex align-items-center">
                             &ensp;
-                            {{-- <img src="/images/default_images/plus-small.png" width="3%" height="3%"> --}}
                             <div class="fw-semibold p-2 pt-0 pb-0 rounded shadow-sm"
                                 style="background-color: #052147;color:white">
-                                + Thêm ảnh</div>
+                                + Thêm ảnh
+                            </div>
                         </span>
-
                     </label>
+                    @error('file[]')
+                        <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                    @enderror
                     <div class="list_attach d-flex">
                         <ul class="dandev_attach_view">
                         </ul>
                         <span class="dandev_insert_attach"><i class="dandev-plus">+</i></span>
+
                     </div>
+
                 </div>
 
                 <div class="d-flex justify-content-center">

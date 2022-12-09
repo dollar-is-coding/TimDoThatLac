@@ -13,6 +13,7 @@ use App\Models\TheoDoi;
 use App\Models\LienHe;
 use App\Models\BaoCao;
 use App\Models\BinhLuan;
+use App\Http\Requests\DangBaiRequest;
 use Illuminate\Support\Facades\Auth;
 
 class BaiDangController extends Controller
@@ -63,7 +64,6 @@ class BaiDangController extends Controller
             'nguoi_dung_id'=>$request->nguoi_dung!=null?$request->nguoi_dung:0,
             'noi_dung'=>$request->bao_cao,
         ]);
-        // Hồi nhớ sửa lại 3 trường hợp báo cáo để return đúng view
         if ($request->nguoi_dung!=null) {
             return redirect()->route('ds-bai-dang',['id'=>$request->nguoi_dung]);
         }
@@ -102,7 +102,7 @@ class BaiDangController extends Controller
         $khuVuc=KhuVuc::all();
         return view('main_pages.post',['danhMuc'=>$danhMuc,'theLoai'=>$theLoai,'khuVuc'=>$khuVuc]);
     }
-    public function xu_ly_dang_bai(Request $request) {
+    public function xu_ly_dang_bai(DangBaiRequest $request) {
         $user=Auth::id();
         $dangBai=BaiDang::create([
             'nguoi_dung_id'=>$user,
@@ -142,7 +142,7 @@ class BaiDangController extends Controller
         $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
         return view('main_pages.edit_post',['baiDang'=>$chiTietBaiDang,'danhMuc'=>$danhMuc,'theLoai'=>$theLoai,'khuVuc'=>$khuVuc,'hinhAnh'=>$hinhAnh,'lienHe'=>$lienHe]);
     }
-    public function edit($id,Request $request) {
+    public function edit($id,DangBaiRequest $request) {
         $chiTietBaiDang=BaiDang::find($id)->update([
             'the_loai_id'=>$request->the_loai,
             'danh_muc_id'=>$request->danh_muc,

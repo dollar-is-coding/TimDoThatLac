@@ -158,21 +158,21 @@
                         @if ($lienHe != null)
                             @if ($lienHe->dien_thoai != null)
                                 <div class="d-flex align-items-center">
-                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
+                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="13em">
                                     <div class="fw-semibold">&ensp;Điện thoại: </div>
                                     <div>&ensp;{{ $lienHe->dien_thoai }}</div>
                                 </div>
                             @endif
                             @if ($lienHe->zalo != null)
                                 <div class="d-flex align-items-center">
-                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
+                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="13em">
                                     <div class="fw-semibold">&ensp;Zalo: </div>
                                     <div>&ensp;{{ $lienHe->zalo }}</div>
                                 </div>
                             @endif
                             @if ($lienHe->facebook != null)
                                 <div class="d-flex align-items-center">
-                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="4%">
+                                    &ensp;&ensp;&ensp;<img src="/images/default_images/circle-small.png" width="13em">
                                     <div class="fw-semibold">&ensp;Facebook:</div>
                                     <div>&ensp;{{ $lienHe->facebook }}</div>
                                 </div>
@@ -502,7 +502,8 @@
                                     <div class="d-flex mt-1">
                                         @if (Auth::id() != null)
                                             <button style="padding-left: 20px;font-size:.8em"
-                                                class="fw-semibold btn pb-0 pt-0 response"onclick="myFunction({{ $key }})">Phản hồi</button>
+                                                class="fw-semibold btn pb-0 pt-0 response"onclick="myFunction({{ $key }})">Phản
+                                                hồi</button>
                                         @endif
                                         <div class="fw-semibold"
                                             style="font-size:.8em;color:rgb(154, 155, 157);padding-left: 10px">
@@ -762,7 +763,8 @@
                                                 <div class="d-flex mt-1">
                                                     @if (Auth::id() != null)
                                                         <button style="padding-left: 20px;font-size:.8em"
-                                                            class="fw-semibold btn pb-0 pt-0 response"onclick="myFunction({{ $key }})">Phản hồi</button>
+                                                            class="fw-semibold btn pb-0 pt-0 response"onclick="myFunction({{ $key }})">Phản
+                                                            hồi</button>
                                                     @endif
                                                     <div class="fw-semibold"
                                                         style="font-size:.8em;color:rgb(154, 155, 157);padding-left: 10px">

@@ -30,7 +30,7 @@
                 @enderror
             </div>
             @if (session('error'))
-                <div>{{ session('error') }}</div>
+                <div class="text-center text-danger fst-italic">{{ session('error') }}</div>
             @endif
         </div>
         <div class="text-center m-2 mt-4">
