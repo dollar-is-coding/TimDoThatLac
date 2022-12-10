@@ -169,7 +169,7 @@
             </div>
             <div class="d-flex flex-col" style="padding-top:.3%;margin-top: 10px;">
                 <a class="ma" href="">Xóa</a>
-                <a class="na" href="">Chỉnh sửa</a>
+                <a class="na" href="{{route('sua-bai-dang-admin',['id'=>$item->id])}}">Chỉnh sửa</a>
             </div>
         </div>
     </a>

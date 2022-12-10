@@ -115,7 +115,7 @@
 <div class="som">
     <p>post</p>
    @foreach($dsbaidang as $item)
-   <a href="{{ route('xem-bai-dang', ['id' => $item->baiDang->id]) }}" class="text-decoration-none text-dark">
+   <a href="{{ route('xem-bai-dang', ['id' => $item->bai_dang_id]) }}" class="text-decoration-none text-dark">
         <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm" style="background-color:white">
             <div class="d-flex flex-fill align-items-center">
 
@@ -129,7 +129,7 @@
                 </div>
             </div>
             <div class="d-flex flex-col" style="padding-top:.3%;margin-top: 10px;">
-                <a aria-placeholder="" class="ma" href="">Xóa</a>
+                <a aria-placeholder="" class="ma" href="{{ route('xoa-bai-dang',['id'=>$item->bai_dang_id]) }}">Xóa</a>
                 <a class="na" href="{{route('bo-qua-bai-dang',['id'=>$item->id])}}">Bỏ qua</a>
             </div>
         </div>
