@@ -89,10 +89,7 @@
                     </div>
                     <div class="d-flex flex-row" style="padding-top:.3%;">
                         <div>
-                            {{ $item->updated_at->format('H:i') }}
-                        </div>
-                        &ensp;<div>
-                            {{ $item->updated_at->format('d/m/Y') }}
+                            {{ \Carbon\Carbon::now()->format('d/m/Y') == $item->updated_at->format('d/m/Y') ? $item->updated_at->format('H:i') : $item->updated_at->format('d/m/Y') }}
                         </div>
                     </div>
                 </div>

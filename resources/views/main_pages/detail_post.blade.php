@@ -157,19 +157,22 @@
                 <div class=" d-flex flex-column justify-content-between">
                     <div class="fs-4 fw-semibold text-justify">{{ $baiDang->tieu_de }}</div>
                     <div class="mt-2 d-flex align-items-center">
-                        <img src="/images/default_images/caret-right.png" width="2%" class="align-self-start">
+                        @if ($baiDang->nguoiDung->admin == 0)
+                            <img src="/images/default_images/caret-right.png" width="2%" class="align-self-start">
+                        @endif
                         <div>{{ $baiDang->noi_dung }}</div>
                     </div>
-
-                    <div class="mt-2 d-flex align-items-center">
-                        <img src="/images/default_images/caret-right.png" width="2%" class="align-self-start">
-                        <div class="fw-semibold">Địa chỉ:</div>
-                        <div>&ensp;{{ $baiDang->dia_chi }}</div>
-                    </div>
-                    <div class="mt-2 d-flex align-items-center">
-                        <img src="/images/default_images/caret-right.png" width="2%" class="align-self-start">
-                        <div class="fw-semibold">Hình thức liên hệ </div>
-                    </div>
+                    @if ($baiDang->nguoiDung->admin == 0)
+                        <div class="mt-2 d-flex align-items-center">
+                            <img src="/images/default_images/caret-right.png" width="2%" class="align-self-start">
+                            <div class="fw-semibold">Địa chỉ:</div>
+                            <div>&ensp;{{ $baiDang->dia_chi }}</div>
+                        </div>
+                        <div class="mt-2 d-flex align-items-center">
+                            <img src="/images/default_images/caret-right.png" width="2%" class="align-self-start">
+                            <div class="fw-semibold">Hình thức liên hệ </div>
+                        </div>
+                    @endif
                     <div class="d-flex justify-content-left mt-2">
                         @if ($lienHe != null)
                             @if ($lienHe->dien_thoai != null)
@@ -194,7 +197,6 @@
                                 </div>
                             @endif
                         @endif
-
                     </div>
                     <div class="d-flex text-center mt-4 mb-3">
                         @if ($baiDang->trang_thai == 0)
@@ -209,7 +211,6 @@
                             &ensp;
                         @endif
                         @if ($baiDang->nguoiDung->admin == 0)
-                            &ensp;
                             <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
                                 <div> {{ $baiDang->danhMuc->ten }} </div>
                             </div>
@@ -353,14 +354,16 @@
                                                         <img src="{{ URL('images/default_images/menu-dots.png') }}"
                                                             class="rounded-circle" style="width: 1em;height:1em">
                                                     </button>
-                                                    @if ($item->nguoi_dung_id == Auth::id())
+                                                    @if ($item->nguoi_dung_id == Auth::id() || $baiDang->nguoi_dung_id == Auth::id())
                                                         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                                            <li>
-                                                                <a data-bs-toggle="modal" class="dropdown-item"
-                                                                    data-bs-target="#editComment{{ $key }}">
-                                                                    Chỉnh sửa
-                                                                </a>
-                                                            </li>
+                                                            @if ($item->nguoi_dung_id == Auth::id())
+                                                                <li>
+                                                                    <a data-bs-toggle="modal" class="dropdown-item"
+                                                                        data-bs-target="#editComment{{ $key }}">
+                                                                        Chỉnh sửa
+                                                                    </a>
+                                                                </li>
+                                                            @endif
                                                             <li>
                                                                 <a data-bs-toggle="modal" class="dropdown-item"
                                                                     data-bs-target="#deleteComment{{ $key }}">
@@ -604,15 +607,17 @@
                                                                         class="rounded-circle"
                                                                         style="width: 1em;height:1em">
                                                                 </button>
-                                                                @if ($phanHoi->nguoi_dung_id == Auth::id())
+                                                                @if ($phanHoi->nguoi_dung_id == Auth::id() || $baiDang->nguoi_dung_id == Auth::id())
                                                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                                                        <li>
-                                                                            <a data-bs-toggle="modal"
-                                                                                class="dropdown-item"
-                                                                                data-bs-target="#editResponseComment{{ $keyPhanHoi }}">
-                                                                                Chỉnh sửa
-                                                                            </a>
-                                                                        </li>
+                                                                        @if ($phanHoi->nguoi_dung_id == Auth::id())
+                                                                            <li>
+                                                                                <a data-bs-toggle="modal"
+                                                                                    class="dropdown-item"
+                                                                                    data-bs-target="#editResponseComment{{ $keyPhanHoi }}">
+                                                                                    Chỉnh sửa
+                                                                                </a>
+                                                                            </li>
+                                                                        @endif
                                                                         <li>
                                                                             <a data-bs-toggle="modal"
                                                                                 class="dropdown-item"
