@@ -25,7 +25,8 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('hien-thi-thay-doi-mat-khau') }}">Thay đổi mật khẩu</a>
+                                    <a class="dropdown-item" href="{{ route('hien-thi-thay-doi-mat-khau') }}">Thay đổi mật
+                                        khẩu</a>
                                 </li>
                             </ul>
                         </div>
@@ -113,10 +114,7 @@
                             </div>
                             <div class="d-flex flex-row" style="padding-top:.3%;">
                                 <div>
-                                    {{ $item->updated_at->format('H:i') }}
-                                </div>
-                                &ensp;<div>
-                                    {{ $item->updated_at->format('d/m/Y') }}
+                                    {{ \Carbon\Carbon::now()->format('d/m/Y') == $item->updated_at->format('d/m/Y') ? $item->updated_at->format('H:i') : $item->updated_at->format('d/m/Y') }}
                                 </div>
                             </div>
                         </div>
