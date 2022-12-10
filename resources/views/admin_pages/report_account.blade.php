@@ -3,7 +3,7 @@
 <style>
     .son {
         text-decoration: none;
-        color: black;
+        color: grey;
         text-align: center;
         margin: 0 auto;
         font-weight: 600;
@@ -107,13 +107,12 @@
     }
 </style>
 <div class="father">
-    <a class="son " href="{{route('report-account')}}" style="color:grey">Tài khoản ({{$nguoidung}})</a>
+    <a class="son " href="{{route('report-account')}}" style="color:black">Tài khoản ({{$nguoidung}})</a>
     <a class="son " href="{{route('report-post')}}">Bài đăng ({{$baidang}})</a>
     <a class="son " href="{{route('report-comment')}}">Bình luận ({{$binhluan}})</a>
 </div>
 <hr>
 <div class="som">
-    <p>account</p>
     @foreach($dstaikhoan as $item)
     <a href="{{route('ds-bai-dang',['id'=>$item->nguoiDung->id])}}" class="text-decoration-none text-dark">
         <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm" style="background-color:white">

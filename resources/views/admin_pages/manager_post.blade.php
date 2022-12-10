@@ -3,7 +3,7 @@
 <style>
     .son {
         text-decoration: none;
-        color: black;
+        color: grey;
         text-align: center;
         margin: 0 auto;
         font-weight: 600;
@@ -60,7 +60,7 @@
 </style>
 <div class="father">
     <a class="son " href="{{route('quan-ly-tai-khoan')}}">Tài khoản </a>
-    <a class="son " href="{{route('quan-ly-bai-dang')}}" style="color:grey">Bài đăng </a>
+    <a class="son " href="{{route('quan-ly-bai-dang')}}" style="color:black">Bài đăng </a>
     <a class="son " href="{{route('quan-ly-binh-luan')}}">Bình luận </a>
 </div>
 <hr>
