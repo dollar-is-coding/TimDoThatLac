@@ -48,15 +48,6 @@ Route::post('/xu-ly-phan-hoi/{idBinhLuan}/{idBaiDang}',[BinhLuanController::clas
 Route::get('/xu-ly-xoa-binh-luan/{idBinhLuan}/{idBaiDang}',[BinhLuanController::class,'xu_ly_xoa_binh_luan'])->name('xl-xoa-binh-luan')->middleware('auth');
 Route::post('/xu-ly-chinh-sua-binh-luan/{idBinhLuan}/{idBaiDang}',[BinhLuanController::class,'xu_ly_chinh_sua_binh_luan'])->name('xl-chinh-sua-binh-luan')->middleware('auth');
 
-
-
-// Admin
-// Route::get('/admin',function(){
-//     return view('main_admin');
-// });
-// Route::get('/dashboard',function(){
-//     return view('admin_pages.dashboard');
-// });
 Route::get('/trang-chu-admin', [AdminController::class, 'trang_chu_admin'])->name('trang-chu-admin')->middleware('auth');
 Route::get('/report-account',[AdminController::class, 'bao_cao_tai_khoan'])->name('report-account')->middleware('auth');
 Route::get('/report-post',[AdminController::class, 'bao_cao_bai_dang'])->name('report-post')->middleware('auth');

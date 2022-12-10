@@ -128,7 +128,7 @@
         <img src="{{ URL('images/default_images/add.png') }}" class="rounded-circle border p-2" style="width: 2.7em;height:2.7em;margin-left:12px;background-color: rgb(202, 221, 255)">
     </a>
     <a href="{{route('dang-ky-admin')}}">
-        <img src="{{ URL('images/default_images/user.png') }}" class="rounded-circle border p-2" style="width: 2.7em;height:2.7em;margin-left:12px;background-color: rgb(202, 221, 255)">
+        <img src="{{ URL('images/default_images/user-add.png') }}" class="rounded-circle border p-2" style="width: 2.7em;height:2.7em;margin-left:12px;background-color: rgb(202, 221, 255)">
     </a>
 </div>
 
