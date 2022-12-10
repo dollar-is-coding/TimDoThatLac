@@ -65,8 +65,8 @@ Route::get('/bo-qua-tai-khoan/{id}',[AdminController::class,'bo_qua_tai_khoan'])
 Route::get('/bo-qua-bai-dang/{id}',[AdminController::class,'bo_qua_bai_dang'])->name('bo-qua-bai-dang')->middleware('auth');
 Route::get('/bo-qua-binh-luan/{id}',[AdminController::class,'bo_qua_binh_luan'])->name('bo-qua-binh-luan')->middleware('auth');
 
-Route::get('/dang-ky-admin', [AdminController::class, 'create_admin'])->name('dang-ky-admin')->middleware('guest');
-Route::post('/dang-ky-admin', [AdminController::class, 'store'])->name('xl-dang-ky-admin')->middleware('guest');
+Route::get('/dang-ky-admin', [AdminController::class, 'dang_ky_admin'])->name('dang-ky-admin')->middleware('auth');
+Route::post('/dang-ky-admin', [AdminController::class, 'tao_tai_khoan_admin'])->name('xl-dang-ky-admin')->middleware('auth');
 
 Route::get('/manager-account',[AdminController::class,'ds_tai_khoan'])->name('quan-ly-tai-khoan')->middleware('auth');
 Route::get('/manager-post',[AdminController::class,'ds_bai_dang'])->name('quan-ly-bai-dang')->middleware('auth');
@@ -76,8 +76,8 @@ Route::get('/chinh-sua-tai-khoan-admin', [AdminController::class, 'show'])->name
 Route::get('/dang-bai-admin',[AdminController::class,'dang_bai_admin'])->name('dang-bai-admin')->middleware('auth');
 Route::post('/xl-dang-bai-admin',[AdminController::class,'xu_ly_dang_bai'])->name('xl-dang-bai-admin')->middleware('auth');
 
-Route::get('/chinh-sua-bai-dang-admin/{id}',[AdminController::class,'sua_bai_dang'])->name('sua-bai-dang-admin')->middleware('auth');
-Route::post('/chinh-sua-bai-dang-admin/{id}',[AdminController::class,'sua_bai_dang_admin'])->name('xl-chinh-sua-bai-dang-admin')->middleware('auth');
+Route::get('/chinh-sua-bai-dang-admin/{id}',[AdminController::class,'sua_bai_dang_admin'])->name('sua-bai-dang-admin')->middleware('auth');
+Route::post('/chinh-sua-bai-dang-admin/{id}',[AdminController::class,'xl_sua_bai_dang_admin'])->name('xl-chinh-sua-bai-dang-admin')->middleware('auth');
 
 Route::get('/xoa-binh-luan/{id}',[AdminController::class,'xoa_binh_luan'])->name('xoa-binh-luan')->middleware('auth');
 Route::get('/xoa-bai-dang/{id}',[AdminController::class,'xoa_bai_dang'])->name('xoa-bai-dang')->middleware('auth');

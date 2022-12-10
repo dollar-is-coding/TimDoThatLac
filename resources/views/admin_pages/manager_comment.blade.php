@@ -59,26 +59,26 @@
     }
 </style>
 <div class="father">
-    <a class="son " href="{{route('quan-ly-tai-khoan')}}">Tài khoản</a>
-    <a class="son " href="{{route('quan-ly-bai-dang')}}">Bài đăng</a>
-    <a class="son " href="{{route('quan-ly-binh-luan')}}" style="color:grey">Bình luận</a>
+    <a class="son " href="{{route('quan-ly-tai-khoan')}}">Tài khoản </a>
+    <a class="son " href="{{route('quan-ly-bai-dang')}}">Bài đăng </a>
+    <a class="son " href="{{route('quan-ly-binh-luan')}}" style="color:grey">Bình luận </a>
 </div>
 <hr>
 <div class="som">
     @foreach($dsbinhluan as $item)
-    <a href="{{ route('xem-bai-dang', ['id' => $item->baiDang->id]) }}" class="text-decoration-none text-dark">
+    <a href="{{ route('xem-bai-dang', ['id' => $item->bai_dang_id]) }}" class="text-decoration-none text-dark">
         <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm" style="background-color:white">
             <div class="d-flex flex-fill align-items-center">
 
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                <div class="fs-5 fw-semibold">{{$item->nguoiDung->ho_ten}}</div>
-                <div class="fs-5">{{$item->baiDang->tieu_de}}</div>
-                    <div style="width:500px">{{$item->noi_dung}}</div>
+                    <div style="width:500px" class="fs-5 fw-semibold">Tên: {{$item->nguoiDung->ho_ten}}</div>
+                    <div style="width:500px" class=" fw-semibold">Tiêu đề bài đăng: {{$item->baiDang->tieu_de}}</div>
+                    <div style="width:500px" class=" fw-semibold">Nội dung bình luận: {{$item->noi_dung}}</div>
                 </div>
             </div>
             <div class="d-flex flex-row" style="padding-top:.3%;">
-            <a class="ma" href="">Xóa</a>
+                <a class="ma" href="{{route('xoa-binh-luan',['id'=>$item->id])}}">Xóa</a>
             </div>
         </div>
     </a>

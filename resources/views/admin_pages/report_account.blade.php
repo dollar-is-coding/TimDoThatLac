@@ -121,9 +121,10 @@
 
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                    <div class="fs-5 fw-semibold">{{$item->nguoiDung->ho_ten}}</div>
-                    <div style="width:500px">{{$item->noi_dung}}</div>
-                  
+                    <div class="fs-5 fw-semibold">Tên: {{$item->nguoiDung->ho_ten}}</div>
+                    <div class=" fw-semibold" style="width:500px">Email: {{$item->nguoiDung->email}}</div>
+                    <div class=" fw-semibold" style="width:500px">Nội dung báo cáo: {{$item->noi_dung}}</div>
+
                 </div>
             </div>
             <div class="d-flex flex-col" style="padding-top:.3%;margin-top: 10px;">

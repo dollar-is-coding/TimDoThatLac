@@ -121,10 +121,9 @@
 
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                    <div class="fs-4" style="width:500px">{{$item->baiDang->nguoiDung->ho_ten}}</div>
-                    <div class="fs-5 fw-semibold">{{$item->baiDang->tieu_de}}</div>
-                    <div class=" fw-semibold">{{$item->baiDang->noi_dung}}</div>
-                    <div class=" fw-semibold">{{$item->noi_dung}}</div>
+                    <div style="width:500px" class="fs-5 fw-semibold">Tên: {{$item->baiDang->nguoiDung->ho_ten}}</div>
+                    <div style="width:500px" class=" fw-semibold">Nội dung bài đăng: {{$item->baiDang->noi_dung}}</div>
+                    <div style="width:500px" class=" fw-semibold">Nội dung báo cáo: {{$item->noi_dung}}</div>
 
                 </div>
             </div>

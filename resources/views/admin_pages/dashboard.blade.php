@@ -13,14 +13,14 @@
         padding-top: 1em;
 
         color: #090909;
- padding: 0.7em 1.7em;
- font-size: 18px;
- border-radius: 0.5em;
- background: #e8e8e8;
- border: 1px solid #e8e8e8;
- transition: all .3s;
- box-shadow: 6px 6px 12px #c5c5c5,
-             -6px -6px 12px #ffffff;
+        padding: 0.7em 1.7em;
+        font-size: 18px;
+        border-radius: 0.5em;
+        background: #e8e8e8;
+        border: 1px solid #e8e8e8;
+        transition: all .3s;
+        box-shadow: 6px 6px 12px #c5c5c5,
+            -6px -6px 12px #ffffff;
     }
 
     .ct {
@@ -28,6 +28,7 @@
         margin-top: 1.6em;
         margin-bottom: 1.6em;
     }
+
     .ma {
         text-decoration: none;
         height: 3em;
@@ -137,38 +138,48 @@
         <div style="flex-basis:50% ;height: 50%;">
             <p>Tổng số bài đăng</p>
         </div>
-        <div style="flex-basis: 50%;"><h3>{{$baidang}}</h3></div>
+        <div style="flex-basis: 50%;">
+            <h3>{{$baidang}}</h3>
+        </div>
     </div>
     <div class="ctn">
         <div style="flex-basis:50% ;height: 50%;">
             <p>Tổng số người dùng</p>
         </div>
-        <div style="flex-basis: 50%;"><h3>{{$nguoidung}}</h3></div>
+        <div style="flex-basis: 50%;">
+            <h3>{{$nguoidung}}</h3>
+        </div>
     </div>
     <div class="ctn">
         <div style="flex-basis:50% ;height: 50%;">
             <p>Tổng số bài đăng đã tìm thấy</p>
         </div>
-        <div style="flex-basis: 50%;"><h3>{{$timthay}}</h3></div>
+        <div style="flex-basis: 50%;">
+            <h3>{{$timthay}}</h3>
+        </div>
     </div>
 </div>
 <hr>
-
+@if (count($dsBaiDangAdmin) > 0)
+<div class="fs-5 fw-bold" style="padding-left:.8%">Danh sách bài đăng admin</div>
+@else
+<div class="fs-5 fw-bold text-center" style="padding-left:.8%">Bạn chưa có bài đăng nào!</div>
+@endif
 @foreach($dsBaiDangAdmin as $item)
-<div style="margin-top:1em;overflow: auto;">
-<a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
+<div style="overflow: auto;">
+    <a href="{{ route('xem-bai-dang', ['id' => $item->id]) }}" class="text-decoration-none text-dark">
         <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm" style="background-color:white">
             <div class="d-flex flex-fill align-items-center">
 
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                <div class="fs-4" style="width:500px">{{$item->tieu_de}}</div>
-                    <div class="fs-5 fw-semibold">{{$item->noi_dung}}</div>
-                    <div class=" fw-semibold">Loại: {{$item->theLoai->ten }}</div>
+                    <div class="fs-5 fw-semibold" style="width:500px">Tiêu đề bài đăng: {{$item->tieu_de}}</div>
+                    <div class=" fw-semibold" style="width:500px">Nội dung bài đăng: {{$item->noi_dung}}</div>
+                    <div class=" fw-semibold">Thể loại: {{$item->theLoai->ten }}</div>
                 </div>
             </div>
             <div class="d-flex flex-col" style="padding-top:.3%;margin-top: 10px;">
-                <a class="ma" href="">Xóa</a>
+                <a class="ma" href="{{ route('xoa-bai-dang', ['id' => $item->id]) }}">Xóa</a>
                 <a class="na" href="{{route('sua-bai-dang-admin',['id'=>$item->id])}}">Chỉnh sửa</a>
             </div>
         </div>

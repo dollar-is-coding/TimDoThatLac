@@ -102,11 +102,11 @@
                     <?php
                     use Illuminate\Support\Facades\Auth;
                     if (Auth::user()->anh_dai_dien != '') {
-                        echo '<img src="/images/added_images/'.Auth::user()->anh_dai_dien.' "alt="" class="rounded-circle" style="width:10em;height:10em">';
+                        echo '<img src="/images/added_images/'.Auth::user()->anh_dai_dien.' "alt="" class="rounded-circle" style="width:150px;height:150px">';
                     } elseif (Auth::user()->gioi_tinh == 1) {
-                        echo '<img src="/images/default_images/man.png" alt="" width="10em" height="10em" class="rounded-circle mr-3">';
+                        echo '<img src="/images/default_images/man.png" alt="" width="150px" height="150px" class="rounded-circle mr-3">';
                     } else {
-                        echo '<img src="/images/default_images/woman.png" alt="" width="10em" height="10em" class="rounded-circle mr-3">';
+                        echo '<img src="/images/default_images/woman.png" alt="" width="150px" height="150px" class="rounded-circle mr-3">';
                     }
                     ?>
                     </a>

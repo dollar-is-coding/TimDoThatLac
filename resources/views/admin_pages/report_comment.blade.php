@@ -1,7 +1,6 @@
 @extends('main_admin')
 @section('main_admin')
-<style> 
-
+<style>
     .son {
         text-decoration: none;
         color: black;
@@ -9,8 +8,9 @@
         margin: 0 auto;
         font-weight: 600;
         border-radius: 10px;
-        margin-top: 20px;    
+        margin-top: 20px;
     }
+
     .ma {
         text-decoration: none;
         height: 3em;
@@ -53,9 +53,11 @@
     .ma:hover::before {
         width: 9em;
     }
-    .ma:hover{
+
+    .ma:hover {
         color: black;
     }
+
     /* na */
     .na {
         text-decoration: none;
@@ -90,7 +92,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-image: linear-gradient(to right,  #0fd850 0%, #f9f047 100%);
+        background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
         transition: .5s ease;
         display: block;
         z-index: -1;
@@ -99,27 +101,29 @@
     .na:hover::before {
         width: 9em;
     }
-    .na:hover{
+
+    .na:hover {
         color: black;
     }
 </style>
 <div class="father">
-    <a class="son " href="{{route('report-account')}}" >Tài khoản ({{$nguoidung}})</a>
+    <a class="son " href="{{route('report-account')}}">Tài khoản ({{$nguoidung}})</a>
     <a class="son " href="{{route('report-post')}}">Bài đăng ({{$baidang}})</a>
     <a class="son " href="{{route('report-comment')}}" style="color:grey">Bình luận ({{$binhluan}})</a>
 </div>
 <hr>
 <div class="som">
-   <p>comment</p>
-@foreach($dsbinhluan as $item)
-<a href="{{ route('xem-bai-dang', ['id' => $item->binh_luan_id]) }}" class="text-decoration-none text-dark">
+    <p>comment</p>
+    @foreach($dsbinhluan as $item)
+    <a href="{{ route('xem-bai-dang', ['id' => $item->binh_luan_id]) }}" class="text-decoration-none text-dark">
         <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm" style="background-color:white">
             <div class="d-flex flex-fill align-items-center">
 
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                    <div class="fs-5 fw-semibold">{{$item->baiDang->nguoiDung->ho_ten}}</div>
-                    <div style="width:500px">{{$item->noi_dung}}</div>
+                    <div style="width:500px" class="fs-5 fw-semibold">Tên: {{$item->baiDang->nguoiDung->ho_ten}}</div>
+                    <div style="width:500px" class=" fw-semibold">Nội dung bình luận: {{$item->binhLuan->noi_dung}}</div>
+                    <div class=" fw-semibold" style="width:500px">Nội dung báo cáo: {{$item->noi_dung}}</div>
                 </div>
             </div>
             <div class="d-flex flex-col" style="padding-top:.3%;margin-top: 10px;">
