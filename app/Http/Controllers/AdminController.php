@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BaiDangAdminRequets;
+use App\Http\Requests\DangBaiRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\DangKyRequets;
 use Illuminate\Support\Facades\Hash;
@@ -78,18 +80,17 @@ class AdminController extends Controller
         $xoaBaiDang=BaoCao::find($id)->delete();
         return redirect()->route('report-comment');
     }
-    public function create_admin()
+    public function dang_ky_admin()
     {
         return view('admin_pages.sign_up_admin');
     }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DangKyRequets $request)
+    public function tao_tai_khoan_admin(DangKyRequets $request)
     {
         $ngay_sinh=$request->nam."/".$request->thang."/".$request->ngay;
         $nguoiDung=NguoiDung::create([
@@ -116,26 +117,20 @@ class AdminController extends Controller
         return view('admin_pages.manager_comment',['dsbinhluan'=> $dsbinhluan]);
     }
     //
-    public function xoa_tai_khoan($idtk,$idbd,$idbc){
-       
-        NguoiDung::find($idtk)->delete();
-        BaiDang::find($idbd)->delete();
-        BaoCao::find($idbc)->delete();
+    public function xoa_tai_khoan($id){
+        NguoiDung::find($id)->delete();
         return redirect()->route('quan-ly-tai-khoan');
     }
-    public function xoa_bai_dang($idbd,$idbc){
-        $idbd=BaiDang::find($idbd)->delete();
-        $idbc=BaoCao::find($idbc)->update([
-            'bai_dang_id'=>0,
-            'binh_luan_id'=>0,
-        ]);
+    public function xoa_bai_dang($id){
+        BaiDang::find($id)->delete();
+        BaoCao::where('bai_dang_id',$id)->delete();
+        BinhLuan::where('bai_dang_id',$id)->delete();
         return redirect()->route('report-post');
     }
-    public function xoa_binh_luan($idbl,$idbc){
-        BinhLuan::find($idbl)->delete();
-        BaoCao::find($idbc)->update([
-            'binh_luan_id'=>0,
-        ]);
+    public function xoa_binh_luan($id){
+        BinhLuan::where('binh_luan_id',$id)->orWhere('id',$id)->delete();
+        BaoCao::where('binh_luan_id',$id)->delete();
+        BinhLuan::where('binh_luan_id',$id)->delete();
         return redirect()->route('report-comment');
     }
     //
@@ -151,26 +146,6 @@ class AdminController extends Controller
     public function dang_bai_admin() {     
         $theLoai=TheLoai::where('admin',1)->get();
         return view('admin_pages.post_admin',['theLoai'=>$theLoai]);
-    }
-    public function xoa_tai_khoan_nguoi_dung($id,$idbd){//id nguoi dung
-        // $binhluan=BinhLuan::where('nguoi_dung_id',$id)->delete();//xoa binh luan
-        // $baidang=BaiDang::where('nguoi_dung_id',$id)->delete();//xoa bai dang
-        
-        // $baocao=BaoCao::where('nguoi_dung_id',$id)->update(//update bao cao nguoi dung
-        //     [
-        //         'nguoi_dung_id'=>0,
-        //     ]
-        //     );
-        // $baocaobd=BaoCao::where('bai_dang_id', $idbd)->update([
-        //     'bai_dang_id'=>0,
-        //     'binh_luan_id'=>0
-        // ]);
-        // $taikhoan=NguoiDung::find($id)->delete();//xoa nguoi dung
-        $getid=NguoiDung::find($id);
-        dd($getid);
-        $getidbd=BaoCao::where('bai_dang_id',$idbd);
-        dd($getidbd);
-        return redirect()->route('xoa-bai-dang-nguoi-dung');
     }
     public function xu_ly_dang_bai(Request $request) {
         $user=Auth::id();
@@ -195,6 +170,21 @@ class AdminController extends Controller
                 ]);
             }
         }
+        return redirect()->route('trang-chu-admin');
+    }
+    public function sua_bai_dang_admin($id)
+    {
+        $xembaidang=BaiDang::find($id);
+        $theLoai=TheLoai::where('admin',1)->get();
+        $hinhAnh=HinhAnh::where('bai_dang_id',$id)->get();
+        return view('admin_pages.edit_post_admin',['baiDang'=>$xembaidang,'theLoai'=>$theLoai,'hinhAnh'=>$hinhAnh]);
+    }
+    public function xl_sua_bai_dang_admin($id,BaiDangAdminRequets $request) {
+        BaiDang::find($id)->update([
+            'tieu_de'=>$request->tieu_de,
+            'noi_dung'=>$request->noi_dung,
+            'the_loai_id'=>$request->the_loai,
+        ]);
         return redirect()->route('trang-chu-admin');
     }
 }

@@ -59,9 +59,9 @@
     }
 </style>
 <div class="father">
-    <a class="son " href="{{route('quan-ly-tai-khoan')}}" style="color:grey">Tài khoản</a>
-    <a class="son " href="{{route('quan-ly-bai-dang')}}">Bài đăng</a>
-    <a class="son " href="{{route('quan-ly-binh-luan')}}">Bình luận</a>
+    <a class="son " href="{{route('quan-ly-tai-khoan')}}" style="color:grey">Tài khoản </a>
+    <a class="son " href="{{route('quan-ly-bai-dang')}}">Bài đăng </a>
+    <a class="son " href="{{route('quan-ly-binh-luan')}}">Bình luận </a>
 </div>
 <hr>
 <div class="som">
@@ -71,8 +71,8 @@
             <div class="d-flex flex-fill align-items-center">
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                    <div class="fs-5 fw-semibold">{{$item->ho_ten}}</div>
-                    <div>{{$item->email}}</div>
+                    <div class="fs-5 fw-semibold">Tên: {{$item->ho_ten}}</div>
+                    <div class="fw-semibold" style="width:500px">Email: {{$item->email}}</div>
                 </div>
             </div>
             <div class="d-flex flex-row" style="padding-top:.3%;">

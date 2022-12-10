@@ -115,21 +115,20 @@
 <div class="som">
     <p>post</p>
    @foreach($dsbaidang as $item)
-   <a href="{{ route('xem-bai-dang', ['id' => $item->baiDang->id]) }}" class="text-decoration-none text-dark">
+   <a href="{{ route('xem-bai-dang', ['id' => $item->bai_dang_id]) }}" class="text-decoration-none text-dark">
         <div class="rounded-2 d-flex p-4 pt-3 pb-3 mt-2 mb-3 justify-content-between  shadow-sm" style="background-color:white">
             <div class="d-flex flex-fill align-items-center">
 
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                    <div class="fs-4" style="width:500px">{{$item->baiDang->nguoiDung->ho_ten}}</div>
-                    <div class="fs-5 fw-semibold">{{$item->baiDang->tieu_de}}</div>
-                    <div class=" fw-semibold">{{$item->baiDang->noi_dung}}</div>
-                    <div class=" fw-semibold">{{$item->noi_dung}}</div>
+                    <div style="width:500px" class="fs-5 fw-semibold">Tên: {{$item->baiDang->nguoiDung->ho_ten}}</div>
+                    <div style="width:500px" class=" fw-semibold">Nội dung bài đăng: {{$item->baiDang->noi_dung}}</div>
+                    <div style="width:500px" class=" fw-semibold">Nội dung báo cáo: {{$item->noi_dung}}</div>
 
                 </div>
             </div>
             <div class="d-flex flex-col" style="padding-top:.3%;margin-top: 10px;">
-                <a aria-placeholder="" class="ma" href="">Xóa</a>
+                <a aria-placeholder="" class="ma" href="{{ route('xoa-bai-dang',['id'=>$item->bai_dang_id]) }}">Xóa</a>
                 <a class="na" href="{{route('bo-qua-bai-dang',['id'=>$item->id])}}">Bỏ qua</a>
             </div>
         </div>

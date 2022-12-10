@@ -56,7 +56,7 @@
             opacity: 0;
         }
     </style>
-    <div style="">
+    <div>
         <div class=" rounded-3 p-5 pt-3 pb-1 shadow-sm mt-4 mb-3"
             style="margin-left:10em;margin-right:10em;background-color:white">
             <div class="fs-3 fw-semibold text-center">Chỉnh sửa tài khoản admin</div>
