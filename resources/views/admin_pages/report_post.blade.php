@@ -127,7 +127,7 @@
                 </div>
             </div>
             <div class="d-flex flex-col" style="padding-top:.3%;margin-top: 10px;">
-                <a aria-placeholder="" class="ma" href="{{ route('xoa-bai-dang',['id'=>$item->bai_dang_id]) }}">Xóa</a>
+                <a aria-placeholder="" class="ma" href="{{ route('xoa-bai-dang-admin',['id'=>$item->bai_dang_id]) }}">Xóa</a>
                 <a class="na" href="{{route('bo-qua-bai-dang',['id'=>$item->id])}}">Bỏ qua</a>
             </div>
         </div>

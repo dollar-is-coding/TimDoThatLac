@@ -71,6 +71,6 @@ Route::get('/chinh-sua-bai-dang-admin/{id}',[AdminController::class,'sua_bai_dan
 Route::post('/chinh-sua-bai-dang-admin/{id}',[AdminController::class,'xl_sua_bai_dang_admin'])->name('xl-chinh-sua-bai-dang-admin')->middleware('auth');
 
 Route::get('/xoa-binh-luan/{id}',[AdminController::class,'xoa_binh_luan'])->name('xoa-binh-luan')->middleware('auth');
-Route::get('/xoa-bai-dang/{id}',[AdminController::class,'xoa_bai_dang'])->name('xoa-bai-dang')->middleware('auth');
+Route::get('/xoa-bai-dang-admin/{id}',[AdminController::class,'xoa_bai_dang'])->name('xoa-bai-dang-admin')->middleware('auth');
 
 

@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="d-flex flex-row" style="padding-top:.3%;">
-                <a class="ma" href="{{ route('xoa-bai-dang',['id'=>$item->id]) }}">Xóa</a>
+                <a class="ma" href="{{ route('xoa-bai-dang-admin',['id'=>$item->id]) }}">Xóa</a>
             </div>
         </div>
     </a>
