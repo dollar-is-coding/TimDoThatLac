@@ -14,8 +14,8 @@ class TheLoaiSeeder extends Seeder
      */
     public function run()
     {
-        TheLoai::create(['ten'=>'Mất đồ','admin'=>0]);
         TheLoai::create(['ten'=>'Tìm đồ','admin'=>0]);
+        TheLoai::create(['ten'=>'Trả đồ','admin'=>0]);
         TheLoai::create(['ten'=>'Cảnh báo','admin'=>1]);
         TheLoai::create(['ten'=>'Mẹo tìm đồ','admin'=>1]);
     }

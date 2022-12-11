@@ -15,8 +15,7 @@ class NguoiDungSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<6;$i++){
-            echo "Create Quan Tri Vien {$i}\n";
+        for($i=1;$i<6;$i++){
             NguoiDung::create([
                 "ho_ten" =>"user{$i}",
                 "mat_khau" =>hash::make("1234567{$i}"),

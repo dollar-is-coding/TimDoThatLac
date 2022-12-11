@@ -82,9 +82,9 @@
                             <div class="d-flex flex-fill align-items-center">
                                 @if ($item->baiDang->nguoiDung->admin == 0)
                                     <?php
-                                    if ($item->nguoiDung->anh_dai_dien != '') {
-                                        echo '<img src="/images/added_images/' . $item->nguoiDung->anh_dai_dien . '" alt="" class="rounded-2" style="width:5em;height:5em">';
-                                    } elseif ($item->nguoiDung->gioi_tinh == 1) {
+                                    if ($item->baiDang->nguoiDung->anh_dai_dien != '') {
+                                        echo '<img src="/images/added_images/' . $item->baiDang->nguoiDung->anh_dai_dien . '" alt="" class="rounded-2" style="width:5em;height:5em">';
+                                    } elseif ($item->baiDang->nguoiDung->gioi_tinh == 1) {
                                         echo '<img src="/images/default_images/man.png" alt="" class="rounded-2" style="width:5em;height:5em">';
                                     } else {
                                         echo '<img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">';

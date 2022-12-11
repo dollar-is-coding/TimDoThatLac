@@ -161,6 +161,7 @@ class BaiDangController extends Controller
     }
     public function destroy($id) {
         $xoaBaiDang=BaiDang::find($id)->delete();
+        $xoaTheoDoi=TheoDoi::where('bai_dang_id',$id)->delete();
         return redirect()->route('trang-chu');
     }
     public function returned($id) {

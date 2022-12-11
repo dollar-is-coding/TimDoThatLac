@@ -37,12 +37,8 @@
             <button type="submit" class="btn btn-primary">Đăng nhập</button>
         </div>
     </form>
-    <div class="text-center m-2">
-        <a href="">Quên mật khẩu?</a>
-    </div>
     <hr>
     <div class="text-center">
         <a href="{{ route('dang-ky') }}" class="btn btn-success m-2">Tạo tài khoản</a>
-
     </div>
 @endsection
