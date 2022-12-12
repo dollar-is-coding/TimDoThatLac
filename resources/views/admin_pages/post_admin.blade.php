@@ -180,11 +180,23 @@
             @csrf
             <div class="mb-3">
                 &ensp;<label class="mb-1 fw-semibold">Tiêu đề</label>
+                @error('tieu_de')
+                <span class="fst-italic text-danger">*</span>
+                @enderror
                 <input class="form-control" rows="1" name="tieu_de" contenteditable="true" style="background-color:#D6FFFF" autocomplete="off">
+                @error('tieu_de')
+                <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 &ensp;<label class="mb-1 fw-semibold">Nội dung</label>
+                @error('noi_dung')
+                <span class="fst-italic text-danger">*</span>
+                @enderror
                 <textarea class="form-control" rows="5" name="noi_dung" contenteditable="true" style="background-color:#D6FFFF"></textarea>
+                @error('noi_dung')
+                <div style="padding-left: .5em" class="fst-italic text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="d-flex flex-row mb-2">
 

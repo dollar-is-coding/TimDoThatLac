@@ -131,6 +131,13 @@
     <a href="{{route('dang-ky-admin')}}">
         <img src="{{ URL('images/default_images/user-add.png') }}" class="rounded-circle border p-2" style="width: 2.7em;height:2.7em;margin-left:12px;background-color: rgb(202, 221, 255)">
     </a>
+    <a href="{{route('xem-danh-muc')}}">
+        <img src="{{ URL('images/default_images/cate.jpg') }}" class="rounded-circle border p-2" style="width: 2.7em;height:2.7em;margin-left:12px;background-color: rgb(202, 221, 255)">
+    </a>
+    <a href="{{route('xem-the-loai')}}">
+        <img src="{{ URL('images/default_images/cayegory.jpg
+            ') }}" class="rounded-circle border p-2" style="width: 2.7em;height:2.7em;margin-left:12px;background-color: rgb(202, 221, 255)">
+    </a>
 </div>
 
 <div class="ct d-flex">
@@ -173,8 +180,8 @@
 
                 <img src="/images/default_images/woman.png" alt="" class="rounded-2" style="width:5em;height:5em">
                 <div style="margin-left:3%">
-                    <div class="fs-5 fw-semibold" style="width:500px">Tiêu đề bài đăng: {{$item->tieu_de}}</div>
-                    <div class=" fw-semibold" style="width:500px">Nội dung bài đăng: {{$item->noi_dung}}</div>
+                    <div class="fs-5 fw-semibold" style="width:670px">Tiêu đề bài đăng: {{$item->tieu_de}}</div>
+                    <div class=" fw-semibold" style="width:670px">Nội dung bài đăng: {{$item->noi_dung}}</div>
                     <div class=" fw-semibold">Thể loại: {{$item->theLoai->ten }}</div>
                 </div>
             </div>
