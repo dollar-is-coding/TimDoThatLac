@@ -74,3 +74,10 @@ Route::get('/xoa-binh-luan/{id}',[AdminController::class,'xoa_binh_luan'])->name
 Route::get('/xoa-bai-dang-admin/{id}',[AdminController::class,'xoa_bai_dang'])->name('xoa-bai-dang-admin')->middleware('auth');
 
 
+Route::get('/danh-muc',[AdminController::class,'danh_muc'])->name('xem-danh-muc')->middleware('auth');
+Route::post('/danh-muc/{id}', [AdminController::class, 'xl_sua_danh_muc'])->name('xl_sua_danh_muc')->middleware('auth');
+Route::post('/tao-danh-muc', [AdminController::class, 'them_danh_muc'])->name('them_danh_muc')->middleware('auth');
+
+Route::get('/the-loai',[AdminController::class,'the_loai'])->name('xem-the-loai')->middleware('auth');
+Route::post('/the-loai/{id}', [AdminController::class, 'xl_sua_the_loai'])->name('xl_sua_the_loai')->middleware('auth');
+Route::post('/tao-the-loai', [AdminController::class, 'them_the_loai'])->name('them_the_loai')->middleware('auth');

@@ -6,6 +6,8 @@ use App\Http\Requests\BaiDangAdminRequets;
 use App\Http\Requests\DangBaiRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\DangKyRequets;
+use App\Http\Requests\DanhmucRequest;
+use App\Http\Requests\TheloaiRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\TheLoai;
 use App\Models\DanhMuc;
@@ -17,7 +19,9 @@ use App\Models\HinhAnh;
 use App\Models\LienHe;
 use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon; 
+use Carbon\Carbon;
+use Psy\Output\Theme;
+
 class AdminController extends Controller
 {
     public function trang_chu_admin()
@@ -147,7 +151,7 @@ class AdminController extends Controller
         $theLoai=TheLoai::where('admin',1)->get();
         return view('admin_pages.post_admin',['theLoai'=>$theLoai]);
     }
-    public function xu_ly_dang_bai(Request $request) {
+    public function xu_ly_dang_bai(BaiDangAdminRequets $request) {
         $user=Auth::id();
         $dangBai=BaiDang::create([
             'nguoi_dung_id'=>$user,
@@ -186,5 +190,41 @@ class AdminController extends Controller
             'the_loai_id'=>$request->the_loai,
         ]);
         return redirect()->route('trang-chu-admin');
+    }
+    public function danh_muc()
+    {
+        $danhmuc=DanhMuc::all();
+        return view('admin_pages/edit_category',['danhmuc'=>$danhmuc]);
+    }
+    public function xl_sua_danh_muc($id,DanhmucRequest $request){
+        DanhMuc::find($id)->update([
+                'ten'=>$request->danh_muc,
+            ]);
+        return redirect()->route('xem-danh-muc');
+    }
+    public function them_danh_muc(DanhmucRequest $request){
+        DanhMuc::create([
+            'ten'=>$request->danh_muc, 
+        ]);
+        return redirect()->route('xem-danh-muc');
+    }
+
+    public function the_loai()
+    {
+        $theloai=TheLoai::all();
+        return view('admin_pages/edit_category_jr',['theloai'=>$theloai]);
+    }
+    public function xl_sua_the_loai($id,TheloaiRequest $request){
+        TheLoai::find($id)->update([
+                'ten'=>$request->the_loai,
+            ]);
+        return redirect()->route('xem-the-loai');
+    }
+    public function them_the_loai(TheloaiRequest $request){
+        TheLoai::create([
+            'admin'=>$request->loai,
+            'ten'=>$request->the_loai, 
+        ]);
+        return redirect()->route('xem-the-loai');
     }
 }
