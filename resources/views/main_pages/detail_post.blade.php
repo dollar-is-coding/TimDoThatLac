@@ -127,20 +127,22 @@
                                         <a class="dropdown-item" href="{{ route('dang-nhap') }}">Theo
                                             dõi</a>
                                     @else
-                                        @if ($daTheoDoi != null)
-                                            @if ($daTheoDoi->trang_thai == 1)
-                                                <a class="dropdown-item"
-                                                    href="{{ route('xl-bo-theo-doi', ['bai_dang_id' => $baiDang->id]) }}">Bỏ
-                                                    theo dõi</a>
+                                        @if (Auth::user()->admin == 0)
+                                            @if ($daTheoDoi != null)
+                                                @if ($daTheoDoi->trang_thai == 1)
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('xl-bo-theo-doi', ['bai_dang_id' => $baiDang->id]) }}">Bỏ
+                                                        theo dõi</a>
+                                                @else
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('xl-theo-doi-lai', ['bai_dang_id' => $baiDang->id]) }}">Theo
+                                                        dõi</a>
+                                                @endif
                                             @else
                                                 <a class="dropdown-item"
-                                                    href="{{ route('xl-theo-doi-lai', ['bai_dang_id' => $baiDang->id]) }}">Theo
+                                                    href="{{ route('xl-theo-doi', ['bai_dang_id' => $baiDang->id]) }}">Theo
                                                     dõi</a>
                                             @endif
-                                        @else
-                                            <a class="dropdown-item"
-                                                href="{{ route('xl-theo-doi', ['bai_dang_id' => $baiDang->id]) }}">Theo
-                                                dõi</a>
                                         @endif
                                     @endif
                                 </li>
@@ -148,7 +150,7 @@
                                     @if (Auth::id() == null)
                                         <a class="dropdown-item" href="/dang-nhap">Báo cáo</a>
                                     @else
-                                        @if ($baiDang->nguoiDung->admin == 0)
+                                        @if (Auth::user()->admin == 0)
                                             <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                                 href="">Báo cáo</a>
                                         @endif
@@ -219,16 +221,16 @@
                             &ensp;
                         @endif
                         @if ($baiDang->nguoiDung->admin == 0)
-                            &ensp;
                             <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
                                 <div> {{ $baiDang->danhMuc->ten }} </div>
                             </div>
+                            &ensp;
                         @endif
                         @if ($baiDang->nguoiDung->admin == 0)
-                            &ensp;
                             <div class="rounded p-2 pt-0 pb-0 shadow-sm" style="background-color:#D6FFFF;color:#052147">
                                 <div> {{ $baiDang->khuVuc->ten }} </div>
                             </div>
+                            &ensp;
                         @endif
                     </div>
 
