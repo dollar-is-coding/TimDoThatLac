@@ -35,7 +35,6 @@
                 a = this.src;
                 $("#imageszoom").attr("src", a);
                 $(".box-full-zoom").show();
-                $(".hienthi").css("visibility", "hidden");
                 $("body").css({
                     "overflow": "hidden"
                 });
